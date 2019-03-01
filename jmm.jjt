@@ -6,7 +6,7 @@ public class JMMParser {
         // criação do objecto utilizando o constructor com argumento para
         // ler do standard input (teclado)
         JMMParser parser = new JMMParser(System.in);
-        parser.Expression();
+        parser.Program();
     }
 }
 
@@ -58,11 +58,13 @@ TOKEN :
 
 }
 
-void Start() : {} {
-    (
+void Program() : {} {
+    /* (
           ClassDeclaration()
         | VarDeclaration()
-    )
+    ) */
+    Expression()
+    <EOF>
 }
 
 void VarDeclaration() : {} {
@@ -125,7 +127,7 @@ void Expression() : {} {
         // | (Expression() <Dot> <Length>)
         // | (Expression() <Dot> <Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
           <Integer> // TODO CHECK INTEGET LITERAL
-        | <True>
+        | <True> 
         | <False>
         | <Identifier>
         | <This>
@@ -133,12 +135,29 @@ void Expression() : {} {
         | (<ExclamationMark> Expression())
         | (<ParenthesisStart> Expression() <ParenthesisEnd>)
     )
+    ExpressionLinha()
+}
+
+void ExpressionLinha() : {} {
+      (<Operation> Expression() ExpressionLinha())
+    | (<ArrayStart> Expression() <ArrayEnd> ExpressionLinha())
+    | (ExpressionDot() ExpressionLinha())
+    | {}
 }
 
 void ExpressionNew() : {} {
-    <New> ( 
+    <New> 
+    ( 
           (<TypeInt> <ArrayStart> Expression() <ArrayEnd>)
         | (<Identifier> <ParenthesisStart> <ParenthesisEnd>)
+    )
+}
+
+void ExpressionDot() : {} {
+    <Dot>
+    (
+        (<Length>)
+      | (<Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
     )
 }
 
