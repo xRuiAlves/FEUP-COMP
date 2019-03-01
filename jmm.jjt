@@ -38,6 +38,9 @@ TOKEN :
     | <False: "false" >
     | <This: "this" >
     | <New: "new" >
+    | <If: "if" >
+    | <Else: "else" >
+    | <While: "while" >
 
     | <Identifier: <FullAlpha> (<FullAlpha> | <Digit>)* >
     | <#FullAlpha: (<Alpha> | "_" | "$") >
@@ -55,6 +58,7 @@ TOKEN :
     | <Comma: "," >
     | <Dot: "." >
     | <ExclamationMark: "!" >
+    | <Equals: "=" >
 
 }
 
@@ -163,4 +167,22 @@ void ExpressionDot() : {} {
 
 void ExpressionList() : {} {
     Expression() (<Comma> Expression())*
+}
+
+void Statement() : {} {
+    (
+          (<BlockStart> Statement() <BlockEnd>)
+        | (<If> <ParenthesisStart> Expression() <ParenthesisEnd> Statement() <Else> Statement())
+        | (<While> <ParenthesisStart> Expression() <ParenthesisEnd> Statement())
+        | (Expression() <Semicolon>)
+        | (IdentifierStatement())
+    )    
+}
+
+void IdentifierStatement() : {} {
+    <Identifier>
+    (
+          (<Equals> Expression() <Semicolon>)
+        | (<ArrayStart> Expression() <ArrayEnd> <Equals> Expression() <Semicolon>)
+    )
 }
