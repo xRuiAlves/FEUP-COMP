@@ -1,0 +1,65 @@
+PARSER_BEGIN(Exemplo)
+
+// código Java que invoca o parser
+public class Exemplo {
+    public static void main(String args[]) throws ParseException {
+        // criação do objecto utilizando o constructor com argumento para
+        // ler do standard input (teclado)
+        Exemplo parser = new Exemplo(System.in);
+        parser.VarDeclaration();
+    }
+}
+
+PARSER_END(Exemplo)
+
+// símbolos que não devem ser considerados na análise
+SKIP :
+{
+    " " | "\t" | "\r"
+}
+
+// definição dos tokens (símbolos terminais)
+TOKEN :
+{
+      <Integer: ("-")? (<Digit>)+>
+    | <#Digit: ["0" - "9"]>
+    | <OP: ("+" | "-") >
+    | <LF: "\n">
+
+    | <TypeInt: "int" >
+    | <TypeBoolean: "boolean" >
+    | <ArrayOpen: "[" >
+    | <ArrayClose: "]" >
+
+    /* | <VarDeclaration: <Type> <Identifier> ";" >
+
+    | <Type: ("int" ("[]")? |
+                "boolean" |
+                <Identifier> ) > */
+    
+    | <Identifier: <FullAlpha> (<FullAlpha> | <Digit>)* >
+    | <#FullAlpha: (<Alpha> | "_" | "$") >
+    | <#Alpha: (<LowerCase> | <UpperCase>) >
+    | <#LowerCase: ["a"-"z"] >
+    | <#UpperCase: ["A"-"Z"] >
+
+}
+
+void Type() : {} {
+    (
+          (<TypeInt> (<ArrayOpen><ArrayClose>)?)
+        | <TypeBoolean>
+        | <Identifier>
+    )
+}
+
+void VarDeclaration() : {} {
+    Type() <Identifier> ";" <LF>
+}
+
+// definição da produção
+// void Aritm() : {Token t1;} {
+//     t1 = <VarDeclaration> {
+//         System.out.println("Integer = " + t1.image);
+//     } <LF>
+// }
