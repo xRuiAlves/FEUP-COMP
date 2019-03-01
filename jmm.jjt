@@ -6,7 +6,7 @@ public class JMMParser {
         // criação do objecto utilizando o constructor com argumento para
         // ler do standard input (teclado)
         JMMParser parser = new JMMParser(System.in);
-        parser.Start();
+        parser.Expression();
     }
 }
 
@@ -14,21 +14,31 @@ PARSER_END(JMMParser)
 
 SKIP :
 {
-    " " | "\t" | "\r"
+    " " | "\t" | "\r" | "\n"
 }
 
 TOKEN :
 {
       <Integer: ("-")? (<Digit>)+>
     | <#Digit: ["0" - "9"]>
-    | <OP: ("+" | "-") >
-    | <LF: "\n">
+    | <Operation: ("&&" | "<" | "+" | "-" | "*" | "/") >
 
     | <TypeInt: "int" >
     | <TypeBoolean: "boolean" >
+    | <TypeString: "String" >
     | <Class: "class" >
     | <Generalization: "extends" >
-    
+    | <Public: "public" >
+    | <Static: "static" >
+    | <Void: "void" >
+    | <Main: "main" >
+    | <Return: "return" >
+    | <Length: "length" >
+    | <True: "true" >
+    | <False: "false" >
+    | <This: "this" >
+    | <New: "new" >
+
     | <Identifier: <FullAlpha> (<FullAlpha> | <Digit>)* >
     | <#FullAlpha: (<Alpha> | "_" | "$") >
     | <#Alpha: (<LowerCase> | <UpperCase>) >
@@ -37,6 +47,14 @@ TOKEN :
 
     | <BlockStart: "{" >
     | <BlockEnd: "}" >
+    | <ParenthesisStart: "(" >
+    | <ParenthesisEnd: ")" >
+    | <ArrayStart: "[" >
+    | <ArrayEnd: "]" >    
+    | <Semicolon: ";" >
+    | <Comma: "," >
+    | <Dot: "." >
+    | <ExclamationMark: "!" >
 
 }
 
@@ -45,17 +63,17 @@ void Start() : {} {
           ClassDeclaration()
         | VarDeclaration()
     )
-    <LF>
 }
 
 void VarDeclaration() : {} {
-    Type() <Identifier> ";"
+    Type() <Identifier> <Semicolon>
 }
 
 void ClassDeclaration() : {} {
     <Class> <Identifier> (ClassGeneralization())? 
-        (ClassBody())?
-    ";"
+    <BlockStart>
+        ClassBody()
+    <BlockEnd>
 }
 
 void ClassGeneralization() : {} {
@@ -63,9 +81,8 @@ void ClassGeneralization() : {} {
 }
 
 void ClassBody() : {} {
-    <BlockStart>
-        (VarDeclaration())*
-    <BlockEnd>
+    (VarDeclaration())*
+    (<Public> (MainDeclaration() | MethodDeclaration()))*
 }
 
 void Type() : {} {
@@ -77,5 +94,54 @@ void Type() : {} {
 }
 
 void Array() : {} {
-    "[" "]"
+    <ArrayStart> <ArrayEnd>
+}
+
+void MainDeclaration() : {} {
+    <Static> <Void> <Main> <ParenthesisStart> <TypeString> Array() <Identifier> <ParenthesisEnd>
+    <BlockStart>
+        (VarDeclaration())*
+        //STATEMENT GOES HERE
+    <BlockEnd>
+}
+
+void MethodDeclaration() : {} {
+    Type() <Identifier> <ParenthesisStart> (Arguments())? <ParenthesisEnd>
+    <BlockStart>
+        (VarDeclaration())*
+        //STATEMENT GOES HERE
+        <Return> /*EXPRESSION GOES HERE*/ <Semicolon>
+    <BlockEnd>
+}
+
+void Arguments() : {} {
+    Type() <Identifier> (<Comma> Type() <Identifier>)*
+}
+
+void Expression() : {} {
+    (
+        //   (Expression() <Operation> Expression())
+        // | (Expression() <ArrayStart> Expression() <ArrayEnd>)
+        // | (Expression() <Dot> <Length>)
+        // | (Expression() <Dot> <Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
+          <Integer> // TODO CHECK INTEGET LITERAL
+        | <True>
+        | <False>
+        | <Identifier>
+        | <This>
+        | ExpressionNew()
+        | (<ExclamationMark> Expression())
+        | (<ParenthesisStart> Expression() <ParenthesisEnd>)
+    )
+}
+
+void ExpressionNew() : {} {
+    <New> ( 
+          (<TypeInt> <ArrayStart> Expression() <ArrayEnd>)
+        | (<Identifier> <ParenthesisStart> <ParenthesisEnd>)
+    )
+}
+
+void ExpressionList() : {} {
+    Expression() (<Comma> Expression())*
 }
