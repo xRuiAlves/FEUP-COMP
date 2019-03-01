@@ -1,24 +1,22 @@
-PARSER_BEGIN(Exemplo)
+PARSER_BEGIN(JMMParser)
 
 // código Java que invoca o parser
-public class Exemplo {
+public class JMMParser {
     public static void main(String args[]) throws ParseException {
         // criação do objecto utilizando o constructor com argumento para
         // ler do standard input (teclado)
-        Exemplo parser = new Exemplo(System.in);
-        parser.VarDeclaration();
+        JMMParser parser = new JMMParser(System.in);
+        parser.Start();
     }
 }
 
-PARSER_END(Exemplo)
+PARSER_END(JMMParser)
 
-// símbolos que não devem ser considerados na análise
 SKIP :
 {
     " " | "\t" | "\r"
 }
 
-// definição dos tokens (símbolos terminais)
 TOKEN :
 {
       <Integer: ("-")? (<Digit>)+>
@@ -28,14 +26,8 @@ TOKEN :
 
     | <TypeInt: "int" >
     | <TypeBoolean: "boolean" >
-    | <ArrayOpen: "[" >
-    | <ArrayClose: "]" >
-
-    /* | <VarDeclaration: <Type> <Identifier> ";" >
-
-    | <Type: ("int" ("[]")? |
-                "boolean" |
-                <Identifier> ) > */
+    | <Class: "class" >
+    | <Generalization: "extends" >
     
     | <Identifier: <FullAlpha> (<FullAlpha> | <Digit>)* >
     | <#FullAlpha: (<Alpha> | "_" | "$") >
@@ -43,23 +35,47 @@ TOKEN :
     | <#LowerCase: ["a"-"z"] >
     | <#UpperCase: ["A"-"Z"] >
 
+    | <BlockStart: "{" >
+    | <BlockEnd: "}" >
+
+}
+
+void Start() : {} {
+    (
+          ClassDeclaration()
+        | VarDeclaration()
+    )
+    <LF>
+}
+
+void VarDeclaration() : {} {
+    Type() <Identifier> ";"
+}
+
+void ClassDeclaration() : {} {
+    <Class> <Identifier> (ClassGeneralization())? 
+        (ClassBody())?
+    ";"
+}
+
+void ClassGeneralization() : {} {
+    <Generalization> <Identifier>
+}
+
+void ClassBody() : {} {
+    <BlockStart>
+        (VarDeclaration())*
+    <BlockEnd>
 }
 
 void Type() : {} {
     (
-          (<TypeInt> (<ArrayOpen><ArrayClose>)?)
+          (<TypeInt> (Array())? )
         | <TypeBoolean>
         | <Identifier>
     )
 }
 
-void VarDeclaration() : {} {
-    Type() <Identifier> ";" <LF>
+void Array() : {} {
+    "[" "]"
 }
-
-// definição da produção
-// void Aritm() : {Token t1;} {
-//     t1 = <VarDeclaration> {
-//         System.out.println("Integer = " + t1.image);
-//     } <LF>
-// }
