@@ -1,12 +1,10 @@
 PARSER_BEGIN(JMMParser)
 
-// código Java que invoca o parser
 public class JMMParser {
     public static void main(String args[]) throws ParseException {
-        // criação do objecto utilizando o constructor com argumento para
-        // ler do standard input (teclado)
         JMMParser parser = new JMMParser(System.in);
-        parser.Program();
+        SimpleNode root = parser.Program();
+        root.dump("");
     }
 }
 
@@ -19,8 +17,18 @@ SKIP :
 
 TOKEN :
 {
-      <Integer: ("-")? (<Digit>)+>
+    <IntegerLiteral:
+          <DecimalLiteral> (["l","L"])?
+        | <HexLiteral> (["l","L"])?
+        | <OctalLiteral> (["l","L"])? >
+    | <#DecimalLiteral: <NonZeroDigit> (<Digit>)* >
+    | <#HexLiteral: "0" ["x","X"] (<HexDigit>)+ >
+    | <#OctalLiteral: "0" (<OctalDigit>)* >
+
     | <#Digit: ["0" - "9"]>
+    | <#HexDigit: ["0"-"9","a"-"f","A"-"F"]>
+    | <#OctalDigit: ["0"-"7"]>
+    | <#NonZeroDigit: ["1" - "9"]>
     | <Operation: ("&&" | "<" | "+" | "-" | "*" | "/") >
 
     | <TypeInt: "int" >
@@ -62,13 +70,10 @@ TOKEN :
 
 }
 
-void Program() : {} {
-    /* (
-          ClassDeclaration()
-        | VarDeclaration()
-    ) */
-    Expression()
+SimpleNode Program() : {} {
+    ClassDeclaration()
     <EOF>
+    { return jjtThis; }
 }
 
 void VarDeclaration() : {} {
@@ -106,17 +111,17 @@ void Array() : {} {
 void MainDeclaration() : {} {
     <Static> <Void> <Main> <ParenthesisStart> <TypeString> Array() <Identifier> <ParenthesisEnd>
     <BlockStart>
-        (VarDeclaration())*
-        //STATEMENT GOES HERE
+        (LOOKAHEAD(2) VarDeclaration())*
+        (Statement())*
     <BlockEnd>
 }
 
 void MethodDeclaration() : {} {
     Type() <Identifier> <ParenthesisStart> (Arguments())? <ParenthesisEnd>
     <BlockStart>
-        (VarDeclaration())*
-        //STATEMENT GOES HERE
-        <Return> /*EXPRESSION GOES HERE*/ <Semicolon>
+        (LOOKAHEAD(2) VarDeclaration())*
+        (Statement())*
+        <Return> Expression() <Semicolon>
     <BlockEnd>
 }
 
@@ -126,11 +131,7 @@ void Arguments() : {} {
 
 void Expression() : {} {
     (
-        //   (Expression() <Operation> Expression())
-        // | (Expression() <ArrayStart> Expression() <ArrayEnd>)
-        // | (Expression() <Dot> <Length>)
-        // | (Expression() <Dot> <Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
-          <Integer> // TODO CHECK INTEGET LITERAL
+          <IntegerLiteral>
         | <True> 
         | <False>
         | <Identifier>
@@ -172,11 +173,25 @@ void ExpressionList() : {} {
 void Statement() : {} {
     (
           (<BlockStart> Statement() <BlockEnd>)
-        | (<If> <ParenthesisStart> Expression() <ParenthesisEnd> Statement() <Else> Statement())
-        | (<While> <ParenthesisStart> Expression() <ParenthesisEnd> Statement())
-        | (Expression() <Semicolon>)
-        | (IdentifierStatement())
+        | (IfStatement())
+        | (WhileStatement())
+        | (LOOKAHEAD(3) 
+              (Expression() <Semicolon>)
+            | (IdentifierStatement())
+        )
     )    
+}
+
+void IfStatement() : {} {
+    <If> <ParenthesisStart> Expression() <ParenthesisEnd> 
+        Statement() 
+    <Else> 
+        Statement()
+}
+
+void WhileStatement() : {} {
+    <While> <ParenthesisStart> Expression() <ParenthesisEnd> 
+        Statement()
 }
 
 void IdentifierStatement() : {} {
