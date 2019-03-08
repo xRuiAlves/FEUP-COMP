@@ -15,6 +15,16 @@ public class JMMParser {
 
 PARSER_END(JMMParser)
 
+JAVACODE
+void error_skipto(int kind) {
+    ParseException e = generateParseException();
+    System.out.println(e.toString()); 
+    Token t;
+    do {
+        t = getNextToken();
+    } while (t.kind != kind);
+}
+
 SKIP :
 {
     " " | "\t" | "\r" | "\n"
@@ -195,7 +205,16 @@ void IfStatement() : {} {
 }
 
 void WhileStatement() : {} {
-    <While> <ParenthesisStart> Expression() <ParenthesisEnd> 
+    <While> <ParenthesisStart> 
+    
+    try {
+        Expression()
+    } catch (ParseException e) {
+        JAVACODE
+        error_skipto(<Semicolon>);
+    } 
+    
+    <ParenthesisEnd> 
         Statement()
 }
 
