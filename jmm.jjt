@@ -1,3 +1,8 @@
+options{
+    MULTI=true;
+    LOOKAHEAD=1;
+}
+
 PARSER_BEGIN(JMMParser)
 
 public class JMMParser {
@@ -175,7 +180,7 @@ void Statement() : {} {
           (<BlockStart> Statement() <BlockEnd>)
         | (IfStatement())
         | (WhileStatement())
-        | (LOOKAHEAD(3) 
+        | (LOOKAHEAD(2) 
               (Expression() <Semicolon>)
             | (IdentifierStatement())
         )
