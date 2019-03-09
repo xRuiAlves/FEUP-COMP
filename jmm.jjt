@@ -208,14 +208,12 @@ void WhileStatement() : {} {
     <While> <ParenthesisStart> 
     
     try {
-        Expression()
+        (Expression() <ParenthesisEnd>)
     } catch (ParseException e) {
-        JAVACODE
-        error_skipto(<Semicolon>);
+        error_skipto(ParenthesisEnd);
     } 
     
-    <ParenthesisEnd> 
-        Statement()
+    Statement()
 }
 
 void IdentifierStatement() : {} {

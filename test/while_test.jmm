@@ -1,0 +1,17 @@
+class Worker extends Person {
+    int idade;
+    boolean is_working123;
+    int[] favorite_$_Numbers;
+    Identification id;
+
+    public static void main(String[] args) {
+        int a;
+        boolean b;
+        int[] x;
+        Worker p;
+
+        while(a+;) {
+            valid_code;
+        }
+    }
+}

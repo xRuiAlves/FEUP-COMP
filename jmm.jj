@@ -19,6 +19,27 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
 
 PARSER_END(JMMParser)
 
+JAVACODE
+void error_skipto(int kind) {/*@bgen(jjtree) error_skipto */
+ ASTerror_skipto jjtn000 = new ASTerror_skipto(JJTERROR_SKIPTO);
+ boolean jjtc000 = true;
+ jjtree.openNodeScope(jjtn000);
+ try {
+/*@egen*/
+    ParseException e = generateParseException();
+    System.out.println(e.toString()); 
+    Token t;
+    do {
+        t = getNextToken();
+    } while (t.kind != kind);/*@bgen(jjtree)*/
+ } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+ }
+/*@egen*/
+}
+
 SKIP :
 {
     " " | "\t" | "\r" | "\n"
@@ -629,8 +650,15 @@ void WhileStatement() : {/*@bgen(jjtree) WhileStatement */
 /*@egen*/} {/*@bgen(jjtree) WhileStatement */
     try {
 /*@egen*/
-    <While> <ParenthesisStart> Expression() <ParenthesisEnd> 
-        Statement()/*@bgen(jjtree)*/
+    <While> <ParenthesisStart> 
+    
+    try {
+        (Expression() <ParenthesisEnd>)
+    } catch (ParseException e) {
+        error_skipto(ParenthesisEnd);
+    } 
+    
+    Statement()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
