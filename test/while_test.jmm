@@ -5,13 +5,18 @@ class Worker extends Person {
     Identification id;
 
     public static void main(String[] args) {
-        int a;
-        boolean b;
-        int[] x;
-        Worker p;
+        int x;
 
         while(a+;) {
             valid_code;
+        }
+
+        while(2+2 < 8) {
+            x = x + 1;
+        }
+
+        while(bro+;ken/;) {
+            x = x - 1;
         }
     }
 }
