@@ -95,8 +95,8 @@ void VarDeclaration() : {} {
     Type() <Identifier> <Semicolon>
 }
 
-void ClassDeclaration() : {} {
-    <Class> <Identifier> (ClassGeneralization())? 
+void ClassDeclaration() : {Token t1;} {
+    <Class> t1 = <Identifier> {jjtThis.identifier = t1.image;} (ClassGeneralization())? 
     <BlockStart>
         ClassBody()
     <BlockEnd>
@@ -158,7 +158,7 @@ void Expression() : {} {
     ExpressionLinha()
 }
 
-void ExpressionLinha() : {} {
+void ExpressionLinha() #Expression : {} {
       (<Operation> Expression() ExpressionLinha())
     | (<ArrayStart> Expression() <ArrayEnd> ExpressionLinha())
     | (ExpressionDot() ExpressionLinha())
