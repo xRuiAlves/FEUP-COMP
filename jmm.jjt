@@ -95,8 +95,8 @@ void VarDeclaration() : {} {
     Type() <Identifier> <Semicolon>
 }
 
-void ClassDeclaration() : {Token t1;} {
-    <Class> t1 = <Identifier> {jjtThis.identifier = t1.image;} (ClassGeneralization())? 
+void ClassDeclaration() : {Token t_id;} {
+    <Class> t_id = <Identifier> {jjtThis.identifier = t_id.image;} (ClassGeneralization())?
     <BlockStart>
         ClassBody()
     <BlockEnd>
