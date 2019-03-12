@@ -16,7 +16,7 @@ class ASTClassDeclaration extends SimpleNode {
   public void dump(String prefix) {
     super.printNodeName(prefix);
 
-    System.out.printf("{ identifier: %s }\n", identifier);
+    System.out.printf("%s{ identifier: %s }\n", prefix, identifier);
 
     super.exploreChildren(prefix);
   }
