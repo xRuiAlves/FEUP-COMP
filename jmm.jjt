@@ -111,12 +111,15 @@ void ClassBody() : {} {
     (<Public> (MainDeclaration() | MethodDeclaration()))*
 }
 
-void Type() : {} {
+void Type() : {Token t_type; boolean is_array = false;} {
     (
-          (<TypeInt> (Array())? )
-        | <TypeBoolean>
-        | <Identifier>
-    )
+          (t_type = <TypeInt> (Array())?)
+        | t_type = <TypeBoolean>
+        | t_type = <Identifier>
+    ) {
+        jjtThis.type = t_type.image;
+        jjtThis.isArray = is_array;
+    }
 }
 
 void Array() : {} {
