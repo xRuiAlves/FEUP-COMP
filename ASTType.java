@@ -13,11 +13,15 @@ class ASTType extends SimpleNode {
     super(p, id);
   }
 
+  public String getInformation(String prefix) {
+    return String.format("%s{ type: %s, isArray: %b }\n", prefix, type, isArray);
+  }
+
   @Override
   public void dump(String prefix) {
     super.printNodeName(prefix);
 
-    System.out.printf("%s{ type: %s, isArray: %b }\n", prefix, type, isArray);
+    System.out.print(this.getInformation(prefix));
 
     super.exploreChildren(prefix);
   }
