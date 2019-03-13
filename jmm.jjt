@@ -113,10 +113,11 @@ void ClassBody() : {} {
 
 void Type() : {Token t_type; boolean is_array = false;} {
     (
-          (t_type = <TypeInt> (Array())?)
+          (t_type = <TypeInt> (Array(){is_array = true;})?)
         | t_type = <TypeBoolean>
         | t_type = <Identifier>
-    ) {
+    )
+    {
         jjtThis.type = t_type.image;
         jjtThis.isArray = is_array;
     }
