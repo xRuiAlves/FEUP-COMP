@@ -27,7 +27,18 @@ void error_skipto(int kind) {
 
 SKIP :
 {
-    " " | "\t" | "\r" | "\n"
+      " "
+    | "\t"
+    | "\r"
+    | "\n"
+    | < "//" (~["\r", "\n"])* >
+    | < "/*" > : MULTILINE_COMMENT_STATE
+}
+
+<MULTILINE_COMMENT_STATE> SKIP :
+{
+  < "*/" > : DEFAULT
+| < ~[] >   
 }
 
 TOKEN :

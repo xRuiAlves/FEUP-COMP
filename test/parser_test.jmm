@@ -10,6 +10,8 @@ class Worker extends Person {
         int[] x;
         Worker p;
 
+        // cenas
+
         if (x < 0666) {
             asd = 05 && new int[0x123];
         } else {
@@ -24,6 +26,12 @@ class Worker extends Person {
         int[] x;
         boolean b;
         ASdi23123$_auhsdi a;
+
+        /* isto tudo sera ignorado
+        mesmo tendo varias linhas
+        int[] b;
+        e declarações de variáveis
+        */
 
         while(2.length < 3.length) 3;
 
