@@ -102,8 +102,12 @@ SimpleNode Program() : {} {
     { return jjtThis; }
 }
 
-void VarDeclaration() : {} {
-    Type() <Identifier> <Semicolon>
+void VarDeclaration() : {ASTType return_type; Token t_id;} {
+    return_type = Type() t_id = <Identifier> <Semicolon>
+    {
+        jjtThis.identifier = t_id.image;
+        jjtThis.type = return_type;
+    }
 }
 
 void ClassDeclaration() : {Token t_id, t_parent_id;} {
