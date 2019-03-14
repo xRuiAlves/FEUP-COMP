@@ -14,7 +14,7 @@ class ASTType extends SimpleNode {
   }
 
   public String getInformation(String prefix) {
-    return String.format("%s{ type: %s, isArray: %b }\n", prefix, type, isArray);
+    return String.format("%s{ type: %s, isArray: %b }", prefix, type, isArray);
   }
 }
 /* JavaCC - OriginalChecksum=7492f522dc7687470bdf8f0a6354565b (do not edit this line) */

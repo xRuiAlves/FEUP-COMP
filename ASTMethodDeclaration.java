@@ -18,7 +18,7 @@ class ASTMethodDeclaration extends SimpleNode {
 
     sb.append(prefix).append("{\n");
     sb.append(prefix).append("  returnType: ").append(returnType.getInformation(""));
-    sb.append(prefix).append("}\n");
+    sb.append(prefix).append("}");
 
     return sb.toString();
   }
