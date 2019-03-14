@@ -17,7 +17,7 @@ class ASTMethodDeclaration extends SimpleNode {
     StringBuilder sb = new StringBuilder();
 
     sb.append(prefix).append("{\n");
-    sb.append(prefix).append("  returnType: ").append(returnType.getInformation(""));
+    sb.append(prefix).append("  returnType: ").append(returnType.getInformation("")).append("\n");
     sb.append(prefix).append("}");
 
     return sb.toString();

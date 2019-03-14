@@ -18,6 +18,8 @@ class Worker extends Person {
             x = 0x123l;
         }
 
+        // String s = "/*asd";
+
         p = new Worker();
         p.getInfo(true, 123L, 22l, !!!!!!false && 0x4L);
     }
