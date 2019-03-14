@@ -8,6 +8,7 @@
 !ASTType.java
 !ASTClassDeclaration.java
 !ASTMethodDeclaration.java
+!ASTArguments.java
 
 # Compiled class file
 *.class

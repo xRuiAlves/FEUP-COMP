@@ -16,15 +16,5 @@ class ASTType extends SimpleNode {
   public String getInformation(String prefix) {
     return String.format("%s{ type: %s, isArray: %b }\n", prefix, type, isArray);
   }
-
-  @Override
-  public void dump(String prefix) {
-    super.printNodeName(prefix);
-
-    System.out.print(this.getInformation(prefix));
-
-    super.exploreChildren(prefix);
-  }
-
 }
 /* JavaCC - OriginalChecksum=7492f522dc7687470bdf8f0a6354565b (do not edit this line) */

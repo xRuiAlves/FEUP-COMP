@@ -145,8 +145,14 @@ void MethodDeclaration() : {ASTType return_type;} {
     <BlockEnd>
 }
 
-void Arguments() : {} {
-    Type() <Identifier> (<Comma> Type() <Identifier>)*
+void Arguments() : { ASTType temp_type; Token t_temp; } {
+    temp_type = Type() {jjtThis.types.add(temp_type);}
+    t_temp = <Identifier> {jjtThis.identifiers.add(t_temp.image);}
+    (
+        <Comma>
+        temp_type = Type() {jjtThis.types.add(temp_type);}
+        t_temp = <Identifier> {jjtThis.identifiers.add(t_temp.image);}
+    )*
 }
 
 void Expression() : {} {

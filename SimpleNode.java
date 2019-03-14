@@ -9,6 +9,8 @@ class SimpleNode implements Node {
   protected Object value;
   protected JMMParser parser;
 
+  protected boolean is_multiline = false;
+
   public SimpleNode(int i) {
     id = i;
   }
@@ -58,16 +60,24 @@ class SimpleNode implements Node {
   public String toString() { return JMMParserTreeConstants.jjtNodeName[id]; }
   public String toString(String prefix) { return prefix + toString(); }
 
+  public String getNodeName() {
+    return JMMParserTreeConstants.jjtNodeName[id];
+  }
+
   /* Override this method if you want to customize how the node dumps
      out its children. */
 
   public void dump(String prefix) {
     this.printNodeName(prefix);
+    String node_information = this.getInformation(prefix);
+    if (!node_information.isEmpty()) {
+      System.out.println(node_information);
+    }
     this.exploreChildren(prefix);
   }
 
   public void printNodeName(String prefix) {
-    System.out.println(toString(prefix));
+    System.out.println(prefix + this.getNodeName());
   }
 
   public void exploreChildren(String prefix) {
@@ -79,6 +89,13 @@ class SimpleNode implements Node {
         }
       }
     }
+  }
+
+  // Override in subclases to provide information about internal methods
+  // The prefix is passed so that multi-line information still works
+  // Note: the returned String *must not contain trailing newlines*, as it might be used by other nodes
+  public String getInformation(String prefix) {
+    return "";
   }
 }
 

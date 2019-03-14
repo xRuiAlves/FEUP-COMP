@@ -12,6 +12,7 @@ class ASTMethodDeclaration extends SimpleNode {
     super(p, id);
   }
 
+  @Override
   public String getInformation(String prefix) {
     StringBuilder sb = new StringBuilder();
 
@@ -20,15 +21,6 @@ class ASTMethodDeclaration extends SimpleNode {
     sb.append(prefix).append("}\n");
 
     return sb.toString();
-  }
-
-  @Override
-  public void dump(String prefix) {
-    super.printNodeName(prefix);
-
-    System.out.print(this.getInformation(prefix));
-
-    super.exploreChildren(prefix);
   }
 }
 /* JavaCC - OriginalChecksum=3d0bb6bccafce97c55dc7c526183eb43 (do not edit this line) */

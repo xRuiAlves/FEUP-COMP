@@ -13,13 +13,8 @@ class ASTClassDeclaration extends SimpleNode {
   }
 
   @Override
-  public void dump(String prefix) {
-    super.printNodeName(prefix);
-
-    System.out.printf("%s{ identifier: %s }\n", prefix, identifier);
-
-    super.exploreChildren(prefix);
+  public String getInformation(String prefix) {
+    return String.format("%s{ identifier: %s }", prefix, identifier);
   }
-
 }
 /* JavaCC - OriginalChecksum=36754aee3a22d19327a28ac9d9418a2d (do not edit this line) */
