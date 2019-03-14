@@ -106,15 +106,18 @@ void VarDeclaration() : {} {
     Type() <Identifier> <Semicolon>
 }
 
-void ClassDeclaration() : {Token t_id;} {
-    <Class> t_id = <Identifier> {jjtThis.identifier = t_id.image;} (ClassGeneralization())?
+void ClassDeclaration() : {Token t_id, t_parent_id;} {
+    <Class> t_id = <Identifier> {jjtThis.identifier = t_id.image;} (t_parent_id = ClassGeneralization() {jjtThis.parent_identifier = t_parent_id.image;} )?
     <BlockStart>
         ClassBody()
     <BlockEnd>
 }
 
-void ClassGeneralization() : {} {
-    <Generalization> <Identifier>
+Token ClassGeneralization() : {Token t_id;} {
+    <Generalization> t_id = <Identifier>
+    {
+        return t_id;
+    }
 }
 
 void ClassBody() : {} {
