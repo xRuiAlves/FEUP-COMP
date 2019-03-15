@@ -17,7 +17,8 @@ public class ASTVarDeclaration extends SimpleNode {
     StringBuilder sb = new StringBuilder();
 
     sb.append(prefix).append("{\n");
-    sb.append(prefix).append("  type: ").append(type.getInformation("")).append(",identifier: ").append(identifier).append("\n");
+    sb.append(prefix).append("  type: ").append(type.getInformation("")).append(",\n");
+    sb.append(prefix).append("  identifier: ").append(identifier).append(",\n");
     sb.append(prefix).append("}");
 
     return sb.toString();
