@@ -202,12 +202,16 @@ void ExpressionNew() : {} {
     )
 }
 
-void ExpressionDot() : {} {
+ASTExpressionDot ExpressionDot() : {Token dot_text;} {
     <Dot>
     (
-        (<Length>)
-      | (<Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
+        (dot_text = <Length>)
+      | (dot_text = <Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
     )
+    {
+        jjtThis.dot_text = dot_text.image;
+        return jjtThis;
+    }
 }
 
 void ExpressionList() : {} {
