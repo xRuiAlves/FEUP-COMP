@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTExpressionDot extends SimpleNode {
-  protected String dot_text;
+  protected String rhs;
 
   public ASTExpressionDot(int id) {
     super(id);
@@ -13,7 +13,7 @@ class ASTExpressionDot extends SimpleNode {
   }
 
   public String getInformation(String prefix) {
-    return String.format("%s{ dot_text: %s }", prefix, dot_text);
+    return String.format("%s{ rhs: %s }", prefix, rhs);
   }
  
 }
