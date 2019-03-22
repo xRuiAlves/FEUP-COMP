@@ -1,0 +1,17 @@
+class Fac {
+    public int ComputeFac(int num){
+        int num_aux ;
+
+        while(err+;o) {
+            a = 2+2;
+            while(outroerr;o) {
+                b = b+1;
+            }
+            c = c+3;
+        }
+    }
+
+    public static void main(String[] a){
+        io.println(new Fac().ComputeFac(10));
+    }
+}
