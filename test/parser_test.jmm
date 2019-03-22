@@ -35,7 +35,7 @@ class Worker extends Person {
         e declarações de variáveis
         */
 
-        while(2.length < 3.length) 3;
+        while(2.length < a.func1(param1, param2)) 3;
 
         return 2;
     }
