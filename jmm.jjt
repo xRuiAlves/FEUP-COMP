@@ -16,13 +16,20 @@ public class JMMParser {
 PARSER_END(JMMParser)
 
 JAVACODE
-void error_skipto(int kind) {
+void recorver_while_error() {
     ParseException e = generateParseException();
     System.out.println(e.toString()); 
     Token t;
+
+    //skip tokens until first parenthesis is reacherd 
     do {
         t = getNextToken();
-    } while (t.kind != kind);
+    } while (t.kind != ParenthesisEnd);
+
+    //skip extra parenthesis
+    while (getToken(1).kind == ParenthesisEnd) {
+        t = getNextToken();
+    }
 }
 
 SKIP :
@@ -243,7 +250,7 @@ void WhileStatement() : {} {
     try {
         (Expression() <ParenthesisEnd>)
     } catch (ParseException e) {
-        error_skipto(ParenthesisEnd);
+        recorver_while_error();
     } 
     
     Statement()
