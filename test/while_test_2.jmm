@@ -9,6 +9,8 @@ class Fac {
             }
             c = c+3;
         }
+
+        return 4;
     }
 
     public static void main(String[] a){
