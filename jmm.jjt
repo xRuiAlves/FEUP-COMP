@@ -216,7 +216,7 @@ void ExpressionList() : {} {
 
 void Statement() : {} {
     (
-          (<BlockStart> Statement() <BlockEnd>)
+          (<BlockStart> (Statement())* <BlockEnd>)
         | (IfStatement())
         | (WhileStatement())
         | (LOOKAHEAD(2) 
