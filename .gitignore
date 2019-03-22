@@ -10,6 +10,7 @@
 !ASTVarDeclaration.java
 !ASTMethodDeclaration.java
 !ASTArguments.java
+!ASTExpressionDot.java
 
 # Compiled class file
 *.class
