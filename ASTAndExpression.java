@@ -11,6 +11,8 @@ class ASTAndExpression extends SimpleNode {
   }
 
   @Override
-  public String getNodeName() { return "&&"; }
+  public String getNodeName() {
+    return "&&";
+  }
 }
 /* JavaCC - OriginalChecksum=fae167255531a69eed62ec05b1af74e6 (do not edit this line) */

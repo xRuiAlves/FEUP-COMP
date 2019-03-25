@@ -260,13 +260,14 @@ void DotExpression() #void : {} {
     (<DotOp> RhsAccessExpression() #DotExpression(2))
 }
 
-void RhsAccessExpression() : {} {
-      <Length>
-    | (<Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
+void RhsAccessExpression() #void : {Token t_method_call_id; int n_arguments = 0;} {
+      <Length> #Length //This or just have a SimpleExpressionTerminal with the value of "length"?
+    | (t_method_call_id = <Identifier> <ParenthesisStart> (n_arguments = ExpressionList())? <ParenthesisEnd> { jjtThis.identifier = t_method_call_id.image; }#MethodCall(n_arguments))
 }
 
-void ExpressionList() : {} {
-    Expression() (<Comma> Expression())*
+int ExpressionList() #void : {int n_expr = 1;} {
+    Expression() (<Comma> Expression() {n_expr++;})*
+    {return n_expr;}
 }
 
 void ExpressionTerminals() #void : {Token t_value;} {

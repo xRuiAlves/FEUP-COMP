@@ -11,6 +11,8 @@ class ASTDotExpression extends SimpleNode {
   }
 
   @Override
-  public String getNodeName() { return "."; }
+  public String getNodeName() {
+    return ".";
+  }
 }
 /* JavaCC - OriginalChecksum=9e551656e978f3b2ea8f9c6934c8e272 (do not edit this line) */

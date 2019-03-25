@@ -11,6 +11,8 @@ class ASTNotExpression extends SimpleNode {
   }
 
   @Override
-  public String getNodeName() { return "!"; }
+  public String getNodeName() {
+    return "!";
+  }
 }
 /* JavaCC - OriginalChecksum=e213793f1ee47cd5b95e1a006bfe6712 (do not edit this line) */

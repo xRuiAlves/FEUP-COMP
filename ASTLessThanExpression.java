@@ -11,6 +11,8 @@ class ASTLessThanExpression extends SimpleNode {
   }
 
   @Override
-  public String getNodeName() { return "<"; }
+  public String getNodeName() {
+    return "<";
+  }
 }
 /* JavaCC - OriginalChecksum=9405f26bbe0b95a12e7d396311b1838b (do not edit this line) */
