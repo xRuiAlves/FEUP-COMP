@@ -1,0 +1,27 @@
+class Worker extends Person {
+    int idade;
+    Identification id;
+
+    public static void main(String[] args) {
+        Worker p;
+        int a;
+
+        // cenas
+
+        // String s = "/*asd";
+
+        2 + 3 * 4;
+
+        p = new Worker();
+        p.getInfo(true);
+    }
+    
+    // public int[] getInfo(boolean b, ClassCoise c, int[] x) {
+    //     int[] x;
+    //     boolean b;
+
+    //     while(2.length < 3.length) 3;
+
+    //     return 2;
+    // }
+}
