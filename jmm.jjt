@@ -1,4 +1,4 @@
-options{
+options {
     MULTI=true;
     LOOKAHEAD=1;
 }
@@ -16,7 +16,7 @@ public class JMMParser {
 PARSER_END(JMMParser)
 
 JAVACODE
-void recorver_while_error() {
+void recover_while_error() {
     ParseException e = generateParseException();
     System.out.println(e.toString()); 
     Token t;
@@ -53,16 +53,23 @@ TOKEN :
     <IntegerLiteral:
           <DecimalLiteral> (["l","L"])?
         | <HexLiteral> (["l","L"])?
-        | <OctalLiteral> (["l","L"])? >
+        | <OctalLiteral> (["l","L"])?
+    >
     | <#DecimalLiteral: <NonZeroDigit> (<Digit>)* >
     | <#HexLiteral: "0" ["x","X"] (<HexDigit>)+ >
     | <#OctalLiteral: "0" (<OctalDigit>)* >
 
-    | <#Digit: ["0" - "9"]>
-    | <#HexDigit: ["0"-"9","a"-"f","A"-"F"]>
-    | <#OctalDigit: ["0"-"7"]>
-    | <#NonZeroDigit: ["1" - "9"]>
-    | <Operation: ("&&" | "<" | "+" | "-" | "*" | "/") >
+    | <#Digit: ["0" - "9"] >
+    | <#HexDigit: ["0"-"9","a"-"f","A"-"F"] >
+    | <#OctalDigit: ["0"-"7"] >
+    | <#NonZeroDigit: ["1" - "9"] >
+
+    | <AndOp: "&&" >
+    | <LessThanOp: "<" >
+    | <AddSubOp: ("+" | "-") >
+    | <MultDivOp: ("*" | "/") >
+    | <NotOp: "!" >
+    | <DotOp: "." >
 
     | <TypeInt: "int" >
     | <TypeBoolean: "boolean" >
@@ -97,10 +104,7 @@ TOKEN :
     | <ArrayEnd: "]" >    
     | <Semicolon: ";" >
     | <Comma: "," >
-    | <Dot: "." >
-    | <ExclamationMark: "!" >
     | <Equals: "=" >
-
 }
 
 SimpleNode Program() : {} {
@@ -149,7 +153,7 @@ ASTType Type() : {Token t_type; boolean is_array = false;} {
     }
 }
 
-void Array() : {} {
+void Array() #void : {} {
     <ArrayStart> <ArrayEnd>
 }
 
@@ -180,50 +184,6 @@ void Arguments() : { ASTType temp_type; Token t_temp; } {
     )*
 }
 
-void Expression() : {} {
-    (
-          <IntegerLiteral>
-        | <True> 
-        | <False>
-        | <Identifier>
-        | <This>
-        | ExpressionNew()
-        | (<ExclamationMark> Expression())
-        | (<ParenthesisStart> Expression() <ParenthesisEnd>)
-    )
-    ExpressionLinha()
-}
-
-void ExpressionLinha() #Expression : {} {
-      (<Operation> Expression() ExpressionLinha())
-    | (<ArrayStart> Expression() <ArrayEnd> ExpressionLinha())
-    | (ExpressionDot() ExpressionLinha())
-    | {}
-}
-
-void ExpressionNew() : {} {
-    <New> 
-    ( 
-          (<TypeInt> <ArrayStart> Expression() <ArrayEnd>)
-        | (<Identifier> <ParenthesisStart> <ParenthesisEnd>)
-    )
-}
-
-ASTExpressionDot ExpressionDot() : {Token rhs;} {
-    <Dot>
-    (
-        (rhs = <Length>)
-      | (rhs = <Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
-    )
-    {
-        jjtThis.rhs = rhs.image;
-        return jjtThis;
-    }
-}
-
-void ExpressionList() : {} {
-    Expression() (<Comma> Expression())*
-}
 
 void Statement() : {} {
     (
@@ -250,7 +210,7 @@ void WhileStatement() : {} {
     try {
         (Expression() <ParenthesisEnd>)
     } catch (ParseException e) {
-        recorver_while_error();
+        recover_while_error();
     } 
     
     Statement()
@@ -262,4 +222,66 @@ void IdentifierStatement() : {} {
           (<Equals> Expression() <Semicolon>)
         | (<ArrayStart> Expression() <ArrayEnd> <Equals> Expression() <Semicolon>)
     )
+}
+
+void Expression() #void : {} {
+    AndExpression()
+}
+
+void AndExpression() #void : {} {
+    LessThanExpression() (<AndOp> LessThanExpression() #AndExpression(2))*
+}
+
+void LessThanExpression() #void : {} {
+    AddSubExpression() (<LessThanOp> AddSubExpression() #LessThanExpression(2))*
+}
+
+void AddSubExpression() #void : {} {
+    MultDivExpression() (<AddSubOp> MultDivExpression() #AddSubExpression(2))*
+}
+
+void MultDivExpression() #void : {} {
+    NotExpression() (<MultDivOp> NotExpression() #MultDivExpression(2))*
+}
+
+void NotExpression() #void : {} {
+    (<NotOp> NotExpression() #NotExpression) | (ArrayAccessExpression())
+}
+
+void ArrayAccessExpression() #void : {} {
+    DotExpression() (<ArrayStart> Expression() <ArrayEnd> #ArrayAccessExpression(2))*
+}
+
+void DotExpression() #void : {} {
+    ExpressionTerminals() (<DotOp> RhsAccessExpression() #DotExpression(2))*
+}
+
+void RhsAccessExpression() : {} {
+      <Length>
+    | (<Identifier> <ParenthesisStart> (ExpressionList())? <ParenthesisEnd>)
+}
+
+void ExpressionList() : {} {
+    Expression() (<Comma> Expression())*
+}
+
+void ExpressionTerminals() : {} {
+      <IntegerLiteral>
+    | <True>
+    | <False>
+    | <Identifier>
+    | <This>
+    | NewExpression()
+    | ParenthesisExpression()
+}
+
+void NewExpression() : {} {
+    <New> (
+          (<TypeInt> <ArrayStart> Expression() <ArrayEnd>)
+        | (<Identifier> <ParenthesisStart> <ParenthesisEnd>)
+    )
+}
+
+void ParenthesisExpression() : {} {
+    <ParenthesisStart> Expression() <ParenthesisEnd>
 }
