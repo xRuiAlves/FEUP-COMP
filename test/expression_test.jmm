@@ -1,6 +1,6 @@
 class ExpressionTest {
     public static void main(String[] args) {
-        2 + 3 < 4 * 3 + 1 && !true * a.getX()[2].length.foo(arg1, arg2) / 3;
+        2 + 3 < 4 * 3 - 1 && !true * a.getX()[2].length.foo(arg1, arg2) / 3;
         // a.cena()[2];
         // a[2].length;
         // a[b[4]];

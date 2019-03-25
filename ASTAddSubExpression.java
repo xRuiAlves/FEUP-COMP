@@ -14,8 +14,7 @@ class ASTAddSubExpression extends SimpleNode {
 
   @Override
   public String getNodeName() {
-    // return this.operation;
-    return "hardcoded+";
+    return this.operation;
   }
 }
 /* JavaCC - OriginalChecksum=d5b39653de00a19eddbf6b5144717551 (do not edit this line) */

@@ -237,7 +237,7 @@ void LessThanExpression() #void : {} {
 }
 
 void AddSubExpression() #void : {Token t_op_type;} {
-    MultDivExpression() (t_op_type = <AddSubOp> MultDivExpression() #AddSubExpression(2) /* TODO: Add {jjtThis.operation = t_op_type.image;} somehow */)*
+    MultDivExpression() (t_op_type = <AddSubOp> MultDivExpression() {jjtThis.operation = t_op_type.image;}#AddSubExpression(2))*
 }
 
 void MultDivExpression() #void : {} {
@@ -269,14 +269,20 @@ void ExpressionList() : {} {
     Expression() (<Comma> Expression())*
 }
 
-void ExpressionTerminals() : {} {
-      <IntegerLiteral>
-    | <True>
-    | <False>
-    | <Identifier>
-    | <This>
+void ExpressionTerminals() #void : {Token t_value;} {
+      SimpleExpressionTerminal()
     | NewExpression()
     | ParenthesisExpression()
+}
+
+void SimpleExpressionTerminal() : {Token t_value;} {
+    (t_value = <IntegerLiteral>
+    | t_value = <True>
+    | t_value = <False>
+    | t_value = <Identifier>
+    | t_value = <This>)
+
+    {jjtThis.value = t_value.image;}
 }
 
 void NewExpression() : {} {

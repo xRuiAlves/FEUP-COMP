@@ -51,7 +51,7 @@ class SimpleNode implements Node {
   public void jjtSetValue(Object value) { this.value = value; }
   public Object jjtGetValue() { return value; }
 
-  /* You can override these two methods in subclasses of SimpleNode to
+  /* JavaCC says: You can override these two methods in subclasses of SimpleNode to
      customize the way the node appears when the tree is dumped.  If
      your output uses more than one line you should override
      toString(String), otherwise overriding toString() is probably all
