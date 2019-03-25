@@ -12,7 +12,6 @@
 !ASTArguments.java
 !ASTLessThanExpression.java
 !ASTDotExpression.java
-!ASTAddSubExpression.java
 !ASTAndExpression.java
 !ASTNotExpression.java
 !ASTArrayAccessExpression.java
