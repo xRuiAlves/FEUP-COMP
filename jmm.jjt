@@ -237,11 +237,11 @@ void LessThanExpression() #void : {} {
 }
 
 void AddSubExpression() #void : {Token t_op_type;} {
-    MultDivExpression() (t_op_type = <AddSubOp> MultDivExpression() {jjtThis.operation = t_op_type.image;}#AddSubExpression(2))*
+    MultDivExpression() (t_op_type = <AddSubOp> MultDivExpression() {jjtThis.operation = t_op_type.image;}#ArithmeticExpression(2))*
 }
 
-void MultDivExpression() #void : {} {
-    NotExpression() (<MultDivOp> NotExpression() #MultDivExpression(2))*
+void MultDivExpression() #void : {Token t_op_type;} {
+    NotExpression() (t_op_type = <MultDivOp> NotExpression() {jjtThis.operation = t_op_type.image;}#ArithmeticExpression(2))*
 }
 
 void NotExpression() #void : {} {

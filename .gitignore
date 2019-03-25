@@ -17,6 +17,7 @@
 !ASTNotExpression.java
 !ASTArrayAccessExpression.java
 !ASTSimpleExpressionTerminal.java
+!ASTArithmeticExpression.java
 
 # Compiled class file
 *.class
