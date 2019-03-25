@@ -44,8 +44,8 @@ SKIP :
 
 <MULTILINE_COMMENT_STATE> SKIP :
 {
-  < "*/" > : DEFAULT
-| < ~[] >   
+      < "*/" > : DEFAULT
+    | < ~[] >
 }
 
 TOKEN :
@@ -236,8 +236,8 @@ void LessThanExpression() #void : {} {
     AddSubExpression() (<LessThanOp> AddSubExpression() #LessThanExpression(2))*
 }
 
-void AddSubExpression() #void : {} {
-    MultDivExpression() (<AddSubOp> MultDivExpression() #AddSubExpression(2))*
+void AddSubExpression() #void : {Token t_op_type;} {
+    MultDivExpression() (t_op_type = <AddSubOp> MultDivExpression() #AddSubExpression(2) /* TODO: Add {jjtThis.operation = t_op_type.image;} somehow */)*
 }
 
 void MultDivExpression() #void : {} {
@@ -245,15 +245,19 @@ void MultDivExpression() #void : {} {
 }
 
 void NotExpression() #void : {} {
-    (<NotOp> NotExpression() #NotExpression) | (ArrayAccessExpression())
+    (<NotOp> NotExpression() #NotExpression) | (ArrayOrDotExpression())
+}
+
+void ArrayOrDotExpression() #void : {} {
+    ExpressionTerminals() (ArrayAccessExpression() | DotExpression())*
 }
 
 void ArrayAccessExpression() #void : {} {
-    DotExpression() (<ArrayStart> Expression() <ArrayEnd> #ArrayAccessExpression(2))*
+    (<ArrayStart> Expression() <ArrayEnd> #ArrayAccessExpression(2))
 }
 
 void DotExpression() #void : {} {
-    ExpressionTerminals() (<DotOp> RhsAccessExpression() #DotExpression(2))*
+    (<DotOp> RhsAccessExpression() #DotExpression(2))
 }
 
 void RhsAccessExpression() : {} {

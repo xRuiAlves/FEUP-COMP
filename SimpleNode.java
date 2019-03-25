@@ -60,6 +60,9 @@ class SimpleNode implements Node {
   public String toString() { return JMMParserTreeConstants.jjtNodeName[id]; }
   public String toString(String prefix) { return prefix + toString(); }
 
+  /**
+   Override to set a custom node name
+   */
   public String getNodeName() {
     return JMMParserTreeConstants.jjtNodeName[id];
   }
