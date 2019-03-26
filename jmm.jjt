@@ -113,11 +113,10 @@ SimpleNode Program() : {} {
     { return jjtThis; }
 }
 
-void VarDeclaration() : {ASTType return_type; Token t_id;} {
-    return_type = Type() t_id = <Identifier> <Semicolon>
+void VarDeclaration() : {Token t_id;} {
+    Type() t_id = <Identifier> <Semicolon>
     {
         jjtThis.identifier = t_id.image;
-        jjtThis.type = return_type;
     }
 }
 
@@ -140,7 +139,7 @@ void ClassBody() : {} {
     (<Public> (MainDeclaration() | MethodDeclaration()))*
 }
 
-ASTType Type() : {Token t_type; boolean is_array = false;} {
+void Type() : {Token t_type; boolean is_array = false;} {
     (
           (t_type = <TypeInt> (Array(){is_array = true;})?)
         | t_type = <TypeBoolean>
@@ -149,7 +148,6 @@ ASTType Type() : {Token t_type; boolean is_array = false;} {
     {
         jjtThis.type = t_type.image;
         jjtThis.isArray = is_array;
-        return jjtThis;
     }
 }
 
@@ -165,8 +163,8 @@ void MainDeclaration() : {} {
     <BlockEnd>
 }
 
-void MethodDeclaration() : {ASTType return_type;} {
-    return_type = Type() {jjtThis.returnType = return_type;} <Identifier> <ParenthesisStart> (Arguments())? <ParenthesisEnd>
+void MethodDeclaration() : {Token t_name;} {
+    Type() t_name = <Identifier> {jjtThis.name = t_name.image;} <ParenthesisStart> (Arguments())? <ParenthesisEnd>
     <BlockStart>
         (LOOKAHEAD(2) VarDeclaration())*
         (Statement())*
@@ -174,12 +172,12 @@ void MethodDeclaration() : {ASTType return_type;} {
     <BlockEnd>
 }
 
-void Arguments() : { ASTType temp_type; Token t_temp; } {
-    temp_type = Type() {jjtThis.types.add(temp_type);}
+void Arguments() : { Token t_temp; } {
+    Type()
     t_temp = <Identifier> {jjtThis.identifiers.add(t_temp.image);}
     (
         <Comma>
-        temp_type = Type() {jjtThis.types.add(temp_type);}
+        Type()
         t_temp = <Identifier> {jjtThis.identifiers.add(t_temp.image);}
     )*
 }

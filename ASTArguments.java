@@ -3,7 +3,6 @@
 import java.util.ArrayList;
 
 public class ASTArguments extends SimpleNode {
-  protected ArrayList<ASTType> types = new ArrayList<>();
   protected ArrayList<String> identifiers = new ArrayList<>();
 
   public ASTArguments(int id) {
@@ -19,12 +18,6 @@ public class ASTArguments extends SimpleNode {
     StringBuilder sb = new StringBuilder();
 
     sb.append(prefix).append("{\n");
-    
-    sb.append(prefix).append("  types: [\n");
-    for (ASTType type : types) {
-      sb.append(prefix).append("    ").append(type.getInformation("")).append(",\n");
-    }
-    sb.append(prefix).append("  ],\n");
 
     sb.append(prefix).append("  identifiers: [\n");
     for (String identifier: identifiers) {
