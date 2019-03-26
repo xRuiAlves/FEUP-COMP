@@ -6,6 +6,8 @@ options {
 PARSER_BEGIN(JMMParser)
 
 public class JMMParser {
+    public static int n_errors = 0;
+
     public static void main(String args[]) throws ParseException {
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
@@ -16,20 +18,31 @@ public class JMMParser {
 PARSER_END(JMMParser)
 
 JAVACODE
-void recover_while_error() {
-    ParseException e = generateParseException();
-    System.out.println(e.toString()); 
-    Token t;
+void recover_while_error() throws ErrorLimitReached {
+    if (JMMParser.n_errors >= 10) {
+        throw new ErrorLimitReached();
+    }
 
+    System.out.printf("Error #%d: ", ++JMMParser.n_errors);
+    ParseException e = generateParseException();
+    System.out.println(e.toString());
+
+    int n_skipped_chars = 0;
+
+    Token t;
     //skip tokens until first parenthesis is reacherd 
     do {
         t = getNextToken();
+        ++n_skipped_chars;
     } while (t.kind != ParenthesisEnd);
 
     //skip extra parenthesis
     while (getToken(1).kind == ParenthesisEnd) {
         t = getNextToken();
+        ++n_skipped_chars;
     }
+
+    System.out.printf("Number of skipped characters to recover from error: %d\n\n", n_skipped_chars);
 }
 
 SKIP :
@@ -287,6 +300,6 @@ void NewExpression() : {} {
     )
 }
 
-void ParenthesisExpression() : {} {
+void ParenthesisExpression() #void : {} {
     <ParenthesisStart> Expression() <ParenthesisEnd>
 }
