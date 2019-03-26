@@ -1,0 +1,21 @@
+class X {
+    public static void main(String[] args) {
+        int a;
+
+        if (x < 0666) {
+            asd = 05;
+            1 + 2;
+        } else {
+            x = 0x123l;
+        }
+
+        while(3 < 5) {
+            infinite.do();
+            continue.running();
+        }
+
+        a[3];
+        // a = 2;
+        a[3] = 3;
+    }
+}

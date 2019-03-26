@@ -5,7 +5,7 @@ class Worker extends Person {
     // Identification id;
 
     public static void main(String[] args) {
-        2;
+        a.getCena(1,2,3,b);
     }
     
     public int[] getInfo(boolean b, ClassCoise c, int[] x) {

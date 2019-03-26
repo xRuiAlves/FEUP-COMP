@@ -26,6 +26,12 @@
 !ASTMainDeclaration.java
 !ASTClassMethods.java
 !ASTClassFields.java
+!ASTIfStatement.java
+!ASTIfBody.java
+!ASTElseBody.java
+!ASTWhileStatement.java
+!ASTWhileBody.java
+!ASTAssignmentStatement.java
 
 # Compiled class file
 *.class
