@@ -8,7 +8,6 @@
 !ASTType.java
 !ASTClassDeclaration.java
 !ASTVarDeclaration.java
-!ASTMethodDeclaration.java
 !ASTArguments.java
 !ASTLessThanExpression.java
 !ASTDotExpression.java
@@ -19,6 +18,9 @@
 !ASTArithmeticExpression.java
 !ASTLength.java
 !ASTMethodCall.java
+!ASTMethodDeclaration.java
+!ASTMethodParameters.java
+!ASTMethodParameter.java
 
 # Compiled class file
 *.class

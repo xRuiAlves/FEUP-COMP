@@ -164,7 +164,7 @@ void MainDeclaration() : {} {
 }
 
 void MethodDeclaration() : {Token t_name;} {
-    Type() t_name = <Identifier> {jjtThis.name = t_name.image;} <ParenthesisStart> (Arguments())? <ParenthesisEnd>
+    Type() t_name = <Identifier> {jjtThis.name = t_name.image;} <ParenthesisStart> (MethodParameters())? <ParenthesisEnd>
     <BlockStart>
         (LOOKAHEAD(2) VarDeclaration())*
         (Statement())*
@@ -172,13 +172,13 @@ void MethodDeclaration() : {Token t_name;} {
     <BlockEnd>
 }
 
-void Arguments() : { Token t_temp; } {
+void MethodParameters() : { Token t_parameter_name; } {
     Type()
-    t_temp = <Identifier> {jjtThis.identifiers.add(t_temp.image);}
+    (t_parameter_name = <Identifier> {jjtThis.name = t_parameter_name.image;} #MethodParameter(1))
     (
         <Comma>
         Type()
-        t_temp = <Identifier> {jjtThis.identifiers.add(t_temp.image);}
+        (t_parameter_name = <Identifier> {jjtThis.name = t_parameter_name.image;} #MethodParameter(1))
     )*
 }
 

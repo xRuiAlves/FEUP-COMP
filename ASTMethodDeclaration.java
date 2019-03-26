@@ -14,7 +14,7 @@ class ASTMethodDeclaration extends SimpleNode {
 
   @Override
   public String getNodeName() {
-    return "->" + this.name + "()";
+    return "declaration: " + this.name + "()";
   }
 }
 /* JavaCC - OriginalChecksum=3d0bb6bccafce97c55dc7c526183eb43 (do not edit this line) */
