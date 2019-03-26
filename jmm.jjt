@@ -188,9 +188,9 @@ void Statement() #void : {} {
           (<BlockStart> (Statement())* <BlockEnd>)
         | (IfStatement())
         | (WhileStatement())
-        | (LOOKAHEAD(2) 
-              (Expression() <Semicolon>)
-            | (AssignmentStatement())
+        | (LOOKAHEAD(2)
+               (AssignmentOrArrayExpression())
+            |  (Expression() <Semicolon>)
         )
     )    
 }
@@ -214,13 +214,25 @@ void WhileStatement() : {} {
     (Statement() #WhileBody)
 }
 
-void AssignmentStatement() : {} {
-    <Identifier>
+void AssignmentOrArrayExpression() #void : {Token t_value;} {
+    (t_value = <Identifier> {jjtThis.value = t_value.image;}#SimpleExpressionTerminal)
     (
-          (<Equals> Expression() <Semicolon>)
-        | (<ArrayStart> Expression() <ArrayEnd> <Equals> Expression() <Semicolon>)
+          (<Equals> Expression() #AssignmentStatement(2) <Semicolon>)
+        | ((<ArrayStart> Expression() #ArrayAccessExpression(2) <ArrayEnd>) ArrayAssignmentOrArrayAccessExpression() <Semicolon>)
     )
 }
+
+void ArrayAssignmentOrArrayAccessExpression() #void : {} {
+    ArrayAssignment() | (ArrayAccessExpression())*
+}
+
+void ArrayAssignment() #void : {} {
+    <Equals> Expression() #AssignmentStatement(2)
+}
+
+// void AssignmentStatement() : {} {
+    
+// }
 
 void Expression() #void : {} {
     AndExpression()
@@ -294,3 +306,90 @@ void NewExpression() : {} {
 void ParenthesisExpression() : {} {
     <ParenthesisStart> Expression() <ParenthesisEnd>
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

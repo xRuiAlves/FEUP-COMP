@@ -1,21 +1,26 @@
 class X {
     public static void main(String[] args) {
-        int a;
+        // int a;
 
-        if (x < 0666) {
-            asd = 05;
-            1 + 2;
-        } else {
-            x = 0x123l;
-        }
+        // if (x < 0666) {
+        //     asd = 05;
+        //     1 + 2;
+        // } else {
+        //     x = 0x123l;
+        // }
 
-        while(3 < 5) {
-            infinite.do();
-            continue.running();
-        }
+        // while(3 < 5) {
+        //     infinite.do();
+        //     continue.running();
+        // }
 
-        a[3];
-        // a = 2;
+        a = 2;
         a[3] = 3;
+        a[3][4];
+        a[3];
+
+        a[i] = 4;
+
+        // a[69][42] = 420; //MUST FAIL
     }
 }
