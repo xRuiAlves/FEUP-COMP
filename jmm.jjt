@@ -113,30 +113,30 @@ SimpleNode Program() : {} {
     { return jjtThis; }
 }
 
-void VarDeclaration() : {Token t_id;} {
-    Type() t_id = <Identifier> <Semicolon>
+void VarDeclaration() : {Token t_name;} {
+    Type() t_name = <Identifier> <Semicolon>
     {
-        jjtThis.identifier = t_id.image;
+        jjtThis.identifier = t_name.image;
     }
 }
 
-void ClassDeclaration() : {Token t_id, t_parent_id;} {
-    <Class> t_id = <Identifier> {jjtThis.identifier = t_id.image;} (t_parent_id = ClassGeneralization() {jjtThis.parent_identifier = t_parent_id.image;} )?
+void ClassDeclaration() : {Token t_name;} {
+    <Class> t_name = <Identifier> {jjtThis.name = t_name.image;} (ClassGeneralization())?
     <BlockStart>
         ClassBody()
     <BlockEnd>
 }
 
-Token ClassGeneralization() : {Token t_id;} {
-    <Generalization> t_id = <Identifier>
+void ClassGeneralization() : {Token t_name;} {
+    <Generalization> t_name = <Identifier>
     {
-        return t_id;
+        jjtThis.name = t_name.image;
     }
 }
 
-void ClassBody() : {} {
-    (VarDeclaration())*
-    (<Public> (MainDeclaration() | MethodDeclaration()))*
+void ClassBody() #void : {int n_fields = 0, n_methods = 0;} {
+    ((VarDeclaration() {n_fields++;})* #ClassFields(n_fields))
+    ((<Public> (MainDeclaration() {n_methods++;} | MethodDeclaration(){n_methods++;}))* #ClassMethods(n_methods))
 }
 
 void Type() : {Token t_type; boolean is_array = false;} {
@@ -168,7 +168,7 @@ void MethodDeclaration() : {Token t_name;} {
     <BlockStart>
         (LOOKAHEAD(2) VarDeclaration())*
         (Statement())*
-        <Return> Expression() <Semicolon>
+        (<Return> Expression() #Return(1)) <Semicolon>
     <BlockEnd>
 }
 

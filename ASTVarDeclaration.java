@@ -13,7 +13,7 @@ public class ASTVarDeclaration extends SimpleNode {
 
   @Override
   public String getNodeName() {
-    return this.identifier;
+    return "declaration: " + this.identifier;
   }
 }
 /*

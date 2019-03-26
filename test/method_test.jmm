@@ -9,9 +9,6 @@ class Worker extends Person {
     }
     
     public int[] getInfo(boolean b, ClassCoise c, int[] x) {
-        int a;
-
-        a = 2;
-        return x;
+        return 3;
     }
 }

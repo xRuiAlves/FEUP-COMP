@@ -37,6 +37,6 @@ class Worker extends Person {
 
         while(2.length < a.func1(param1, param2)) 3;
 
-        return 2;
+        return a;
     }
 }

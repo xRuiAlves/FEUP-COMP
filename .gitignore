@@ -6,7 +6,6 @@
 # Add exceptions for changed files below here
 !SimpleNode.java
 !ASTType.java
-!ASTClassDeclaration.java
 !ASTVarDeclaration.java
 !ASTArguments.java
 !ASTLessThanExpression.java
@@ -21,6 +20,12 @@
 !ASTMethodDeclaration.java
 !ASTMethodParameters.java
 !ASTMethodParameter.java
+!ASTReturn.java
+!ASTClassDeclaration.java
+!ASTClassGeneralization.java
+!ASTMainDeclaration.java
+!ASTClassMethods.java
+!ASTClassFields.java
 
 # Compiled class file
 *.class
