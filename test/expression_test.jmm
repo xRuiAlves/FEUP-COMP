@@ -10,6 +10,8 @@ class ExpressionTest {
 
         a = new int[3];
 
+        cenas = new Coisas();
+
         a[2] * 4;
 
         !a + a;

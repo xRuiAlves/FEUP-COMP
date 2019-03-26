@@ -33,6 +33,7 @@
 !ASTWhileBody.java
 !ASTAssignmentStatement.java
 !ErrorLimitReached.java
+!ASTNewExpression.java
 
 # Compiled class file
 *.class

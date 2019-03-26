@@ -293,10 +293,10 @@ void SimpleExpressionTerminal() : {Token t_value;} {
     {jjtThis.value = t_value.image;}
 }
 
-void NewExpression() : {} {
+void NewExpression() #void : {Token t_type;} {
     <New> (
-          (<TypeInt> <ArrayStart> Expression() <ArrayEnd>)
-        | (<Identifier> <ParenthesisStart> <ParenthesisEnd>)
+          (<TypeInt> <ArrayStart> {jjtThis.type = "int"; jjtThis.isArray = true;}#Type Expression() <ArrayEnd> #NewExpression(2))
+        | (t_type = <Identifier> {jjtThis.type = t_type.image; jjtThis.isArray = false;}#Type <ParenthesisStart> <ParenthesisEnd> #NewExpression(1))
     )
 }
 
