@@ -1,6 +1,7 @@
 options {
     MULTI=true;
     LOOKAHEAD=1;
+    NODE_SCOPE_HOOK=true;
 }
 
 PARSER_BEGIN(JMMParser)
@@ -8,10 +9,29 @@ PARSER_BEGIN(JMMParser)
 public class JMMParser {
     public static int n_errors = 0;
 
+    private final Stack<SimpleNode> symbol_table_scopes = new Stack<>();
+
     public static void main(String args[]) throws ParseException {
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
-        root.dump("");
+        // root.dump("");
+        root.dumpSymbolTable("");
+    }
+
+    void jjtreeOpenNodeScope(Node n) {
+        if ((SimpleNode n).hasSymbolTable()) {
+            this.nodes_with_symbol_tables.push((SimpleNode) n);
+        } else {
+            if (!symbol_table_scopes.empty()) {
+                symbol_table_scopes.peek().registerInSymbolTable(n);
+            }
+        }
+    }
+
+    void jjtreeCloseNodeScope(Node n) {
+        if ((SimpleNode n).hasSymbolTable()) {
+            this.nodes_with_symbol_tables.pop();
+        }
     }
 }
 
