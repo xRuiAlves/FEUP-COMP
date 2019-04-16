@@ -2,14 +2,15 @@ options {
     MULTI=true;
     LOOKAHEAD=1;
     NODE_SCOPE_HOOK=true;
+    STATIC=false;
 }
 
 PARSER_BEGIN(JMMParser)
 
+import java.util.Stack;
+
 public class JMMParser {
     public static int n_errors = 0;
-
-    private final Stack<SimpleNode> symbol_table_scopes = new Stack<>();
 
     public static void main(String args[]) throws ParseException {
         JMMParser parser = new JMMParser(System.in);
@@ -18,20 +19,12 @@ public class JMMParser {
         root.dumpSymbolTable("");
     }
 
-    void jjtreeOpenNodeScope(Node n) {
-        if ((SimpleNode n).hasSymbolTable()) {
-            this.nodes_with_symbol_tables.push((SimpleNode) n);
-        } else {
-            if (!symbol_table_scopes.empty()) {
-                symbol_table_scopes.peek().registerInSymbolTable(n);
-            }
-        }
+    public void jjtreeOpenNodeScope(Node n) {
+        System.out.println("beep");
     }
 
-    void jjtreeCloseNodeScope(Node n) {
-        if ((SimpleNode n).hasSymbolTable()) {
-            this.nodes_with_symbol_tables.pop();
-        }
+    public void jjtreeCloseNodeScope(Node n) {
+        System.out.println("boop");
     }
 }
 
