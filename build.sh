@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-mkdir out
+mkdir -p out
 #jjtree jmm.jjt
 #javacc jmm.jj
 javac -cp . JMMParser.java -d out/

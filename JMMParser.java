@@ -15,13 +15,13 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     private final Stack<NodeWithSymbolTable> symbol_table_scopes = new Stack<>();
 
     public void jjtreeOpenNodeScope(Node n) {
-        if (((SimpleNode) n).hasSymbolTable()) {
-            this.symbol_table_scopes.push((NodeWithSymbolTable) n);
-        } else {
-            if (!symbol_table_scopes.empty()) {
-                symbol_table_scopes.peek().registerInSymbolTable((SimpleNode) n);
-            }
-        }
+      if (!symbol_table_scopes.empty()) {
+        symbol_table_scopes.peek().registerInSymbolTable((SimpleNode) n);
+      }
+
+      if (((SimpleNode) n).hasSymbolTable()) {
+        this.symbol_table_scopes.push((NodeWithSymbolTable) n);
+      }
     }
 
     public void jjtreeCloseNodeScope(Node n) {
