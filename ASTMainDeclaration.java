@@ -21,7 +21,10 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
 
   @Override
   protected void buildSymbolTable() {
-    // TODO: Register method parameters because they are local reference
+    // Register method parameters because they are local reference
+    for (Variable param : params) {
+      this.registerInSymbolTable(param);
+    }
 
     // First children are directly var declarations because the rest is always the same (return and args)
     for (int i = 0; i < children.length; ++i) {

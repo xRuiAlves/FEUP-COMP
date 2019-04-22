@@ -13,7 +13,10 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
 
   @Override
   protected void buildSymbolTable() {
-    // TODO: Register method parameters because they are local reference
+    // Register method parameters because they are local reference
+    for (Variable param : params) {
+      this.registerInSymbolTable(param);
+    }
 
     // 0 - return type (ASTType)
     // 1 - ASTParameters node with ASTParameter children

@@ -1,4 +1,5 @@
 // Node that represents some kind of declaration
+// Also used for arguments (Variables) which are not necessarily a node but they represent one so it's fine
 public interface DeclarationNode {
     public String getIdentifier();
 

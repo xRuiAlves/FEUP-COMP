@@ -13,7 +13,8 @@ class Worker extends Person {
     }
     
     public int[] getInfo(boolean b, ClassCoise c, int[] x) {
-        int[] x;
+        // int[] x; // Should this work? Ask
+        int[] int_arr;
         boolean b;
 
         while(2.length < 3.length) 3;

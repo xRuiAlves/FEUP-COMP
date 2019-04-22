@@ -37,9 +37,9 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
 
     protected abstract void buildSymbolTable();
 
-    protected void registerInSymbolTable(Node n) {
-      if (n instanceof DeclarationNode) {
-        DeclarationNode casted = (DeclarationNode) n;
+    protected void registerInSymbolTable(Object o) {
+      if (o instanceof DeclarationNode) {
+        DeclarationNode casted = (DeclarationNode) o;
         casted.prepareInternalInfo();
         this.symbol_table.put(casted.getIdentifier(), casted);
       }
