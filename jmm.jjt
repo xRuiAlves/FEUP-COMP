@@ -13,7 +13,7 @@ public class JMMParser {
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
         root.dump("");
-        System.out.println("\n--------\n");
+        System.out.println("\\\\-----------//");
         root.createSymbolTables();
         root.dumpSymbolTable("");
     }
@@ -172,8 +172,8 @@ void Array() #void : {} {
     <ArrayStart> <ArrayEnd>
 }
 
-void MainDeclaration() : {} {
-    <Static> <Void> <Main> <ParenthesisStart> <TypeString> Array() <Identifier> <ParenthesisEnd>
+void MainDeclaration() : {Token t_arg_name;} {
+    <Static> <Void> <Main> <ParenthesisStart> <TypeString> Array() t_arg_name = <Identifier> {jjtThis.arg_name = t_arg_name.image;} <ParenthesisEnd>
     <BlockStart>
         VarsAndBody()
     <BlockEnd>

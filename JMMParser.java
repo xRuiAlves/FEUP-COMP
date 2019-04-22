@@ -6,7 +6,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
         root.dump("");
-        System.out.println("\u005cn--------\u005cn");
+        System.out.println("\u005c\u005c\u005c\u005c-----------//");
         root.createSymbolTables();
         root.dumpSymbolTable("");
     }
@@ -338,9 +338,9 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
   final public void MainDeclaration() throws ParseException {
                           /*@bgen(jjtree) MainDeclaration */
-  ASTMainDeclaration jjtn000 = new ASTMainDeclaration(JJTMAINDECLARATION);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
+                          ASTMainDeclaration jjtn000 = new ASTMainDeclaration(JJTMAINDECLARATION);
+                          boolean jjtc000 = true;
+                          jjtree.openNodeScope(jjtn000);Token t_arg_name;
     try {
       jj_consume_token(Static);
       jj_consume_token(Void);
@@ -348,7 +348,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       jj_consume_token(ParenthesisStart);
       jj_consume_token(TypeString);
       Array();
-      jj_consume_token(Identifier);
+      t_arg_name = jj_consume_token(Identifier);
+                                                                                              jjtn000.arg_name = t_arg_name.image;
       jj_consume_token(ParenthesisEnd);
       jj_consume_token(BlockStart);
       VarsAndBody();

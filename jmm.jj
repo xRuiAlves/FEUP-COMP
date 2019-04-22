@@ -17,7 +17,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
         root.dump("");
-        System.out.println("\n--------\n");
+        System.out.println("\\\\-----------//");
         root.createSymbolTables();
         root.dumpSymbolTable("");
     }
@@ -389,13 +389,13 @@ void Array()       : {} {
 }
 
 void MainDeclaration() : {/*@bgen(jjtree) MainDeclaration */
-  ASTMainDeclaration jjtn000 = new ASTMainDeclaration(JJTMAINDECLARATION);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/} {/*@bgen(jjtree) MainDeclaration */
+                          ASTMainDeclaration jjtn000 = new ASTMainDeclaration(JJTMAINDECLARATION);
+                          boolean jjtc000 = true;
+                          jjtree.openNodeScope(jjtn000);
+/*@egen*/Token t_arg_name;} {/*@bgen(jjtree) MainDeclaration */
     try {
 /*@egen*/
-    <Static> <Void> <Main> <ParenthesisStart> <TypeString> Array() <Identifier> <ParenthesisEnd>
+    <Static> <Void> <Main> <ParenthesisStart> <TypeString> Array() t_arg_name = <Identifier> {jjtn000.arg_name = t_arg_name.image;} <ParenthesisEnd>
     <BlockStart>
         VarsAndBody()
     <BlockEnd>/*@bgen(jjtree)*/

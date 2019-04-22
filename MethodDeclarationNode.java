@@ -1,5 +1,7 @@
 public abstract class MethodDeclarationNode extends NodeWithSymbolTable implements DeclarationNode {
   // protected String name; // Declared in superclass for access
+  protected VariableType ret;
+  protected Variable[] params;
 
   public MethodDeclarationNode(int id) {
     super(id);
@@ -26,11 +28,28 @@ public abstract class MethodDeclarationNode extends NodeWithSymbolTable implemen
 
   @Override
   public String getInformation() {
-    return String.format("%s::%s - return: TODO ; args: TODO", this.getIdentifier(), this.getType());
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.getIdentifier()).append("::").append(this.getType());
+    sb.append(" - ").append(" return: ").append(this.getReturn());
+    sb.append(" ; params: [");
+    Variable[] params = this.getParameters();
+    if (params != null && params.length > 0) {
+        sb.append(params[0]);
+        for (int i = 1; i < params.length; ++i) {
+            sb.append(", ").append(params[i]);
+        }
+    }
+    sb.append("]");
+
+    return sb.toString();
   }
 
-  public abstract ASTType[] getArguments();
+  public Variable[] getParameters() {
+    return this.params;
+  }
 
-  public abstract ASTType getReturn();
+  public VariableType getReturn() {
+    return this.ret;
+  }
 }
 /* JavaCC - OriginalChecksum=3d0bb6bccafce97c55dc7c526183eb43 (do not edit this line) */
