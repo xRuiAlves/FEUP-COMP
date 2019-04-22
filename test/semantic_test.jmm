@@ -1,0 +1,20 @@
+class Worker extends Person {
+    int idade;
+    Identification id;
+
+    public static void main(String[] args) {
+        Worker p;
+        int a;
+
+        2 + 3 * 4;
+
+        p = new Worker();
+        p.getInfo(true);
+
+        1.length;
+        2.length;
+        p.length;
+        args.length;
+        new X().length;
+    }
+}
