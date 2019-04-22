@@ -14,5 +14,9 @@ class ASTMethodParameters extends SimpleNode {
   public String getNodeName() {
     return "Parameters";
   }
+
+  public Node[] getParameterNodes() {
+    return this.children;
+  }
 }
 /* JavaCC - OriginalChecksum=8dbcb47ea87ae8837aa83240482935f5 (do not edit this line) */

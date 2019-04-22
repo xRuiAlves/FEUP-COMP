@@ -5,9 +5,10 @@ public class SimpleNode implements Node {
   protected Node parent;
   protected Node[] children;
   protected int id;
-  protected Object value;
   protected JMMParser parser;
-
+  
+  // TODO: Remove??
+  protected Object value;
   protected boolean is_multiline = false;
 
   public SimpleNode(int i) {
@@ -122,6 +123,17 @@ public class SimpleNode implements Node {
   public void dumpSymbolTable(String prefix) {
     this.displaySymbolTable(prefix);
     this.exploreChildrenSymbolTables(prefix + (this.hasSymbolTable() ? "  " : ""));
+  }
+
+  public void createSymbolTables() {
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode) children[i];
+        if (n != null) {
+          n.createSymbolTables();
+        }
+      }
+    }
   }
 
   // Override in subclasses to mark that it has a symbol table

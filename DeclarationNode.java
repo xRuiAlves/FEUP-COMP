@@ -1,10 +1,12 @@
 // Node that represents some kind of declaration
 public interface DeclarationNode {
-    public abstract String getIdentifier();
+    public String getIdentifier();
 
-    public abstract String getType();
+    public String getType();
 
-    // TODO maybe? not sure if relevant at this step
-    // public abstract String getValue();
+    public String getInformation();
+
+    // So that the node gets and stores the relevant information for later on printing (type, return type, arguments, etc)
+    public void prepareInternalInfo();
 }
           

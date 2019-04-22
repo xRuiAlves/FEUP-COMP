@@ -3,6 +3,8 @@
 public class ASTVarDeclaration extends SimpleNode implements DeclarationNode {
   protected String identifier;
 
+  private ASTType type;
+
   public ASTVarDeclaration(int id) {
     super(id);
   }
@@ -23,7 +25,17 @@ public class ASTVarDeclaration extends SimpleNode implements DeclarationNode {
 
   @Override
   public String getType() {
-    return ((SimpleNode) children[0]).getNodeName();
+    return this.type.getNodeName();
+  }
+
+  @Override
+  public String getInformation() {
+    return String.format("%s::%s", this.getIdentifier(), this.getType());
+  }
+
+  @Override
+  public void prepareInternalInfo() {
+    this.type = ((ASTType) children[0]);
   }
 }
 /*

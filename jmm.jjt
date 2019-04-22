@@ -1,13 +1,10 @@
 options {
     MULTI=true;
     LOOKAHEAD=1;
-    NODE_SCOPE_HOOK=true;
     STATIC=false;
 }
 
 PARSER_BEGIN(JMMParser)
-
-import java.util.Stack;
 
 public class JMMParser {
     public static int n_errors = 0;
@@ -15,16 +12,10 @@ public class JMMParser {
     public static void main(String args[]) throws ParseException {
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
-        // root.dump("");
+        root.dump("");
+        System.out.println("\n--------\n");
+        root.createSymbolTables();
         root.dumpSymbolTable("");
-    }
-
-    public void jjtreeOpenNodeScope(Node n) {
-        System.out.println("beep");
-    }
-
-    public void jjtreeCloseNodeScope(Node n) {
-        System.out.println("boop");
     }
 }
 
