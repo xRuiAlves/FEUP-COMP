@@ -16,6 +16,7 @@ public class JMMParser {
         System.out.println("\\\\-----------//");
         root.createSymbolTables();
         root.dumpSymbolTable("");
+        root.semanticAnalysis();
     }
 }
 

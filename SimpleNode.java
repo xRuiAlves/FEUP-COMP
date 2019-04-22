@@ -155,6 +155,30 @@ public class SimpleNode implements Node {
       }
     }
   }
+
+  /**
+   * Performs semantic analysis on the current node and calls it for all of its children
+   * Override applySemanticAnalysis in each node subclass to change the semantic analysis done in each node
+   */
+  public void semanticAnalysis() {
+    this.applySemanticAnalysis();
+
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode) children[i];
+        if (n != null) {
+          n.semanticAnalysis();
+        }
+      }
+    }
+  }
+
+  /**
+   * Applies semantic analysis to the current node. Override to change the semantic analysis behaviour for each node.
+   */
+  protected void applySemanticAnalysis() {
+
+  }
 }
 
 /*

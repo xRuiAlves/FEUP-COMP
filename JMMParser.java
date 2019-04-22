@@ -9,6 +9,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         System.out.println("\u005c\u005c\u005c\u005c-----------//");
         root.createSymbolTables();
         root.dumpSymbolTable("");
+        root.semanticAnalysis();
     }
 
   void recover_while_error() throws ParseException, ErrorLimitReached {
@@ -1246,11 +1247,6 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     finally { jj_save(0, xla); }
   }
 
-  private boolean jj_3_1() {
-    if (jj_3R_13()) return true;
-    return false;
-  }
-
   private boolean jj_3R_15() {
     if (jj_scan_token(TypeInt)) return true;
     Token xsp;
@@ -1285,6 +1281,11 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     if (jj_scan_token(41)) return true;
     }
     }
+    return false;
+  }
+
+  private boolean jj_3_1() {
+    if (jj_3R_13()) return true;
     return false;
   }
 
