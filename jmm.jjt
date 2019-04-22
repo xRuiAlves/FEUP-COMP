@@ -2,6 +2,7 @@ options {
     MULTI=true;
     LOOKAHEAD=1;
     STATIC=false;
+    NODE_SCOPE_HOOK=true;
 }
 
 PARSER_BEGIN(JMMParser)
@@ -17,6 +18,13 @@ public class JMMParser {
         root.createSymbolTables();
         root.dumpSymbolTable("");
         root.semanticAnalysis();
+    }
+
+    void jjtreeOpenNodeScope(Node n) {
+        ((SimpleNode)n).setLine(getToken(1).beginLine);
+    }
+
+    void jjtreeCloseNodeScope(Node n) {
     }
 }
 

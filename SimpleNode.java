@@ -6,10 +6,8 @@ public class SimpleNode implements Node {
   protected Node[] children;
   protected int id;
   protected JMMParser parser;
-  
-  // TODO: Remove??
   protected Object value;
-  protected boolean is_multiline = false;
+  protected int line;
 
   public SimpleNode(int i) {
     id = i;
@@ -81,6 +79,10 @@ public class SimpleNode implements Node {
    */
   public String getNodeName() {
     return JMMParserTreeConstants.jjtNodeName[id];
+  }
+
+  public void setLine(int line) {
+    this.line = line;
   }
 
   /*

@@ -12,11 +12,19 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         root.semanticAnalysis();
     }
 
+    void jjtreeOpenNodeScope(Node n) {
+        ((SimpleNode)n).setLine(getToken(1).beginLine);
+    }
+
+    void jjtreeCloseNodeScope(Node n) {
+    }
+
   void recover_while_error() throws ParseException, ErrorLimitReached {
                                                      /*@bgen(jjtree) recover_while_error */
  ASTrecover_while_error jjtn000 = new ASTrecover_while_error(JJTRECOVER_WHILE_ERROR);
  boolean jjtc000 = true;
  jjtree.openNodeScope(jjtn000);
+ jjtreeOpenNodeScope(jjtn000);
  try {if (JMMParser.n_errors >= 10) {
         throw new ErrorLimitReached();
     }
@@ -55,6 +63,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
  } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
+     jjtreeCloseNodeScope(jjtn000);
    }
  }
   }
@@ -64,11 +73,13 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
   ASTProgram jjtn000 = new ASTProgram(JJTPROGRAM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
+  jjtreeOpenNodeScope(jjtn000);
     try {
       ClassDeclaration();
       jj_consume_token(0);
       jjtree.closeNodeScope(jjtn000, true);
       jjtc000 = false;
+      jjtreeCloseNodeScope(jjtn000);
       {if (true) return jjtn000;}
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -87,6 +98,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
     throw new Error("Missing return statement in function");
@@ -96,13 +108,15 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                          /*@bgen(jjtree) VarDeclaration */
                          ASTVarDeclaration jjtn000 = new ASTVarDeclaration(JJTVARDECLARATION);
                          boolean jjtc000 = true;
-                         jjtree.openNodeScope(jjtn000);Token t_name;
+                         jjtree.openNodeScope(jjtn000);
+                         jjtreeOpenNodeScope(jjtn000);Token t_name;
     try {
       Type();
       t_name = jj_consume_token(Identifier);
       jj_consume_token(Semicolon);
       jjtree.closeNodeScope(jjtn000, true);
       jjtc000 = false;
+      jjtreeCloseNodeScope(jjtn000);
         jjtn000.identifier = t_name.image;
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -121,6 +135,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -129,7 +144,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                            /*@bgen(jjtree) ClassDeclaration */
                            ASTClassDeclaration jjtn000 = new ASTClassDeclaration(JJTCLASSDECLARATION);
                            boolean jjtc000 = true;
-                           jjtree.openNodeScope(jjtn000);Token t_name;
+                           jjtree.openNodeScope(jjtn000);
+                           jjtreeOpenNodeScope(jjtn000);Token t_name;
     try {
       jj_consume_token(Class);
       t_name = jj_consume_token(Identifier);
@@ -162,6 +178,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -170,16 +187,19 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                               /*@bgen(jjtree) ClassGeneralization */
                               ASTClassGeneralization jjtn000 = new ASTClassGeneralization(JJTCLASSGENERALIZATION);
                               boolean jjtc000 = true;
-                              jjtree.openNodeScope(jjtn000);Token t_name;
+                              jjtree.openNodeScope(jjtn000);
+                              jjtreeOpenNodeScope(jjtn000);Token t_name;
     try {
       jj_consume_token(Generalization);
       t_name = jj_consume_token(Identifier);
       jjtree.closeNodeScope(jjtn000, true);
       jjtc000 = false;
+      jjtreeCloseNodeScope(jjtn000);
         jjtn000.name = t_name.image;
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -189,6 +209,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
        ASTClassFields jjtn001 = new ASTClassFields(JJTCLASSFIELDS);
        boolean jjtc001 = true;
        jjtree.openNodeScope(jjtn001);
+       jjtreeOpenNodeScope(jjtn001);
     try {
       label_1:
       while (true) {
@@ -222,11 +243,13 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
        if (jjtc001) {
          jjtree.closeNodeScope(jjtn001,  n_fields);
+         jjtreeCloseNodeScope(jjtn001);
        }
     }
        ASTClassMethods jjtn002 = new ASTClassMethods(JJTCLASSMETHODS);
        boolean jjtc002 = true;
        jjtree.openNodeScope(jjtn002);
+       jjtreeOpenNodeScope(jjtn002);
     try {
       label_2:
       while (true) {
@@ -273,6 +296,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
        if (jjtc002) {
          jjtree.closeNodeScope(jjtn002,  n_methods);
+         jjtreeCloseNodeScope(jjtn002);
        }
     }
   }
@@ -281,7 +305,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                /*@bgen(jjtree) Type */
                ASTType jjtn000 = new ASTType(JJTTYPE);
                boolean jjtc000 = true;
-               jjtree.openNodeScope(jjtn000);Token t_type; boolean is_array = false;
+               jjtree.openNodeScope(jjtn000);
+               jjtreeOpenNodeScope(jjtn000);Token t_type; boolean is_array = false;
     try {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case TypeInt:
@@ -309,6 +334,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       }
       jjtree.closeNodeScope(jjtn000, true);
       jjtc000 = false;
+      jjtreeCloseNodeScope(jjtn000);
         jjtn000.type = t_type.image;
         jjtn000.isArray = is_array;
     } catch (Throwable jjte000) {
@@ -328,6 +354,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -341,7 +368,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                           /*@bgen(jjtree) MainDeclaration */
                           ASTMainDeclaration jjtn000 = new ASTMainDeclaration(JJTMAINDECLARATION);
                           boolean jjtc000 = true;
-                          jjtree.openNodeScope(jjtn000);Token t_arg_name;
+                          jjtree.openNodeScope(jjtn000);
+                          jjtreeOpenNodeScope(jjtn000);Token t_arg_name;
     try {
       jj_consume_token(Static);
       jj_consume_token(Void);
@@ -372,6 +400,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -380,7 +409,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                             /*@bgen(jjtree) MethodDeclaration */
                             ASTMethodDeclaration jjtn000 = new ASTMethodDeclaration(JJTMETHODDECLARATION);
                             boolean jjtc000 = true;
-                            jjtree.openNodeScope(jjtn000);Token t_name;
+                            jjtree.openNodeScope(jjtn000);
+                            jjtreeOpenNodeScope(jjtn000);Token t_name;
     try {
       Type();
       t_name = jj_consume_token(Identifier);
@@ -403,6 +433,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                     ASTReturn jjtn001 = new ASTReturn(JJTRETURN);
                     boolean jjtc001 = true;
                     jjtree.openNodeScope(jjtn001);
+                    jjtreeOpenNodeScope(jjtn001);
       try {
         Expression();
       } catch (Throwable jjte001) {
@@ -422,6 +453,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       } finally {
                     if (jjtc001) {
                       jjtree.closeNodeScope(jjtn001,  1);
+                      jjtreeCloseNodeScope(jjtn001);
                     }
       }
       jj_consume_token(Semicolon);
@@ -443,6 +475,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -485,20 +518,24 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                            /*@bgen(jjtree) MethodParameters */
                             ASTMethodParameters jjtn000 = new ASTMethodParameters(JJTMETHODPARAMETERS);
                             boolean jjtc000 = true;
-                            jjtree.openNodeScope(jjtn000);Token t_parameter_name;
+                            jjtree.openNodeScope(jjtn000);
+                            jjtreeOpenNodeScope(jjtn000);Token t_parameter_name;
     try {
       Type();
       t_parameter_name = jj_consume_token(Identifier);
                                        ASTMethodParameter jjtn001 = new ASTMethodParameter(JJTMETHODPARAMETER);
                                        boolean jjtc001 = true;
                                        jjtree.openNodeScope(jjtn001);
+                                       jjtreeOpenNodeScope(jjtn001);
       try {
                                        jjtree.closeNodeScope(jjtn001,  1);
                                        jjtc001 = false;
+                                       jjtreeCloseNodeScope(jjtn001);
                                       jjtn001.name = t_parameter_name.image;
       } finally {
                                        if (jjtc001) {
                                          jjtree.closeNodeScope(jjtn001,  1);
+                                         jjtreeCloseNodeScope(jjtn001);
                                        }
       }
       label_5:
@@ -517,13 +554,16 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                            ASTMethodParameter jjtn002 = new ASTMethodParameter(JJTMETHODPARAMETER);
                                            boolean jjtc002 = true;
                                            jjtree.openNodeScope(jjtn002);
+                                           jjtreeOpenNodeScope(jjtn002);
         try {
                                            jjtree.closeNodeScope(jjtn002,  1);
                                            jjtc002 = false;
+                                           jjtreeCloseNodeScope(jjtn002);
                                           jjtn002.name = t_parameter_name.image;
         } finally {
                                            if (jjtc002) {
                                              jjtree.closeNodeScope(jjtn002,  1);
+                                             jjtreeCloseNodeScope(jjtn002);
                                            }
         }
       }
@@ -544,6 +584,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -613,6 +654,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
   ASTIfStatement jjtn000 = new ASTIfStatement(JJTIFSTATEMENT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
+  jjtreeOpenNodeScope(jjtn000);
     try {
       jj_consume_token(If);
       jj_consume_token(ParenthesisStart);
@@ -621,6 +663,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
            ASTIfBody jjtn001 = new ASTIfBody(JJTIFBODY);
            boolean jjtc001 = true;
            jjtree.openNodeScope(jjtn001);
+           jjtreeOpenNodeScope(jjtn001);
       try {
         Statement();
       } catch (Throwable jjte001) {
@@ -640,12 +683,14 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       } finally {
            if (jjtc001) {
              jjtree.closeNodeScope(jjtn001, true);
+             jjtreeCloseNodeScope(jjtn001);
            }
       }
       jj_consume_token(Else);
            ASTElseBody jjtn002 = new ASTElseBody(JJTELSEBODY);
            boolean jjtc002 = true;
            jjtree.openNodeScope(jjtn002);
+           jjtreeOpenNodeScope(jjtn002);
       try {
         Statement();
       } catch (Throwable jjte002) {
@@ -665,6 +710,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       } finally {
            if (jjtc002) {
              jjtree.closeNodeScope(jjtn002, true);
+             jjtreeCloseNodeScope(jjtn002);
            }
       }
     } catch (Throwable jjte000) {
@@ -684,6 +730,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -693,6 +740,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
   ASTWhileStatement jjtn000 = new ASTWhileStatement(JJTWHILESTATEMENT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
+  jjtreeOpenNodeScope(jjtn000);
     try {
       jj_consume_token(While);
       jj_consume_token(ParenthesisStart);
@@ -705,6 +753,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
        ASTWhileBody jjtn001 = new ASTWhileBody(JJTWHILEBODY);
        boolean jjtc001 = true;
        jjtree.openNodeScope(jjtn001);
+       jjtreeOpenNodeScope(jjtn001);
       try {
         Statement();
       } catch (Throwable jjte001) {
@@ -724,6 +773,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       } finally {
        if (jjtc001) {
          jjtree.closeNodeScope(jjtn001, true);
+         jjtreeCloseNodeScope(jjtn001);
        }
       }
     } catch (Throwable jjte000) {
@@ -743,6 +793,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -752,6 +803,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                 ASTAssignmentStatement jjtn001 = new ASTAssignmentStatement(JJTASSIGNMENTSTATEMENT);
                 boolean jjtc001 = true;
                 jjtree.openNodeScope(jjtn001);
+                jjtreeOpenNodeScope(jjtn001);
     try {
       Expression();
     } catch (Throwable jjte001) {
@@ -771,6 +823,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
                 if (jjtc001) {
                   jjtree.closeNodeScope(jjtn001,  2);
+                  jjtreeCloseNodeScope(jjtn001);
                 }
     }
   }
@@ -795,6 +848,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                     ASTAndExpression jjtn001 = new ASTAndExpression(JJTANDEXPRESSION);
                                     boolean jjtc001 = true;
                                     jjtree.openNodeScope(jjtn001);
+                                    jjtreeOpenNodeScope(jjtn001);
       try {
         LessThanExpression();
       } catch (Throwable jjte001) {
@@ -814,6 +868,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       } finally {
                                     if (jjtc001) {
                                       jjtree.closeNodeScope(jjtn001,  2);
+                                      jjtreeCloseNodeScope(jjtn001);
                                     }
       }
     }
@@ -835,6 +890,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                        ASTLessThanExpression jjtn001 = new ASTLessThanExpression(JJTLESSTHANEXPRESSION);
                                        boolean jjtc001 = true;
                                        jjtree.openNodeScope(jjtn001);
+                                       jjtreeOpenNodeScope(jjtn001);
       try {
         AddSubExpression();
       } catch (Throwable jjte001) {
@@ -854,6 +910,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       } finally {
                                        if (jjtc001) {
                                          jjtree.closeNodeScope(jjtn001,  2);
+                                         jjtreeCloseNodeScope(jjtn001);
                                        }
       }
     }
@@ -877,13 +934,16 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                                                       ASTArithmeticExpression jjtn001 = new ASTArithmeticExpression(JJTARITHMETICEXPRESSION);
                                                                       boolean jjtc001 = true;
                                                                       jjtree.openNodeScope(jjtn001);
+                                                                      jjtreeOpenNodeScope(jjtn001);
       try {
                                                                       jjtree.closeNodeScope(jjtn001,  2);
                                                                       jjtc001 = false;
+                                                                      jjtreeCloseNodeScope(jjtn001);
                                                                      jjtn001.operation = t_op_type.image;
       } finally {
                                                                       if (jjtc001) {
                                                                         jjtree.closeNodeScope(jjtn001,  2);
+                                                                        jjtreeCloseNodeScope(jjtn001);
                                                                       }
       }
     }
@@ -907,13 +967,16 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                                                ASTArithmeticExpression jjtn001 = new ASTArithmeticExpression(JJTARITHMETICEXPRESSION);
                                                                boolean jjtc001 = true;
                                                                jjtree.openNodeScope(jjtn001);
+                                                               jjtreeOpenNodeScope(jjtn001);
       try {
                                                                jjtree.closeNodeScope(jjtn001,  2);
                                                                jjtc001 = false;
+                                                               jjtreeCloseNodeScope(jjtn001);
                                                               jjtn001.operation = t_op_type.image;
       } finally {
                                                                if (jjtc001) {
                                                                  jjtree.closeNodeScope(jjtn001,  2);
+                                                                 jjtreeCloseNodeScope(jjtn001);
                                                                }
       }
     }
@@ -926,6 +989,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                ASTNotExpression jjtn001 = new ASTNotExpression(JJTNOTEXPRESSION);
                boolean jjtc001 = true;
                jjtree.openNodeScope(jjtn001);
+               jjtreeOpenNodeScope(jjtn001);
       try {
         NotExpression();
       } catch (Throwable jjte001) {
@@ -945,6 +1009,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       } finally {
                if (jjtc001) {
                  jjtree.closeNodeScope(jjtn001, true);
+                 jjtreeCloseNodeScope(jjtn001);
                }
       }
       break;
@@ -998,11 +1063,13 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                  ASTArrayAccessExpression jjtn001 = new ASTArrayAccessExpression(JJTARRAYACCESSEXPRESSION);
                                  boolean jjtc001 = true;
                                  jjtree.openNodeScope(jjtn001);
+                                 jjtreeOpenNodeScope(jjtn001);
     try {
       jj_consume_token(ArrayEnd);
     } finally {
                                  if (jjtc001) {
                                    jjtree.closeNodeScope(jjtn001,  2);
+                                   jjtreeCloseNodeScope(jjtn001);
                                  }
     }
   }
@@ -1012,6 +1079,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                ASTDotExpression jjtn001 = new ASTDotExpression(JJTDOTEXPRESSION);
                boolean jjtc001 = true;
                jjtree.openNodeScope(jjtn001);
+               jjtreeOpenNodeScope(jjtn001);
     try {
       RhsAccessExpression();
     } catch (Throwable jjte001) {
@@ -1031,6 +1099,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     } finally {
                if (jjtc001) {
                  jjtree.closeNodeScope(jjtn001,  2);
+                 jjtreeCloseNodeScope(jjtn001);
                }
     }
   }
@@ -1042,11 +1111,13 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         ASTLength jjtn001 = new ASTLength(JJTLENGTH);
         boolean jjtc001 = true;
         jjtree.openNodeScope(jjtn001);
+        jjtreeOpenNodeScope(jjtn001);
       try {
         jj_consume_token(Length);
       } finally {
         if (jjtc001) {
           jjtree.closeNodeScope(jjtn001, true);
+          jjtreeCloseNodeScope(jjtn001);
         }
       }
       break;
@@ -1072,13 +1143,16 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                                                                                                ASTMethodCall jjtn002 = new ASTMethodCall(JJTMETHODCALL);
                                                                                                                boolean jjtc002 = true;
                                                                                                                jjtree.openNodeScope(jjtn002);
+                                                                                                               jjtreeOpenNodeScope(jjtn002);
       try {
                                                                                                                jjtree.closeNodeScope(jjtn002,  n_arguments);
                                                                                                                jjtc002 = false;
+                                                                                                               jjtreeCloseNodeScope(jjtn002);
                                                                                                                jjtn002.identifier = t_method_call_id.image;
       } finally {
                                                                                                                if (jjtc002) {
                                                                                                                  jjtree.closeNodeScope(jjtn002,  n_arguments);
+                                                                                                                 jjtreeCloseNodeScope(jjtn002);
                                                                                                                }
       }
       break;
@@ -1137,7 +1211,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                    /*@bgen(jjtree) SimpleExpressionTerminal */
                                    ASTSimpleExpressionTerminal jjtn000 = new ASTSimpleExpressionTerminal(JJTSIMPLEEXPRESSIONTERMINAL);
                                    boolean jjtc000 = true;
-                                   jjtree.openNodeScope(jjtn000);Token t_value;
+                                   jjtree.openNodeScope(jjtn000);
+                                   jjtreeOpenNodeScope(jjtn000);Token t_value;
     try {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case IntegerLiteral:
@@ -1162,10 +1237,12 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       }
       jjtree.closeNodeScope(jjtn000, true);
       jjtc000 = false;
+      jjtreeCloseNodeScope(jjtn000);
      jjtn000.value = t_value.image;
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtreeCloseNodeScope(jjtn000);
       }
     }
   }
@@ -1180,24 +1257,29 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                     ASTType jjtn001 = new ASTType(JJTTYPE);
                                     boolean jjtc001 = true;
                                     jjtree.openNodeScope(jjtn001);
+                                    jjtreeOpenNodeScope(jjtn001);
       try {
                                     jjtree.closeNodeScope(jjtn001, true);
                                     jjtc001 = false;
+                                    jjtreeCloseNodeScope(jjtn001);
                                    jjtn001.type = "int"; jjtn001.isArray = true;
       } finally {
                                     if (jjtc001) {
                                       jjtree.closeNodeScope(jjtn001, true);
+                                      jjtreeCloseNodeScope(jjtn001);
                                     }
       }
       Expression();
                                                                                                       ASTNewExpression jjtn002 = new ASTNewExpression(JJTNEWEXPRESSION);
                                                                                                       boolean jjtc002 = true;
                                                                                                       jjtree.openNodeScope(jjtn002);
+                                                                                                      jjtreeOpenNodeScope(jjtn002);
       try {
         jj_consume_token(ArrayEnd);
       } finally {
                                                                                                       if (jjtc002) {
                                                                                                         jjtree.closeNodeScope(jjtn002,  2);
+                                                                                                        jjtreeCloseNodeScope(jjtn002);
                                                                                                       }
       }
       break;
@@ -1206,24 +1288,29 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                                    ASTType jjtn003 = new ASTType(JJTTYPE);
                                    boolean jjtc003 = true;
                                    jjtree.openNodeScope(jjtn003);
+                                   jjtreeOpenNodeScope(jjtn003);
       try {
                                    jjtree.closeNodeScope(jjtn003, true);
                                    jjtc003 = false;
+                                   jjtreeCloseNodeScope(jjtn003);
                                   jjtn003.type = t_type.image; jjtn003.isArray = false;
       } finally {
                                    if (jjtc003) {
                                      jjtree.closeNodeScope(jjtn003, true);
+                                     jjtreeCloseNodeScope(jjtn003);
                                    }
       }
       jj_consume_token(ParenthesisStart);
                                                                                                                    ASTNewExpression jjtn004 = new ASTNewExpression(JJTNEWEXPRESSION);
                                                                                                                    boolean jjtc004 = true;
                                                                                                                    jjtree.openNodeScope(jjtn004);
+                                                                                                                   jjtreeOpenNodeScope(jjtn004);
       try {
         jj_consume_token(ParenthesisEnd);
       } finally {
                                                                                                                    if (jjtc004) {
                                                                                                                      jjtree.closeNodeScope(jjtn004,  1);
+                                                                                                                     jjtreeCloseNodeScope(jjtn004);
                                                                                                                    }
       }
       break;
@@ -1247,25 +1334,6 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     finally { jj_save(0, xla); }
   }
 
-  private boolean jj_3R_15() {
-    if (jj_scan_token(TypeInt)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_16()) jj_scanpos = xsp;
-    return false;
-  }
-
-  private boolean jj_3R_13() {
-    if (jj_3R_14()) return true;
-    if (jj_scan_token(Identifier)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    if (jj_3R_17()) return true;
-    return false;
-  }
-
   private boolean jj_3R_17() {
     if (jj_scan_token(ArrayStart)) return true;
     return false;
@@ -1286,6 +1354,25 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
   private boolean jj_3_1() {
     if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
+    if (jj_scan_token(TypeInt)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_16()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3R_13() {
+    if (jj_3R_14()) return true;
+    if (jj_scan_token(Identifier)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    if (jj_3R_17()) return true;
     return false;
   }
 
