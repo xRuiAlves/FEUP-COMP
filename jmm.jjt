@@ -297,7 +297,7 @@ void ExpressionTerminals() #void : {Token t_value;} {
 }
 
 void SimpleExpressionTerminal() #void : {Token t_value;} {
-    (t_value = <IntegerLiteral>{jjtThis.value = t_value.image;} #IntegerLiteral
+    (t_value = <IntegerLiteral>{jjtThis.value = t_value.image;}#IntegerLiteral
     | t_value = <True>  {jjtThis.value = t_value.image;}#Boolean
     | t_value = <False> {jjtThis.value = t_value.image;}#Boolean
     | t_value = <Identifier> {jjtThis.value = t_value.image;}#Identifier

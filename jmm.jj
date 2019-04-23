@@ -1090,7 +1090,7 @@ void SimpleExpressionTerminal()       : {Token t_value;} {
                                    jjtreeCloseNodeScope(jjtn001);
                                  }
                                }
-/*@egen*/                
+/*@egen*/               
     | t_value = <True>/*@bgen(jjtree) Boolean */
                         {
                           ASTBoolean jjtn002 = new ASTBoolean(JJTBOOLEAN);

@@ -18,12 +18,19 @@ class ASTDotExpression extends SimpleNode {
   @Override
   protected void applySemanticAnalysis() throws SemanticError {
     if (!(children[0] instanceof ASTIdentifier || children[0] instanceof ASTNewExpression || children[0] instanceof ASTThis)) {
-      throw new SemanticError(this.line, "Dot operator used on a non-simple expression terminal!");
+      throw new SemanticError(this.line, "Left hand side of dot operator is not an Identifier, new Expression or 'this'!");
     }
 
     if (children[0] instanceof ASTIdentifier) {
       String identifier = ((SimpleNode) children[0]).getNodeName();
       Variable v = SymbolTableScopes.getInstance().isDeclared(this.scope_identifier, identifier);
+      if (v == null) {
+        throw new SemanticError(this.line, String.format("Dot operator used on undeclared variable '%s'!\n", identifier));
+      }
+
+      // TODO: Verify the type of the variable
+
+      // TODO: Verify the method call
     }
   }
 }

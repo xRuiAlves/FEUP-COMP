@@ -1,0 +1,9 @@
+class X {
+    public static void main(String[] args) {
+        X obj;
+
+        this.test();
+        // a.test();
+        obj.method(1, 2, 3);
+    }
+}
