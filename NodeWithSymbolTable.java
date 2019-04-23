@@ -6,7 +6,7 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
   
     // Cannot map name to node because the node does not yet have a name when the node scope is opened
     // Possible solution for later: add the nodes to a Set symbol table like here and then, when preparing for semantic verification, build the Map instead (the nodes will have a name by then)
-    protected HashMap<String, DeclarationNode> symbol_table = new HashMap<>();
+    protected HashMap<String, Variable> symbol_table = new HashMap<>();
   
     public NodeWithSymbolTable(int id) {
       super(id);
@@ -19,8 +19,8 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
     @Override
     protected void displaySymbolTable(String prefix) {
         System.out.printf("%sScope of %s:\n%s  Elements (%d):\n", prefix, this.name, prefix, this.symbol_table.size());
-        for (Map.Entry<String, DeclarationNode> item : this.symbol_table.entrySet()) {
-          System.out.println(prefix + "    " + item.getValue().getInformation());
+        for (Map.Entry<String, Variable> item : this.symbol_table.entrySet()) {
+          System.out.println(prefix + "    " + item.getValue());
         }
     }
   
@@ -37,11 +37,16 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
 
     protected abstract void buildSymbolTable();
 
-    protected void registerInSymbolTable(Object o) {
-      if (o instanceof DeclarationNode) {
-        DeclarationNode casted = (DeclarationNode) o;
+    protected void registerInSymbolTable(Variable v) {
+      this.symbol_table.put(v.getIdentifier().toString(), v);
+    }
+
+    protected void registerInSymbolTable(Node n) {
+      if (n instanceof DeclarationNode) {
+        DeclarationNode casted = (DeclarationNode) n;
         casted.prepareInternalInfo();
-        this.symbol_table.put(casted.getIdentifier(), casted);
+        Variable node_variable = casted.toVariable();
+        this.symbol_table.put(node_variable.getIdentifier().toString(), node_variable);
       }
     }
   }

@@ -7,8 +7,9 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
     super(id);
     // So that it can be used in the superclass
     this.name = "main";
-    // The return value of main is always the same
+    // The return value and identifier of main is always the same
     this.ret = new VariableType("void");
+    this.identifier = new VariableIdentifier(this.name);
   }
 
   public ASTMainDeclaration(JMMParser p, int id) {
@@ -17,6 +18,7 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
     this.name = "main";
     // The return value of main is always the same
     this.ret = new VariableType("void");
+    this.identifier = new VariableIdentifier(this.name);
   }
 
   @Override

@@ -1,6 +1,7 @@
 public abstract class MethodDeclarationNode extends NodeWithSymbolTable implements DeclarationNode {
   // protected String name; // Declared in superclass for access
   protected VariableType ret;
+  protected VariableIdentifier identifier;
   protected Variable[] params;
 
   public MethodDeclarationNode(int id) {
@@ -16,40 +17,8 @@ public abstract class MethodDeclarationNode extends NodeWithSymbolTable implemen
     return "declaration: " + this.name + "()";
   }
 
-  @Override
-  public String getIdentifier() {
-    return this.name;
-  }
-
-  @Override
-  public String getType() {
-    return "function";
-  }
-
-  @Override
-  public String getInformation() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(this.getIdentifier()).append("::").append(this.getType());
-    sb.append(" - ").append(" return: ").append(this.getReturn());
-    sb.append(" ; params: [");
-    Variable[] params = this.getParameters();
-    if (params != null && params.length > 0) {
-        sb.append(params[0]);
-        for (int i = 1; i < params.length; ++i) {
-            sb.append(", ").append(params[i]);
-        }
-    }
-    sb.append("]");
-
-    return sb.toString();
-  }
-
-  public Variable[] getParameters() {
-    return this.params;
-  }
-
-  public VariableType getReturn() {
-    return this.ret;
+  public Variable toVariable() {
+    return new Method(identifier, ret, params);
   }
 }
 /* JavaCC - OriginalChecksum=3d0bb6bccafce97c55dc7c526183eb43 (do not edit this line) */

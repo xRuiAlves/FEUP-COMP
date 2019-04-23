@@ -5,6 +5,11 @@ class Worker extends Person {
     public static void main(String[] args) {
         Worker p;
         int a;
+        int[] arr;
+
+        arr[2];
+
+        arr[true];
 
         2 + 3 * 4;
 

@@ -33,6 +33,8 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
 
   @Override
   public void prepareInternalInfo() {
+    this.identifier = new VariableIdentifier(this.name);
+
     // All are non-optional (ensured by the grammar)
 
     // 0 - return type (ASTType)
