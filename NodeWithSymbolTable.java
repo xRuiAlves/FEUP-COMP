@@ -37,6 +37,8 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
 
     protected abstract void buildSymbolTable();
 
+    protected abstract String getScopeIdentifier();
+
     protected void registerInSymbolTable(Variable v) {
       this.symbol_table.put(v.getIdentifier().toString(), v);
     }
@@ -45,8 +47,15 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
       if (n instanceof DeclarationNode) {
         DeclarationNode casted = (DeclarationNode) n;
         casted.prepareInternalInfo();
+        casted.setScopeIdentifier(this.getScopeIdentifier());
         Variable node_variable = casted.toVariable();
-        this.symbol_table.put(node_variable.getIdentifier().toString(), node_variable);
+        if (casted instanceof MethodDeclarationNode) {
+          MethodDeclarationNode method = (MethodDeclarationNode) casted;
+          this.symbol_table.put(method.getScopeIdentifier(), node_variable);
+        } else {
+          this.symbol_table.put(node_variable.getIdentifier().toString(), node_variable);
+        }
       }
     }
+    
   }

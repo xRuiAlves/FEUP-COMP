@@ -178,7 +178,7 @@ public class SimpleNode implements Node {
   /**
    * Applies semantic analysis to the current node. Override to change the semantic analysis behaviour for each node.
    */
-  protected void applySemanticAnalysis() {
+  protected void applySemanticAnalysis() throws SemanticError {
 
   }
 }

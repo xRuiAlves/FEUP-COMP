@@ -296,14 +296,12 @@ void ExpressionTerminals() #void : {Token t_value;} {
     | ParenthesisExpression()
 }
 
-void SimpleExpressionTerminal() : {Token t_value;} {
-    (t_value = <IntegerLiteral>
-    | t_value = <True>
-    | t_value = <False>
-    | t_value = <Identifier>
-    | t_value = <This>)
-
-    {jjtThis.value = t_value.image;}
+void SimpleExpressionTerminal() #void : {Token t_value;} {
+    (t_value = <IntegerLiteral>{jjtThis.value = t_value.image;} #IntegerLiteral
+    | t_value = <True>  {jjtThis.value = t_value.image;}#Boolean
+    | t_value = <False> {jjtThis.value = t_value.image;}#Boolean
+    | t_value = <Identifier> {jjtThis.value = t_value.image;}#Identifier
+    | t_value = <This> #This)
 }
 
 void NewExpression() #void : {Token t_type;} {

@@ -2,7 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public class ASTVarDeclaration extends SimpleNode implements DeclarationNode {
   protected String identifier;
+  protected String scope_identifier;
   private VariableType type;
+
 
   public ASTVarDeclaration(int id) {
     super(id);
@@ -25,6 +27,11 @@ public class ASTVarDeclaration extends SimpleNode implements DeclarationNode {
   @Override
   public Variable toVariable() {
     return new Variable(type, new VariableIdentifier(identifier));
+  }
+
+  @Override
+  public void setScopeIdentifier(String scope_identifier) {
+    this.scope_identifier = scope_identifier;
   }
 }
 /*

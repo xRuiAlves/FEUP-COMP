@@ -29,8 +29,11 @@ public interface JMMParserTreeConstants
   public int JJTDOTEXPRESSION = 25;
   public int JJTLENGTH = 26;
   public int JJTMETHODCALL = 27;
-  public int JJTSIMPLEEXPRESSIONTERMINAL = 28;
-  public int JJTNEWEXPRESSION = 29;
+  public int JJTINTEGERLITERAL = 28;
+  public int JJTBOOLEAN = 29;
+  public int JJTIDENTIFIER = 30;
+  public int JJTTHIS = 31;
+  public int JJTNEWEXPRESSION = 32;
 
 
   public String[] jjtNodeName = {
@@ -62,8 +65,11 @@ public interface JMMParserTreeConstants
     "DotExpression",
     "Length",
     "MethodCall",
-    "SimpleExpressionTerminal",
+    "IntegerLiteral",
+    "Boolean",
+    "Identifier",
+    "This",
     "NewExpression",
   };
 }
-/* JavaCC - OriginalChecksum=df0a37c492a93a5d16fe188a3b079cda (do not edit this line) */
+/* JavaCC - OriginalChecksum=a343a5d88dbbb9bd096b1f904ee328ad (do not edit this line) */

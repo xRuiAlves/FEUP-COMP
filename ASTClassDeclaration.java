@@ -52,6 +52,13 @@ public class ASTClassDeclaration extends NodeWithSymbolTable {
     for (int i = 0; i < n_methods; ++i) {
       this.registerInSymbolTable(methods.jjtGetChild(i));
     }
+
+    SymbolTableScopes.getInstance().setGlobalScope(this.symbol_table);
+  }
+
+  @Override
+  protected String getScopeIdentifier() {
+    return null;
   }
 }
 /*

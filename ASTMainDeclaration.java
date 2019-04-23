@@ -37,6 +37,8 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
         break;
       }
     }
+
+    SymbolTableScopes.getInstance().addMethodScope(this.getScopeIdentifier(), this.line, this.symbol_table);
   }
 
   @Override

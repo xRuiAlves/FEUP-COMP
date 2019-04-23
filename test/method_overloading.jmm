@@ -1,0 +1,17 @@
+class X {
+    public static void main(String[] args) {
+        int teste;
+    }
+
+    public int getInfo(int var) {
+        int b2;
+
+        return desepsero;
+    }
+    
+    public int[] getInfo(boolean b, ClassCoise c, int[] x) {
+        int b1;
+
+        return teste1111;
+    }
+}

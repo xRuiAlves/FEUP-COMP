@@ -16,20 +16,14 @@ class ASTDotExpression extends SimpleNode {
   }
 
   @Override
-  protected void applySemanticAnalysis() {
-    if (!(children[0] instanceof ASTSimpleExpressionTerminal)) {
-      System.out.printf("Error in line %d -> dot operator used on a non-simple expression terminal!\n", this.line);
-      return;
+  protected void applySemanticAnalysis() throws SemanticError {
+    if (!(children[0] instanceof ASTIdentifier || children[0] instanceof ASTNewExpression || children[0] instanceof ASTThis)) {
+      throw new SemanticError(this.line, "Dot operator used on a non-simple expression terminal!");
     }
 
-    final SimpleNode lhs = (SimpleNode) children[0];
+    if (children[0] instanceof ASTIdentifier) {
+      String identifier = ((SimpleNode) children[0]).getNodeName();
 
-    // TODO: Make this less ugly
-    final String lhs_str = lhs.getNodeName();
-    // the other possible values are either an identifier or 'this' - ideally the condition would be inverted but identifiers are unpredictable unless regex is used
-    // other than that, a different type of node should be created ideally, which would avoid this as it would be solved with one or two instanceof(s)
-    if (lhs_str == "true" || lhs_str == "false" || lhs_str.matches("-?\\d+")) {
-      System.out.printf("Error in line %d -> dot operator used on a non-identifier expression '%s'\n", this.line, lhs_str);
     }
   }
 }
