@@ -16,6 +16,10 @@ public class ASTClassDeclaration extends NodeWithSymbolTable {
     return "class " + this.name;
   }
 
+  public String getClassName() {
+    return this.name;
+  }
+
   @Override
   protected void buildSymbolTable() {
     // Verifications have to be done for the existence of each node because all of them are optional

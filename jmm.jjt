@@ -20,11 +20,16 @@ public class JMMParser {
         root.semanticAnalysis();
     }
 
+    public String class_name;
+
     void jjtreeOpenNodeScope(Node n) {
         ((SimpleNode)n).setLine(getToken(1).beginLine);
     }
 
     void jjtreeCloseNodeScope(Node n) {
+        if (n instanceof ASTClassDeclaration) {
+            this.class_name = ((ASTClassDeclaration) n).getClassName();
+        }
     }
 }
 
