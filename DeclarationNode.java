@@ -4,7 +4,5 @@ public interface DeclarationNode {
 
     // So that the node gets and stores the relevant information for later on printing (type, return type, arguments, etc)
     public void prepareInternalInfo();
-
-    public void setScopeIdentifier(String scope_identifier);
 }
           

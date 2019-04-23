@@ -23,7 +23,7 @@ class ASTDotExpression extends SimpleNode {
 
     if (children[0] instanceof ASTIdentifier) {
       String identifier = ((SimpleNode) children[0]).getNodeName();
-
+      Variable v = SymbolTableScopes.getInstance().isDeclared(this.scope_identifier, identifier);
     }
   }
 }

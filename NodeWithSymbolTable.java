@@ -47,7 +47,6 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
       if (n instanceof DeclarationNode) {
         DeclarationNode casted = (DeclarationNode) n;
         casted.prepareInternalInfo();
-        casted.setScopeIdentifier(this.getScopeIdentifier());
         Variable node_variable = casted.toVariable();
         if (casted instanceof MethodDeclarationNode) {
           MethodDeclarationNode method = (MethodDeclarationNode) casted;

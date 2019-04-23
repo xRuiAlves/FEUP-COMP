@@ -127,6 +127,8 @@ public class SimpleNode implements Node {
     this.exploreChildrenSymbolTables(prefix + (this.hasSymbolTable() ? "  " : ""));
   }
 
+  protected String scope_identifier;
+
   public void createSymbolTables() {
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {

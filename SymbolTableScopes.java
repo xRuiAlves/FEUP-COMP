@@ -36,4 +36,17 @@ public final class SymbolTableScopes {
 
         this.method_scopes.put(method_identifier, symbol_table);
     }
+
+    /**
+     * 
+     * @return The declared variable or null if it does not exist
+     */
+    public Variable isDeclared(String local_scope, String identifier) {
+        Variable v = this.method_scopes.get(local_scope).get(identifier);
+        if (v != null) {
+            return v;
+        }
+
+        return this.global_symbol_table.get(identifier);
+    }
 }
