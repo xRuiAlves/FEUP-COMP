@@ -19,7 +19,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
         SimpleNode root = parser.Program();
         root.dump("");
         System.out.println("\\\\-----------//");
-        root.createSymbolTables();
+        root.createSymbolTables("");
         root.dumpSymbolTable("");
         root.semanticAnalysis();
     }

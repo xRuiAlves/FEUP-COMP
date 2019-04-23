@@ -30,9 +30,9 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
     }
 
     @Override
-    public void createSymbolTables() {
+    public void createSymbolTables(String current_scope_identifier) {
       this.buildSymbolTable();
-      super.createSymbolTables();
+      super.createSymbolTables(current_scope_identifier);
     }
 
     protected abstract void buildSymbolTable();

@@ -129,12 +129,18 @@ public class SimpleNode implements Node {
 
   protected String scope_identifier;
 
-  public void createSymbolTables() {
+  public void createSymbolTables(String current_scope_identifier) {
+    this.scope_identifier = current_scope_identifier;
+    String new_scope_identifier = current_scope_identifier;
+    if (this instanceof NodeWithSymbolTable) {
+      new_scope_identifier = ((NodeWithSymbolTable) this).getScopeIdentifier();
+    }
+    
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode) children[i];
         if (n != null) {
-          n.createSymbolTables();
+          n.createSymbolTables(new_scope_identifier);
         }
       }
     }

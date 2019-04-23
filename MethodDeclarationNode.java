@@ -17,13 +17,9 @@ public abstract class MethodDeclarationNode extends NodeWithSymbolTable implemen
     return "declaration: " + this.name + "()";
   }
 
+  @Override
   public Variable toVariable() {
     return new Method(identifier, ret, params);
-  }
-
-  @Override
-  public void setScopeIdentifier(String scope_identifier) {
-    // ignored
   }
 
   @Override

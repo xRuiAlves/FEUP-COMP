@@ -15,7 +15,7 @@ public class JMMParser {
         SimpleNode root = parser.Program();
         root.dump("");
         System.out.println("\\\\-----------//");
-        root.createSymbolTables();
+        root.createSymbolTables("");
         root.dumpSymbolTable("");
         root.semanticAnalysis();
     }
