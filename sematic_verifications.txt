@@ -1,0 +1,6 @@
+-> Aridade de chamadas a funções
+-> Types dos args de chamadas a funções
+-> Tipo de retorno de funções
+-> Atribuições de Expressions
+-> Verificar se variável foi declarada
+-> 
