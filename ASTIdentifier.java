@@ -20,6 +20,14 @@ public class ASTIdentifier extends SimpleNode implements Typed {
   public VariableType getType() {
     return new VariableType(this.value);
   }
+
+  @Override
+  protected void applySemanticAnalysis() throws SemanticError {
+    Variable v = SymbolTableScopes.getInstance().isDeclared(this.scope_identifier, this.value);
+    if (v == null) {
+      throw new SemanticError(this.line, String.format("Using undeclared variable '%s'!\n", this.value));
+    }
+  }
 }
 /*
  * JavaCC - OriginalChecksum=534021caa2c544cea987828b4185652b (do not edit this
