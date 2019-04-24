@@ -14,5 +14,20 @@ class ASTAssignmentStatement extends SimpleNode {
   public String getNodeName() {
     return "=";
   }
+
+  @Override
+  protected void applySemanticAnalysis() throws SemanticError {
+    Node lhs_raw = children[0];
+    if (!(lhs_raw instanceof ASTIdentifier || lhs_raw instanceof ASTArrayAccessExpression)) {
+      throw new SemanticError(this.line, "Invalid left hand side of assignment (neither an identifier nor array access)");
+    }
+
+    VariableType lhs = ((Typed) lhs_raw).getType();
+    VariableType rhs = ((Typed) children[1]).getType();
+
+    if (!lhs.equals(rhs)) {
+      throw new SemanticError(this.line, String.format("Invalid assignment between types %s and %s", lhs, rhs));
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=f503663119aadd748782d6739471f263 (do not edit this line) */

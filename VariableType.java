@@ -42,7 +42,10 @@ public class VariableType {
     @Override
     public boolean equals(Object type) {
         return (type instanceof VariableType) &&
-            this.type.equals(((VariableType) type).type);
+            (
+                (this.type.equals(ignored_type) || ((VariableType) type).type.equals(ignored_type)) ||
+                this.type.equals(((VariableType) type).type)
+            );
     }
 
     @Override
