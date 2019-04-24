@@ -1,0 +1,13 @@
+class X {
+    public static void main(String[] args) {
+        int[] a;
+        int x;
+        boolean b;
+        
+        // 1[2];
+        // x[8];
+        // b[1];
+        
+        a[1];
+    }
+}
