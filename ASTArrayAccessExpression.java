@@ -14,5 +14,10 @@ class ASTArrayAccessExpression extends SimpleNode {
   public String getNodeName() {
     return "[]";
   }
+
+  @Override
+  protected void applySemanticAnalysis() throws SemanticError {
+    
+  }
 }
 /* JavaCC - OriginalChecksum=dec61186312bf09145e85ad0c72a13a7 (do not edit this line) */

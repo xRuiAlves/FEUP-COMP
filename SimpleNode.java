@@ -171,8 +171,6 @@ public class SimpleNode implements Node {
    * Override applySemanticAnalysis in each node subclass to change the semantic analysis done in each node
    */
   public void semanticAnalysis() {
-    this.applySemanticAnalysis();
-
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode) children[i];
@@ -181,10 +179,13 @@ public class SimpleNode implements Node {
         }
       }
     }
+
+    this.applySemanticAnalysis();
   }
 
   /**
    * Applies semantic analysis to the current node. Override to change the semantic analysis behaviour for each node.
+   * The nodes must calculate their internal type (if applicable) when this method is called
    */
   protected void applySemanticAnalysis() throws SemanticError {
 

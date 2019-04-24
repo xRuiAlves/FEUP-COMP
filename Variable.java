@@ -1,7 +1,7 @@
 /**
  * Represents a variable - should be used in favour of AST Node classes in order to separate from JJT/JavaCC logic and standardize the code
  */
-public class Variable {
+public class Variable implements Typed {
     protected final VariableType type;
     protected final VariableIdentifier identifier;
     
