@@ -9,6 +9,8 @@ class X {
         a = 3;
         a = 5 * 4;
         b = true;
+        b = 3 < 4 && !true;
+        b = true && false && !b;
         // b = a;
         // a = b;
     }
