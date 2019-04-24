@@ -17,6 +17,18 @@ public final class SymbolTableScopes {
 
     private final HashMap<String, HashMap<String, Variable>> method_scopes = new HashMap<>();
 
+    public static final String calculateMethodIdentifier(VariableIdentifier identifier, VariableType[] params) {
+        StringBuilder sb = new StringBuilder();
+    
+        sb.append(identifier);
+
+        for (VariableType param : params) {
+            sb.append(param);
+        }
+
+        return sb.toString();
+    }
+
     public HashMap<String, Variable> getGlobalScope() {
         return global_symbol_table;
     }

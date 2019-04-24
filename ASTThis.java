@@ -16,7 +16,7 @@ public class ASTThis extends SimpleNode implements Typed {
 
   @Override
   public VariableType getType() {
-    return new VariableType(this.parser.class_name);
+    return this.parser.class_type;
   }
 }
 /*

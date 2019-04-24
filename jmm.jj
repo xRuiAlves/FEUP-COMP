@@ -24,7 +24,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
         root.semanticAnalysis();
     }
 
-    public String class_name;
+    public VariableType class_type;
 
     void jjtreeOpenNodeScope(Node n) {
         ((SimpleNode)n).setLine(getToken(1).beginLine);
@@ -32,7 +32,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
 
     void jjtreeCloseNodeScope(Node n) {
         if (n instanceof ASTClassDeclaration) {
-            this.class_name = ((ASTClassDeclaration) n).getClassName();
+            this.class_type = new VariableType(((ASTClassDeclaration) n).getClassName());
         }
     }
 }
@@ -465,7 +465,7 @@ void MethodDeclaration() : {/*@bgen(jjtree) MethodDeclaration */
 /*@egen*/Token t_name;} {/*@bgen(jjtree) MethodDeclaration */
     try {
 /*@egen*/
-    Type() t_name = <Identifier> {jjtn000.name = t_name.image;} <ParenthesisStart> (MethodParameters())? <ParenthesisEnd>
+    Type() t_name = <Identifier> {jjtn000.name = t_name.image;} <ParenthesisStart> MethodParameters() <ParenthesisEnd>
     <BlockStart>
         VarsAndBody()
         (<Return>/*@bgen(jjtree) #Return( 1) */
@@ -535,7 +535,7 @@ void MethodParameters() : {/*@bgen(jjtree) MethodParameters */
 /*@egen*/ Token t_parameter_name; } {/*@bgen(jjtree) MethodParameters */
     try {
 /*@egen*/
-    Type()
+    (Type()
     (t_parameter_name = <Identifier>/*@bgen(jjtree) #MethodParameter( 1) */
                                      {
                                        ASTMethodParameter jjtn001 = new ASTMethodParameter(JJTMETHODPARAMETER);
@@ -583,7 +583,7 @@ void MethodParameters() : {/*@bgen(jjtree) MethodParameters */
                                            }
                                          }
 /*@egen*/                    )
-    )*/*@bgen(jjtree)*/
+    )*)?/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);

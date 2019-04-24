@@ -20,7 +20,7 @@ public class JMMParser {
         root.semanticAnalysis();
     }
 
-    public String class_name;
+    public VariableType class_type;
 
     void jjtreeOpenNodeScope(Node n) {
         ((SimpleNode)n).setLine(getToken(1).beginLine);
@@ -28,7 +28,7 @@ public class JMMParser {
 
     void jjtreeCloseNodeScope(Node n) {
         if (n instanceof ASTClassDeclaration) {
-            this.class_name = ((ASTClassDeclaration) n).getClassName();
+            this.class_type = new VariableType(((ASTClassDeclaration) n).getClassName());
         }
     }
 }
@@ -194,7 +194,7 @@ void MainDeclaration() : {Token t_arg_name;} {
 }
 
 void MethodDeclaration() : {Token t_name;} {
-    Type() t_name = <Identifier> {jjtThis.name = t_name.image;} <ParenthesisStart> (MethodParameters())? <ParenthesisEnd>
+    Type() t_name = <Identifier> {jjtThis.name = t_name.image;} <ParenthesisStart> MethodParameters() <ParenthesisEnd>
     <BlockStart>
         VarsAndBody()
         (<Return> Expression() #Return(1)) <Semicolon>
@@ -207,13 +207,13 @@ void VarsAndBody() #void : {} {
 }
 
 void MethodParameters() : { Token t_parameter_name; } {
-    Type()
+    (Type()
     (t_parameter_name = <Identifier> {jjtThis.name = t_parameter_name.image;} #MethodParameter(1))
     (
         <Comma>
         Type()
         (t_parameter_name = <Identifier> {jjtThis.name = t_parameter_name.image;} #MethodParameter(1))
-    )*
+    )*)?
 }
 
 

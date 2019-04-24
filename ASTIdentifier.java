@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public class ASTIdentifier extends SimpleNode implements Typed {
   protected String value;
-  private VariableType type;
+  private Variable variable;
 
   public ASTIdentifier(int id) {
     super(id);
@@ -17,9 +17,13 @@ public class ASTIdentifier extends SimpleNode implements Typed {
     return this.value;
   }
 
+  public Variable getVariable() {
+    return variable;
+  }
+
   @Override
   public VariableType getType() {
-    return type;
+    return variable.getType();
   }
 
   @Override
@@ -29,7 +33,7 @@ public class ASTIdentifier extends SimpleNode implements Typed {
       throw new SemanticError(this.line, String.format("Using undeclared variable '%s'!\n", this.value));
     }
 
-    this.type = v.getType();
+    this.variable = v;
   }
 }
 /*

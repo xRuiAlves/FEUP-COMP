@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Arrays;
+
 public abstract class MethodDeclarationNode extends NodeWithSymbolTable implements DeclarationNode {
   // protected String name; // Declared in superclass for access
   protected VariableType ret;
@@ -24,15 +27,11 @@ public abstract class MethodDeclarationNode extends NodeWithSymbolTable implemen
 
   @Override
   protected String getScopeIdentifier() {
-    StringBuilder sb = new StringBuilder();
-    
-    sb.append(this.identifier);
+    VariableType[] params_types = Arrays.stream(params)
+                                    .map(Variable::getType)
+                                    .toArray(VariableType[]::new);
 
-    for (Variable param : params) {
-      sb.append(param.getType());
-    }
-
-    return sb.toString();
+    return SymbolTableScopes.calculateMethodIdentifier(identifier, params_types);
   }
 }
 /* JavaCC - OriginalChecksum=3d0bb6bccafce97c55dc7c526183eb43 (do not edit this line) */

@@ -12,7 +12,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         root.semanticAnalysis();
     }
 
-    public String class_name;
+    public VariableType class_type;
 
     void jjtreeOpenNodeScope(Node n) {
         ((SimpleNode)n).setLine(getToken(1).beginLine);
@@ -20,7 +20,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
     void jjtreeCloseNodeScope(Node n) {
         if (n instanceof ASTClassDeclaration) {
-            this.class_name = ((ASTClassDeclaration) n).getClassName();
+            this.class_type = new VariableType(((ASTClassDeclaration) n).getClassName());
         }
     }
 
@@ -421,16 +421,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       t_name = jj_consume_token(Identifier);
                                   jjtn000.name = t_name.image;
       jj_consume_token(ParenthesisStart);
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case TypeInt:
-      case TypeBoolean:
-      case Identifier:
-        MethodParameters();
-        break;
-      default:
-        jj_la1[6] = jj_gen;
-        ;
-      }
+      MethodParameters();
       jj_consume_token(ParenthesisEnd);
       jj_consume_token(BlockStart);
       VarsAndBody();
@@ -512,7 +503,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         ;
         break;
       default:
-        jj_la1[7] = jj_gen;
+        jj_la1[6] = jj_gen;
         break label_4;
       }
       Statement();
@@ -526,51 +517,60 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                             jjtree.openNodeScope(jjtn000);
                             jjtreeOpenNodeScope(jjtn000);Token t_parameter_name;
     try {
-      Type();
-      t_parameter_name = jj_consume_token(Identifier);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case TypeInt:
+      case TypeBoolean:
+      case Identifier:
+        Type();
+        t_parameter_name = jj_consume_token(Identifier);
                                        ASTMethodParameter jjtn001 = new ASTMethodParameter(JJTMETHODPARAMETER);
                                        boolean jjtc001 = true;
                                        jjtree.openNodeScope(jjtn001);
                                        jjtreeOpenNodeScope(jjtn001);
-      try {
+        try {
                                        jjtree.closeNodeScope(jjtn001,  1);
                                        jjtc001 = false;
                                        jjtreeCloseNodeScope(jjtn001);
                                       jjtn001.name = t_parameter_name.image;
-      } finally {
+        } finally {
                                        if (jjtc001) {
                                          jjtree.closeNodeScope(jjtn001,  1);
                                          jjtreeCloseNodeScope(jjtn001);
                                        }
-      }
-      label_5:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case Comma:
-          ;
-          break;
-        default:
-          jj_la1[8] = jj_gen;
-          break label_5;
         }
-        jj_consume_token(Comma);
-        Type();
-        t_parameter_name = jj_consume_token(Identifier);
+        label_5:
+        while (true) {
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case Comma:
+            ;
+            break;
+          default:
+            jj_la1[7] = jj_gen;
+            break label_5;
+          }
+          jj_consume_token(Comma);
+          Type();
+          t_parameter_name = jj_consume_token(Identifier);
                                            ASTMethodParameter jjtn002 = new ASTMethodParameter(JJTMETHODPARAMETER);
                                            boolean jjtc002 = true;
                                            jjtree.openNodeScope(jjtn002);
                                            jjtreeOpenNodeScope(jjtn002);
-        try {
+          try {
                                            jjtree.closeNodeScope(jjtn002,  1);
                                            jjtc002 = false;
                                            jjtreeCloseNodeScope(jjtn002);
                                           jjtn002.name = t_parameter_name.image;
-        } finally {
+          } finally {
                                            if (jjtc002) {
                                              jjtree.closeNodeScope(jjtn002,  1);
                                              jjtreeCloseNodeScope(jjtn002);
                                            }
+          }
         }
+        break;
+      default:
+        jj_la1[8] = jj_gen;
+        ;
       }
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -1456,10 +1456,10 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x8000000,0x1800000,0x10000000,0x21800000,0x0,0x1800000,0x1800000,0x200200,0x0,0x200200,0x0,0x200200,0x20000,0x40000,0x80000,0x100000,0x200200,0x400000,0x400000,0x200200,0x0,0x0,0x200,0x200,0x800000,};
+      jj_la1_0 = new int[] {0x8000000,0x1800000,0x10000000,0x21800000,0x0,0x1800000,0x200200,0x0,0x1800000,0x200200,0x0,0x200200,0x20000,0x40000,0x80000,0x100000,0x200200,0x400000,0x400000,0x200200,0x0,0x0,0x200,0x200,0x800000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x200,0x0,0x200,0x40000,0x200,0x200,0x1437c,0x200000,0x1437c,0x400000,0x1437c,0x0,0x0,0x0,0x0,0x1023c,0x40000,0x40000,0x1023c,0x202,0x200000,0x1023c,0x21c,0x200,};
+      jj_la1_1 = new int[] {0x0,0x200,0x0,0x200,0x40000,0x200,0x1437c,0x200000,0x200,0x1437c,0x400000,0x1437c,0x0,0x0,0x0,0x0,0x1023c,0x40000,0x40000,0x1023c,0x202,0x200000,0x1023c,0x21c,0x200,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[1];
   private boolean jj_rescan = false;
