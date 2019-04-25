@@ -1,0 +1,79 @@
+class X {
+    public static void main(String[] args) {
+        int a;
+        boolean b;
+        int[] c;
+        a = 2;
+        b = true;
+        c = new int[4];
+
+        c[4] = 2;
+
+        if (true) {
+            b = false;
+        } else {
+            b = true;
+        }
+
+        if (b) {
+
+        } else {
+
+        }
+
+        if (true && false) {
+
+        } else {
+            
+        }
+
+        if (4 < 5*2 && true) {
+
+        } else {
+            
+        }
+
+        if (5 < 6) {
+
+        } else {
+            
+        }
+
+        /* if (a) {
+
+        } else {
+            
+        } */
+
+        if (this.getVal()) {
+
+        } else {
+
+        }
+
+        /* if (this.getAge()) {
+
+        } else {
+            
+        } */
+    }
+
+    public boolean getVal() {
+        return true;
+    }
+
+    /* public boolean getVal(int a) {
+        boolean b;
+        if (a < 2) {
+            b = true;
+        } else {
+            b = false;
+        }
+
+        return b;
+    } */
+
+    public int getAge() {
+        return 4;
+    }
+}

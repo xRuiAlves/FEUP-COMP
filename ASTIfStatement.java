@@ -14,5 +14,16 @@ class ASTIfStatement extends SimpleNode {
   public String getNodeName() {
     return "if";
   }
+
+  @Override
+  protected void applySemanticAnalysis() throws SemanticError {
+    Node lhs_raw = children[0];
+    
+    VariableType lhs = ((Typed) lhs_raw).getType();
+
+    if (!(lhs.isBoolean() || lhs.isIgnored())) {
+      throw new SemanticError(this.line, String.format("Invalid type '%s' in If statement (boolean was expected)", lhs));
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=9ed097da38d478f44445fd26ec1e8f5d (do not edit this line) */
