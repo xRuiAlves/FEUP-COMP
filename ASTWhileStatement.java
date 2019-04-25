@@ -14,5 +14,16 @@ class ASTWhileStatement extends SimpleNode {
   public String getNodeName() {
     return "while";
   }
+
+  @Override
+  protected void applySemanticAnalysis() throws SemanticError {
+    Node lhs_raw = children[0];
+    
+    VariableType lhs = ((Typed) lhs_raw).getType();
+
+    if (!(lhs.isBoolean() || lhs.isIgnored())) {
+      throw new SemanticError(this.line, String.format("Invalid type '%s' in If statement (boolean was expected)", lhs));
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=bc101b754e6ad81cd1d346b016d5ce12 (do not edit this line) */
