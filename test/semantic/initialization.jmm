@@ -1,0 +1,15 @@
+class X {
+    public static void main(String[] args) {
+        int a;
+        int b;
+        int[] arr;
+
+        arr = new int[2];
+        5 + arr[2];
+
+        // a = a * 2;
+        a = 2;
+        a = 3;
+        // a = b * 3;
+    }
+}

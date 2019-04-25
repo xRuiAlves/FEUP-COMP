@@ -28,6 +28,10 @@ class ASTAssignmentStatement extends SimpleNode {
     if (!lhs.equals(rhs)) {
       throw new SemanticError(this.line, String.format("Invalid assignment between types %s and %s", lhs, rhs));
     }
+
+    if (lhs_raw instanceof ASTIdentifier) {
+      ((ASTIdentifier) lhs_raw).getVariable().markAsInitialized();
+    }
   }
 }
 /* JavaCC - OriginalChecksum=f503663119aadd748782d6739471f263 (do not edit this line) */
