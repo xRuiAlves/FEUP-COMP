@@ -4,6 +4,10 @@ class X {
         int[] arr;
         boolean b;
 
+        arr = new int[2];
+        x = arr[1];
+        b = true && false;
+
         1 + 2;
         4 - 9;
         1 / 2;

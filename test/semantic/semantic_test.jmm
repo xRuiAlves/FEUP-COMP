@@ -7,19 +7,25 @@ class Worker extends Person {
         int a;
         int[] arr;
 
+        arr = new int[2];
+        a = 7;
+        p = new Worker();
+
         arr[2];
 
-        arr[true];
+        // arr[true];
 
         2 + 3 * 4;
 
         p = new Worker();
-        p.getInfo(true);
+        // p.getInfo(true);
 
-        1.length;
-        2.length;
-        p.length;
-        args.length;
-        new X().length;
+        // 1.length;
+        // 2.length;
+        // p.length;
+        // args.length;
+        // new X().length;
     }
+
+
 }

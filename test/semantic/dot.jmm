@@ -2,8 +2,18 @@ class X {
     public static void main(String[] args) {
         X obj;
 
+        obj = new X();
+
         this.test();
         // a.test();
         obj.method(1, 2, 3);
+    }
+
+    public int test() {
+        return 2;
+    }
+
+    public int method(int a, int b, int c) {
+        return 2*((c / b) + a - 4 * this.test());
     }
 }

@@ -3,12 +3,20 @@ class X {
         int a;
         int[] arr;
         boolean b;
+
+        a = args.length;
+        b = true;
+        arr = new int[2];
      
         (1 < 3) && (1 + 2) < (3 * 5);
         1 < 3 && 1 + 2 < 3 * 5;
         b && 1 + 2 < a * 5;
 
         a < arr[2];
+
+        arr[3] = this.getData(5, 7);
+
+        //arr[3] = this.getData(5);
 
         // a < b;
         // a && b;
@@ -17,5 +25,13 @@ class X {
         // ! arr;
         // ! arr[0];
         // arr[0] && a;
+    }
+
+    public int getData(int a, int b) {
+        return (a + b)/2;
+    }
+
+    public boolean getData(int a) {
+        return true;
     }
 }

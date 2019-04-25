@@ -3,6 +3,10 @@ class X {
         int[] a;
         int x;
         boolean b;
+
+        a = new int[2];
+        x = 2;
+        b = false;
         
         // 1[2];
         // x[8];

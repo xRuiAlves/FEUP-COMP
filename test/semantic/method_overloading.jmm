@@ -5,13 +5,15 @@ class X {
 
     public int getInfo(int var) {
         int b2;
+        b2 = 7;
 
-        return desepsero;
+        return b2;
     }
     
     public int[] getInfo(boolean b, ClassCoise c, int[] x) {
         int b1;
+        b1 = 9;
 
-        return teste1111;
+        return 2;
     }
 }
