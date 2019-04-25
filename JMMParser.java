@@ -12,7 +12,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         root.semanticAnalysis();
     }
 
-    public VariableType class_type;
+    public static VariableType class_type;
 
     void jjtreeOpenNodeScope(Node n) {
         ((SimpleNode)n).setLine(getToken(1).beginLine);
@@ -20,7 +20,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
     void jjtreeCloseNodeScope(Node n) {
         if (n instanceof ASTClassDeclaration) {
-            this.class_type = new VariableType(((ASTClassDeclaration) n).getClassName());
+            JMMParser.class_type = new VariableType(((ASTClassDeclaration) n).getClassName());
         }
     }
 

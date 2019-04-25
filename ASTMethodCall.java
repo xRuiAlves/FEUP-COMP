@@ -16,5 +16,9 @@ class ASTMethodCall extends SimpleNode {
   public String getNodeName() {
     return this.identifier + "()";
   }
+
+  public String getIdentifier() {
+    return this.identifier;
+  }
 }
 /* JavaCC - OriginalChecksum=5b2baecc3b8f8bf2355cebb5f937a13c (do not edit this line) */

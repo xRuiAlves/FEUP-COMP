@@ -21,10 +21,16 @@ public final class SymbolTableScopes {
         StringBuilder sb = new StringBuilder();
     
         sb.append(identifier);
+        sb.append("(");
 
+        String prefix = "";
         for (VariableType param : params) {
+            sb.append(prefix);
+            prefix = ",";
             sb.append(param);
         }
+
+        sb.append(")");
 
         return sb.toString();
     }
@@ -60,5 +66,13 @@ public final class SymbolTableScopes {
         }
 
         return this.global_symbol_table.get(identifier);
+    }
+
+    public Method isMethodDeclared(String method_identifier) {
+        Variable v = this.global_symbol_table.get(method_identifier);
+        if (v != null) {
+            return (Method) v;
+        }
+        return null;
     }
 }
