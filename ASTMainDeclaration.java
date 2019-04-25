@@ -26,6 +26,7 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
     // Register method parameters because they are local reference
     for (Variable param : params) {
       this.registerInSymbolTable(param);
+      param.markAsInitialized();  // main parameters are assumed to be initialized
     }
 
     // First children are directly var declarations because the rest is always the same (return and args)

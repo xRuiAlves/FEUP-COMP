@@ -16,6 +16,7 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
     // Register method parameters because they are local reference
     for (Variable param : params) {
       this.registerInSymbolTable(param);
+      param.markAsInitialized();  // method parameters are assumed to be initialized (passed through the method call)
     }
 
     // 0 - return type (ASTType)
