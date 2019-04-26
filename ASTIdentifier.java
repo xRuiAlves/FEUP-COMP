@@ -27,15 +27,19 @@ public class ASTIdentifier extends SimpleNode implements Typed {
   }
 
   @Override
-  protected void applySemanticAnalysis() throws SemanticError {
+  protected void applySemanticAnalysis() throws SemanticError {    
     Variable v = SymbolTableScopes.getInstance().isDeclared(this.scope_identifier, this.value);
+    Node parent = this.jjtGetParent();
     if (v == null) {
+      if (parent != null && parent instanceof ASTDotExpression) {
+        this.variable = new Variable(new VariableType(VariableType.ignored_type), new VariableIdentifier(""));
+        return;
+      }
       throw new SemanticError(this.line, String.format("Using undeclared variable '%s'.", this.value));
     }
 
     this.variable = v;
 
-    Node parent = this.jjtGetParent();
     if (parent != null && parent instanceof ASTAssignmentStatement) {
       return;
     }

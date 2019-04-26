@@ -30,6 +30,7 @@ class Worker extends Person {
         // a = this.getNonArray().length;
         a = this.getArray().length;
         // a = arr.length.length;
+        // a = a.batata();
 
     }
 

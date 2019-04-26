@@ -1,12 +1,21 @@
 class X {
     public static void main(String[] args) {
         X obj;
+        int a;
+        int[] arr;
 
+        arr = new int[123];
         obj = new X();
 
         this.test();
         // a.test();
         obj.method(1, 2, 3);
+
+        a = arr.length;
+        // a = this.getNonArray().length;
+        a = this.getArray().length;
+        // a = arr.length.length;
+        // a = a.batata();
     }
 
     public int test() {
@@ -15,5 +24,9 @@ class X {
 
     public int method(int a, int b, int c) {
         return 2*((c / b) + a - 4 * this.test());
+    }
+
+    public int[] getArray() {
+        return new int[2];
     }
 }

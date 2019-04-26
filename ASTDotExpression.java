@@ -35,17 +35,24 @@ public class ASTDotExpression extends SimpleNode implements Typed {
     }
 
     VariableType lhs = ((Typed) lhs_raw).getType();
+    if (lhs.isIgnored()) {
+      this.type = new VariableType(VariableType.ignored_type);
+      return;
+    }
 
-    if (!lhs.equals(JMMParser.class_type)) {
-      if (children[1] instanceof ASTLength) {
-        if (lhs.isIntArray()) {
-          this.type = new VariableType("int");
-          return;
-        } else {
-          throw new SemanticError(this.line, String.format("Calling .length on a non-array expression (found %s).", lhs));
-        }
+    if (children[1] instanceof ASTLength) {
+      if (lhs.isIntArray()) {
+        this.type = new VariableType("int");
+        return;
+      } else {
+        throw new SemanticError(this.line, String.format("Calling .length on a non-array expression (found %s).", lhs));
       }
+    }
 
+    if (!lhs.isIdentifier()) {
+      throw new SemanticError(this.line, String.format("Method call on a non class instance (found %s).", lhs));
+    }
+    if (!lhs.equals(JMMParser.class_type)) {
       // The type of the left-hand side is not of a know class, assumming that it's correct
       this.type = new VariableType(VariableType.ignored_type);
       return;
