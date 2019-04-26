@@ -12,8 +12,10 @@ class X {
     
     public int[] getInfo(boolean b, ClassCoise c, int[] x) {
         int b1;
+        int[] b123;
         b1 = 9;
+        b123 = new int[123];
 
-        return 2;
+        return b123;
     }
 }

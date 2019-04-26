@@ -62,7 +62,7 @@ class X {
         return true;
     }
 
-    /* public boolean getVal(int a) {
+    public boolean getVal(int a) {
         boolean b;
         if (a < 2) {
             b = true;
@@ -71,9 +71,11 @@ class X {
         }
 
         return b;
-    } */
+    }
 
     public int getAge() {
-        return 4;
+        int[] arr;
+        arr = new int[4];
+        return arr.length;
     }
 }

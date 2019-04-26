@@ -18,13 +18,18 @@ class X {
         x.getInfo(4) + 2;
         // x.getBoolean(true, true, 1, new int[4], this, new Printer());
 
+        teste = Scanner.readline().length;
+        b = Scanner.readline().isStopped();
+
     }
 
     public int getInfo(int var) {
         int b2;
+        int[] a;
+        a = new int[2];
         b2 = 3;
 
-        return b2;
+        return a[5];
     }
     
     public int[] getInfo(boolean b, ClassCoise c, int[] x) {

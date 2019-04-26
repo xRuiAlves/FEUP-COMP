@@ -4,7 +4,7 @@ class X {
         int[] arr;
         boolean b;
 
-        a = args.length;
+        a = 77;
         b = true;
         arr = new int[2];
      
