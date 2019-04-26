@@ -24,12 +24,7 @@ class ASTArrayAccessExpression extends SimpleNode implements Typed {
 
   @Override
   protected void applySemanticAnalysis() throws SemanticError {
-    Node lhs_raw = children[0];
-    if (!(lhs_raw instanceof ASTIdentifier)) {
-      throw new SemanticError(this.line, "Invalid left hand side of array access expression (not an identifier)");
-    }
-
-    VariableType lhs = ((Typed) lhs_raw).getType();
+    VariableType lhs = ((Typed) children[0]).getType();
     VariableType rhs = ((Typed) children[1]).getType();
 
     if (!((lhs.isIntArray() || lhs.isIgnored()) && (rhs.isInt() || rhs.isIgnored()))) {

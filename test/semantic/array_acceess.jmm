@@ -7,11 +7,26 @@ class X {
         a = new int[2];
         x = 2;
         b = false;
+
+        this.getIntArray()[0];
+        // this.getIntArray()[0][0];
+        x = this.getIntArray()[0];
+        a[0] = this.getIntArray()[0];
+        this.getIntArray()[0] = 40;
+
+        new int[3][0];
+        new int[3][0] = 3;
+        // new X()[0];
+        // new B()[0];
         
         // 1[2];
         // x[8];
         // b[1];
         
         a[1];
+    }
+
+    public int[] getIntArray() {
+        return new int[2];
     }
 }
