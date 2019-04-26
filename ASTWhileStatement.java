@@ -17,12 +17,10 @@ class ASTWhileStatement extends SimpleNode {
 
   @Override
   protected void applySemanticAnalysis() throws SemanticError {
-    Node lhs_raw = children[0];
-    
-    VariableType lhs = ((Typed) lhs_raw).getType();
+    VariableType lhs = ((Typed) children[0]).getType();
 
     if (!(lhs.isBoolean() || lhs.isIgnored())) {
-      throw new SemanticError(this.line, String.format("Invalid type '%s' in If statement (boolean was expected)", lhs));
+      throw new SemanticError(this.line, String.format("Invalid type '%s' in While statement (expected boolean)", lhs));
     }
   }
 }
