@@ -25,6 +25,20 @@ class Worker extends Person {
         // p.length;
         // args.length;
         // new X().length;
+
+        a = arr.length;
+        // a = this.getNonArray().length;
+        a = this.getArray().length;
+        // a = arr.length.length;
+
+    }
+
+    public int[] getArray() {
+        return new int[2];
+    } 
+
+    public int getNonArray() {
+        return 2;
     }
 
 

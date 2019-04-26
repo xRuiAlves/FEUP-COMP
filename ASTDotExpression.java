@@ -27,13 +27,25 @@ public class ASTDotExpression extends SimpleNode implements Typed {
   protected void applySemanticAnalysis() throws SemanticError {
     Node lhs_raw = children[0];
 
-    if (!(lhs_raw instanceof ASTIdentifier || lhs_raw instanceof ASTNewExpression || lhs_raw instanceof ASTThis)) {
-      throw new SemanticError(this.line, "Left hand side of dot operator is not an Identifier, new Expression or 'this'!");
+    if (!(lhs_raw instanceof ASTIdentifier || 
+          lhs_raw instanceof ASTNewExpression || 
+          lhs_raw instanceof ASTThis || 
+          lhs_raw instanceof ASTDotExpression)) {
+      throw new SemanticError(this.line, "Left hand side of dot operator is neither an Identifier, new Expression, 'this' nor a method call!");
     }
 
     VariableType lhs = ((Typed) lhs_raw).getType();
 
     if (!lhs.equals(JMMParser.class_type)) {
+      if (children[1] instanceof ASTLength) {
+        if (lhs.isIntArray()) {
+          this.type = new VariableType("int");
+          return;
+        } else {
+          throw new SemanticError(this.line, String.format("Calling .length on a non-array expression (found %s).", lhs));
+        }
+      }
+
       // The type of the left-hand side is not of a know class, assumming that it's correct
       this.type = new VariableType(VariableType.ignored_type);
       return;
