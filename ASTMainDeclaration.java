@@ -54,7 +54,8 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
-    sb.append(".end method\n\n");
+    sb.append("\treturn\n");
+      .append(".end method\n\n");
   }
 }
 /* JavaCC - OriginalChecksum=8a4e52ddec71c519a361c616e3c2c9f6 (do not edit this line) */
