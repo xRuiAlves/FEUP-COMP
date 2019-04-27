@@ -16,5 +16,16 @@ class ASTClassGeneralization extends SimpleNode {
   public String getNodeName() {
     return "extends " + this.name;
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    sb.append(".super ").append(this.name).append("\n\n")
+      .append("; implicit constructor\n")
+      .append(".method public <init>()V\n")
+      .append("\taload_0\n")
+      .append("\tinvokenonvirtual ").append(this.name).append("/<init>()V\n")
+      .append("\treturn\n")
+      .append(".end method\n\n");
+  }
 }
 /* JavaCC - OriginalChecksum=9a0034a7e203a41a29caceec5a2cc981 (do not edit this line) */

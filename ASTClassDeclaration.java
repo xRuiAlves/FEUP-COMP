@@ -64,6 +64,21 @@ public class ASTClassDeclaration extends NodeWithSymbolTable {
   protected String getScopeIdentifier() {
     return null;
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    sb.append(".class public ").append(this.name).append("\n");
+    if (!(children[0] instanceof ASTClassGeneralization)) {
+      sb.append(".super java/lang/Object\n\n");
+
+      sb.append("; standard implicit constructor\n")
+        .append(".method public <init>()V\n")
+        .append("\taload_0\n")
+        .append("\tinvokenonvirtual java/lang/Object/<init>()V\n")
+        .append("\treturn\n")
+        .append(".end method\n\n");
+    }
+  }
 }
 /*
  * JavaCC - OriginalChecksum=36754aee3a22d19327a28ac9d9418a2d (do not edit this

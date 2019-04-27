@@ -46,5 +46,15 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
   public void prepareInternalInfo() {
     this.params = new Variable[] {new Variable(new VariableType("String[]"), new VariableIdentifier(this.arg_name))};
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    sb.append(".method public static main([Ljava/lang/String;)V\n");
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    sb.append(".end method\n\n");
+  }
 }
 /* JavaCC - OriginalChecksum=8a4e52ddec71c519a361c616e3c2c9f6 (do not edit this line) */

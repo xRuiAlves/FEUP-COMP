@@ -52,4 +52,18 @@ public class VariableType {
     protected Object clone() throws CloneNotSupportedException {
         return new VariableType(this.type);
     }
+
+    public String toJasminType() {
+        if (this.isInt()) {
+            return "I";
+        } else if (this.isBoolean()) {
+            return "Z";
+        } else if (this.isIntArray()) {
+            return "[I";
+        } else if (this.isIdentifier()) {
+            return String.format("L%s;", this.type);
+        } else {
+            return "ERROR";
+        }
+    }
 }

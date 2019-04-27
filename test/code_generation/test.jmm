@@ -1,0 +1,46 @@
+class X extends Writer {
+    public static void main(String[] args) {
+        int teste;
+        boolean b;
+        X x;
+
+        b = this.getBoolean(1);
+        b = this.getBoolean();
+        // b = this.getBoolean(false);
+        // teste = this.getBoolean(1);
+
+        // 2 + 3 * this.getBoolean();
+        3 * 5 + this.getInfo(2);
+        // 2 + this.getInfo(3) + new X().getInfo(true, new ClassCoise(), new int[4])[2];
+        2 + this.getInfo(3) + new X().getInfo(2);
+
+        x = new X();
+        x.getInfo(4) + 2;
+        // x.getBoolean(true, true, 1, new int[4], this, new Printer());
+
+        teste = Scanner.readline().length;
+        b = Scanner.readline().isStopped();
+
+    }
+
+    public int getInfo(int var) {
+        int b2;
+        int[] a;
+        a = new int[2];
+        b2 = 3;
+
+        return a[5];
+    }
+    
+    public int[] getInfo(boolean b, ClassCoise c, int[] x) {
+        return new int[5];
+    }
+
+    public boolean getBoolean(int a) {
+        return false;
+    }
+
+    public boolean getBoolean() {
+        return true;
+    }
+}

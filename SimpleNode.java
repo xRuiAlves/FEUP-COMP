@@ -155,7 +155,7 @@ public class SimpleNode implements Node {
   protected void displaySymbolTable(String prefix) {
   }
 
-  private void exploreChildrenSymbolTables(String prefix) {
+  private final void exploreChildrenSymbolTables(String prefix) {
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode) children[i];
@@ -170,7 +170,7 @@ public class SimpleNode implements Node {
    * Performs semantic analysis on the current node and calls it for all of its children
    * Override applySemanticAnalysis in each node subclass to change the semantic analysis done in each node
    */
-  public void semanticAnalysis() {
+  public final void semanticAnalysis() {
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode) children[i];
@@ -191,7 +191,7 @@ public class SimpleNode implements Node {
 
   }
 
-  public void generateCode(StringBuilder sb) {
+  public final void generateCode(StringBuilder sb) {
     this.generateCodeNodeOpen(sb);
 
     if (children != null) {
