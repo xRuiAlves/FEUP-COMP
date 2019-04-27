@@ -27,6 +27,7 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
     for (Variable param : params) {
       this.registerInSymbolTable(param);
       param.markAsInitialized();  // main parameters are assumed to be initialized
+      param.markAsParameter(); // Marking the parameter variables as parameters, useful for code generation
     }
 
     // First children are directly var declarations because the rest is always the same (return and args)

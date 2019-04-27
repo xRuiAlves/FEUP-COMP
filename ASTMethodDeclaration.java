@@ -17,6 +17,7 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
     for (Variable param : params) {
       this.registerInSymbolTable(param);
       param.markAsInitialized();  // method parameters are assumed to be initialized (passed through the method call)
+      param.markAsParameter(); // Marking the parameter variables as parameters, useful for code generation
     }
 
     // 0 - return type (ASTType)
@@ -52,7 +53,8 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
       ASTType param_type = (ASTType) param.jjtGetChild(0);
       VariableType type = new VariableType(param_type);
 
-      params_vars.add(new Variable(type, identifier));
+      Variable param_var = new Variable(type, identifier);
+      params_vars.add(param_var);
     }
     this.params = params_vars.toArray(new Variable[0]);
     // 2 or more - var declarations, only used for creating symbol table

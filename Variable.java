@@ -4,7 +4,8 @@
 public class Variable implements Typed {
     protected final VariableType type;
     protected final VariableIdentifier identifier;
-    protected boolean is_initialized;
+    protected boolean is_initialized = false;
+    protected boolean is_parameter = false;
     
     public Variable(VariableType type, VariableIdentifier identifier) {
         this.type = type;
@@ -36,5 +37,13 @@ public class Variable implements Typed {
     
     public boolean isInitialized() {
         return this.is_initialized;
+    }
+
+    public void markAsParameter() {
+        this.is_parameter = true;
+    }
+    
+    public boolean isParameter() {
+        return this.is_parameter;
     }
 }
