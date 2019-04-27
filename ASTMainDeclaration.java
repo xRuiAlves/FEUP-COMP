@@ -50,11 +50,13 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
   @Override
   protected void generateCodeNodeOpen(StringBuilder sb) {
     sb.append(".method public static main([Ljava/lang/String;)V\n");
+    // Temporary placeholder
+    sb.append("\t.limit stack 10 ; temporary while stack size is not being calculated\n");
   }
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
-    sb.append("\treturn\n");
+    sb.append("\treturn\n")
       .append(".end method\n\n");
   }
 }

@@ -14,15 +14,25 @@ public class JMMParser {
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
         root.dump("");
-        System.out.println("\\\\-----------//");
+        System.out.println("\\\\-----Symbol Tables-----//");
         root.createSymbolTables("");
         root.dumpSymbolTable("");
+        System.out.println("\n\n");
+
         root.semanticAnalysis();
 
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);
-        System.out.println("\n'compiled' code:\n\n");
-        System.out.println(sb.toString());
+
+        final String output_file_name = "compiled/test.j";
+
+        final String compiled_code = sb.toString();
+        try {
+            FileWriter.writeStringToFile(output_file_name, compiled_code);
+            System.out.printf("\n'compiled' code was output to file: %s\n", output_file_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static VariableType class_type;

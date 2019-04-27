@@ -70,11 +70,14 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
 
     sb.append(")");
     sb.append(this.ret.toJasminType()).append("\n");
+
+    // Temporary placeholder
+    sb.append("\t.limit stack 10 ; temporary while stack size is not being calculated\n");
   }
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
-    sb.append("\treturn\n");
+    sb.append("\treturn\n")
       .append(".end method\n\n");
   }
 }

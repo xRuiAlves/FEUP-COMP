@@ -6,15 +6,25 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
         root.dump("");
-        System.out.println("\u005c\u005c\u005c\u005c-----------//");
+        System.out.println("\u005c\u005c\u005c\u005c-----Symbol Tables-----//");
         root.createSymbolTables("");
         root.dumpSymbolTable("");
+        System.out.println("\u005cn\u005cn");
+
         root.semanticAnalysis();
 
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);
-        System.out.println("\u005cn'compiled' code:\u005cn\u005cn");
-        System.out.println(sb.toString());
+
+        final String output_file_name = "compiled/test.j";
+
+        final String compiled_code = sb.toString();
+        try {
+            FileWriter.writeStringToFile(output_file_name, compiled_code);
+            System.out.printf("\u005cn'compiled' code was output to file: %s\u005cn", output_file_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static VariableType class_type;

@@ -1,0 +1,7 @@
+class X {
+    public static void main(String[] args) {
+        int teste;
+
+        teste = 2 + 2;
+    }
+}
