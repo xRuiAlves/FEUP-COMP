@@ -22,6 +22,11 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
         root.createSymbolTables("");
         root.dumpSymbolTable("");
         root.semanticAnalysis();
+
+        StringBuilder sb = new StringBuilder();
+        root.generateCode(sb);
+        System.out.println("\n'compiled' code:\n\n");
+        System.out.println(sb.toString());
     }
 
     public static VariableType class_type;

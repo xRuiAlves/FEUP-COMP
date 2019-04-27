@@ -190,6 +190,29 @@ public class SimpleNode implements Node {
   protected void applySemanticAnalysis() throws SemanticError {
 
   }
+
+  public void generateCode(StringBuilder sb) {
+    this.generateCodeNodeOpen(sb);
+
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode) children[i];
+        if (n != null) {
+          n.generateCode(sb);
+        }
+      }
+    }
+
+    this.generateCodeNodeClose(sb);
+  }
+
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+
+  }
+
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    
+  }
 }
 
 /*
