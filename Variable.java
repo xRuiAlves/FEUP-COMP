@@ -14,7 +14,7 @@ public class Variable implements Typed {
 
     @Override
     public String toString() {
-        return String.format("%s::%s", this.identifier, this.type);
+        return String.format("%s::%s%s", this.identifier, this.type, (this.is_parameter ? " (parameter)" : ""));
     }
 
     /**
