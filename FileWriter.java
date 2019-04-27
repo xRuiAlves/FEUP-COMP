@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 public class FileWriter {
     public static void writeStringToFile(String file_name, String data) throws Exception {
         try (PrintWriter out = new PrintWriter(file_name)) {
-            out.println(data);
+            out.print(data);
         }
     }
 }
