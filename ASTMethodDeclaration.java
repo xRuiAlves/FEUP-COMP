@@ -75,11 +75,15 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
 
     // Temporary placeholder
     sb.append("\t.limit stack 10 ; temporary while stack size is not being calculated\n");
+
+    // Number of local variables = number of entries in the symbol table + 1
+    sb.append(String.format("\t.limit locals %d\n", this.calcLocalsLimit() + 1));
   }
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
-    sb.append("\treturn\n")
+    sb.append("\tldc 0 ; mock return for boolean and int returning functions\n");
+    sb.append("\t").append(this.ret.toJasminReturn()).append("\n")
       .append(".end method\n\n");
   }
 }

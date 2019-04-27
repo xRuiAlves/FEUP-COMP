@@ -1,7 +1,28 @@
 class X {
     public static void main(String[] args) {
-        int teste;
+        io.println(1);
 
-        teste = 2 + 2;
+        io.println(2);
+        io.println(3);
+        io.println(69);
+        io.println(42);
+
+        // int teste;
+
+        // teste = 2 + 2;
+
+        // this.a(1);
+    }
+
+    public int a(int i) {
+        return 1;
+    }
+
+    public boolean b() {
+        return true;
+    }
+
+    public int cenas(int i, boolean b, X x, int i2, int[] arr) {
+        return 2;
     }
 }

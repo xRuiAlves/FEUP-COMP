@@ -75,5 +75,42 @@ public class ASTDotExpression extends SimpleNode implements Typed {
 
     this.type = m.getReturn();
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    // aload - non-static
+    // nothing - static
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    // TODO: Add verification that this is a method call (and not .length)
+
+    // invokevirtual - non static
+    // invokestatic - static
+    
+    VariableType lhs_vt = ((Typed) children[0]).getType();
+    
+    if (lhs_vt.isIgnored()) {
+      // static method invocation
+      ASTMethodCall method_call = (ASTMethodCall) children[1];
+      String method_name = method_call.getIdentifier();
+      sb.append("\tinvokestatic ").append(lhs_vt.getReferencedClass())
+        .append("/").append(method_name);
+        
+      // Method signature
+      sb.append("(");
+
+      int n_args = method_call.jjtGetNumChildren();
+      for (int i = 0; i < n_args; ++i) {
+        sb.append(((Typed) method_call.jjtGetChild(i)).getType().toJasminType());
+      }
+
+      // Assuming void for static methods
+      sb.append(")V");
+
+      sb.append("\n");
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=9e551656e978f3b2ea8f9c6934c8e272 (do not edit this line) */

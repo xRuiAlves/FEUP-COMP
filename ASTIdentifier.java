@@ -32,7 +32,7 @@ public class ASTIdentifier extends SimpleNode implements Typed {
     Node parent = this.jjtGetParent();
     if (v == null) {
       if (parent != null && parent instanceof ASTDotExpression) {
-        this.variable = new Variable(new VariableType(VariableType.ignored_type), new VariableIdentifier(""));
+        this.variable = new Variable(new VariableType(VariableType.ignored_type, this.value), new VariableIdentifier(""));
         return;
       }
       throw new SemanticError(this.line, String.format("Using undeclared variable '%s'.", this.value));

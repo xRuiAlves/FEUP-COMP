@@ -3,8 +3,14 @@
  */
 public class VariableType {
     private final String type;
+    private String referenced_class = null;
 
     public static final String ignored_type = "!ignored";
+
+    public VariableType(String type, String referenced_class) {
+        this(type);
+        this.referenced_class = referenced_class;
+    }
 
     public VariableType(String type) {
         this.type = type;
@@ -36,7 +42,7 @@ public class VariableType {
     
     @Override
     public String toString() {
-        return this.type;
+        return this.isIgnored() ? this.referenced_class : this.type;
     }
 
     @Override
@@ -65,5 +71,23 @@ public class VariableType {
         } else {
             return "ERROR";
         }
+    }
+
+    public String toJasminReturn() {
+        if (this.isInt()) {
+            return "ireturn";
+        } else if (this.isBoolean()) {
+            return "ireturn";
+        } else if (this.isIntArray()) {
+            return "areturn";
+        } else if (this.isIdentifier()) {
+            return "areturn";
+        } else {
+            return "ERROR";
+        }
+    }
+
+    public String getReferencedClass() {
+        return this.referenced_class;
     }
 }

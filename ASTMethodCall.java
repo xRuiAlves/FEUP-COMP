@@ -20,5 +20,15 @@ class ASTMethodCall extends SimpleNode {
   public String getIdentifier() {
     return this.identifier;
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    // put stuff in stack
+    for (int i = 0; i < children.length; ++i) {
+      if (children[i] instanceof ASTIntegerLiteral) {
+        sb.append("\tldc ").append(((SimpleNode) children[i]).getNodeName()).append("\n");
+      }
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=5b2baecc3b8f8bf2355cebb5f937a13c (do not edit this line) */

@@ -1,4 +1,4 @@
-class X extends Writer {
+class X  {
     public static void main(String[] args) {
         int teste;
         boolean b;

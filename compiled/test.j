@@ -10,26 +10,38 @@
 
 .method public static main([Ljava/lang/String;)V
 	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit locals 2
+	ldc 1
+	invokestatic io/println(I)V
+	ldc 2
+	invokestatic io/println(I)V
+	ldc 3
+	invokestatic io/println(I)V
+	ldc 69
+	invokestatic io/println(I)V
+	ldc 42
+	invokestatic io/println(I)V
 	return
 .end method
 
-.method public getInfo(I)I
+.method public a(I)I
 	.limit stack 10 ; temporary while stack size is not being calculated
-	return
+	.limit locals 2
+	ldc 0 ; mock return for boolean and int returning functions
+	ireturn
 .end method
 
-.method public getInfo(ZLClassCoise;[I)[I
+.method public b()Z
 	.limit stack 10 ; temporary while stack size is not being calculated
-	return
+	.limit locals 1
+	ldc 0 ; mock return for boolean and int returning functions
+	ireturn
 .end method
 
-.method public getBoolean(I)Z
+.method public cenas(IZLX;I[I)I
 	.limit stack 10 ; temporary while stack size is not being calculated
-	return
-.end method
-
-.method public getBoolean()Z
-	.limit stack 10 ; temporary while stack size is not being calculated
-	return
+	.limit locals 6
+	ldc 0 ; mock return for boolean and int returning functions
+	ireturn
 .end method
 
