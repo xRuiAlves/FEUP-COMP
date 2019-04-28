@@ -16,7 +16,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);
 
-        final String output_file_name = "compiled/test.j";
+        final String output_file_name = String.format("compiled/%s.j", JMMParser.class_type);
 
         final String compiled_code = sb.toString();
         try {
