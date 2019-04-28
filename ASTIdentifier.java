@@ -48,6 +48,24 @@ public class ASTIdentifier extends SimpleNode implements Typed {
       throw new SemanticError(this.line, String.format("Using variable '%s' before initialization.", this.value));
     }
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    // Check if this node is not the left-hand side of an assignment
+    
+    Node parent = this.jjtGetParent();
+    if (parent != null && parent instanceof ASTAssignmentStatement && ((ASTAssignmentStatement) parent).isLHS(this)) {
+      // This node is left hand side of an assignment, thus the store instruction will be done in the assignment node to ensure correct order
+      // The above was tested by instead adding the store instruction here -> it is, in fact, true: the instruction must be in ASTAssignmentStatement
+      return;
+    }
+
+    // Otherwise, load the variable onto the stack
+    if (!this.variable.getType().isIgnored()) {
+      // (Only if it is not of ignored type (static references)) -> Must test this more thoroughly
+      sb.append(this.variable.toJasminLoad());
+    }
+  }
 }
 /*
  * JavaCC - OriginalChecksum=534021caa2c544cea987828b4185652b (do not edit this

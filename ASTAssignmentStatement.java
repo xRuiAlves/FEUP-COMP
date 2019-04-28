@@ -33,5 +33,26 @@ class ASTAssignmentStatement extends SimpleNode {
       ((ASTIdentifier) lhs_raw).getVariable().markAsInitialized();
     }
   }
+
+  /**
+   * Tests if a node is the left hand side of this assignment
+   * @param n Node to test
+   * @return True if the node is the LHS of the assignment, false otherwise
+   */
+  public boolean isLHS(Node n) {
+    return n == children[0];
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    Node lhs_raw = children[0];
+    // TODO: lhs_raw instanceof ASTArrayAccessExpression
+    if (lhs_raw instanceof ASTIdentifier) {
+      // Storing the left hand side of an assignment
+      Variable lhs = ((ASTIdentifier) lhs_raw).getVariable();
+
+      sb.append(lhs.toJasminStore());
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=f503663119aadd748782d6739471f263 (do not edit this line) */

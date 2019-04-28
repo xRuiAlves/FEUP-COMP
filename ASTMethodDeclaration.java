@@ -76,13 +76,13 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
     sb.append(")");
     sb.append(this.ret.toJasminType()).append("\n");
 
+    // TODO: Fix code duplication between this and MainDeclaration
+    
     // Temporary placeholder
     sb.append("\t.limit stack 10 ; temporary while stack size is not being calculated\n");
-
+    
     // Number of local variables = number of entries in the symbol table + 1
     sb.append(String.format("\t.limit locals %d\n", this.calcLocalsLimit() + 1));
-
-    // TODO: Fix code duplication
     
     // Creating the local variables (done here because of the sequential indexes)
 
@@ -91,6 +91,7 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
     List<Variable> local_variables = this.symbol_table.values().stream().filter(Predicate.not(Variable::isParameter)).collect(Collectors.toList());
 
     for (Variable local_var : local_variables) {
+      local_var.setLocalVarIndex(locals_start_idx);
       sb.append(String.format(local_var.toJasminDeclaration(), locals_start_idx++));
     }
   }

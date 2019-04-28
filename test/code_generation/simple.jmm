@@ -1,7 +1,7 @@
 class X {
     public static void main(String[] args) {
         int main_i;
-        boolean main_b;
+        // boolean main_b;
 
         io.println(111111111);
 

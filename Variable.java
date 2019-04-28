@@ -6,6 +6,7 @@ public class Variable implements Typed {
     protected final VariableIdentifier identifier;
     protected boolean is_initialized = false;
     protected boolean is_parameter = false;
+    protected int local_var_index = 4321; // If we are to fail due to mistakes in initializations, make it fail hard! (in order to more easlily find the bugs)
     
     public Variable(VariableType type, VariableIdentifier identifier) {
         this.type = type;
@@ -20,6 +21,28 @@ public class Variable implements Typed {
     public String toJasminDeclaration() {
         // Leaving the index to be filled in later
         return String.format("\t.var %%d is %s %s\n", this.identifier, this.type.toJasminType());
+    }
+
+    public String toJasminLoad() {
+        // Using shorter instructions optimization
+        if (this.local_var_index < 4) {
+            return String.format("\t%s_%d\n", this.type.toJasminLoad(), this.local_var_index);
+        } else {
+            return String.format("\tldc %d\n%s\n", this.local_var_index, this.type.toJasminLoad());
+        }
+    }
+
+    public String toJasminStore() {
+        // Using shorter instructions optimization
+        if (this.local_var_index < 4) {
+            return String.format("\t%s_%d\n", this.type.toJasminStore(), this.local_var_index);
+        } else {
+            return String.format("\tldc %d\n%s\n", this.local_var_index, this.type.toJasminStore());
+        }
+    }
+
+    public void setLocalVarIndex(int local_var_index) {
+        this.local_var_index = local_var_index;
     }
 
     /**

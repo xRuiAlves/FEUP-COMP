@@ -42,7 +42,7 @@ public class VariableType {
     
     @Override
     public String toString() {
-        return this.isIgnored() ? this.referenced_class : this.type;
+        return this.isIgnored() ? ("[rc]" + this.referenced_class) : this.type;
     }
 
     @Override
@@ -74,14 +74,30 @@ public class VariableType {
     }
 
     public String toJasminReturn() {
-        if (this.isInt()) {
+        if (this.isInt() || this.isBoolean()) {
             return "ireturn";
-        } else if (this.isBoolean()) {
-            return "ireturn";
-        } else if (this.isIntArray()) {
+        } else if (this.isIntArray() || this.isIdentifier()) {
             return "areturn";
-        } else if (this.isIdentifier()) {
-            return "areturn";
+        } else {
+            return "ERROR";
+        }
+    }
+
+    public String toJasminLoad() {
+        if (this.isInt() || this.isBoolean()) {
+            return "iload";
+        } else if (this.isIntArray() || this.isIdentifier()) {
+            return "aload";
+        } else {
+            return "ERROR";
+        }
+    }
+
+    public String toJasminStore() {
+        if (this.isInt() || this.isBoolean()) {
+            return "istore";
+        } else if (this.isIntArray() || this.isIdentifier()) {
+            return "astore";
         } else {
             return "ERROR";
         }
