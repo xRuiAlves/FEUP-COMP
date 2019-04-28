@@ -4,12 +4,18 @@ class Arrs {
 
         arr = new int[2];
 
-        // arr[0] = 42;
+        arr[0] = 42;
+        arr[1] = 402;
+        // arr[2] = 7 * 2; // out of bounds
 
-        // io.println(arr[0]);
-        // io.println(arr[1]);
+        io.println(arr[0]);
+        io.println(arr[1]);
         // io.println(arr[2]); // out of bounds
 
         io.println(arr.length);
+
+        arr[1] = 2*5 + 15;
+        io.println(arr[0]);
+        io.println(arr[1]);
     }
 }

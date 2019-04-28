@@ -46,12 +46,15 @@ class ASTAssignmentStatement extends SimpleNode {
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     Node lhs_raw = children[0];
-    // TODO: lhs_raw instanceof ASTArrayAccessExpression
     if (lhs_raw instanceof ASTIdentifier) {
       // Storing the left hand side of an assignment
       Variable lhs = ((ASTIdentifier) lhs_raw).getVariable();
 
       sb.append(lhs.toJasminStore());
+    } else if (lhs_raw instanceof ASTArrayAccessExpression) {
+      // Storing the current operands that are in the stack in the given array (arrayref, index, value)
+      // These values need not be calculated or loaded because such will already be done by the child nodes
+      sb.append("\tiastore\n");
     }
   }
 }

@@ -34,5 +34,22 @@ class ASTArrayAccessExpression extends SimpleNode implements Typed {
     // Calculate own type
     this.type = new VariableType("int");
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    // Check if this node is not the left-hand side of an assignment
+    
+    Node parent = this.jjtGetParent();
+    if (parent != null && parent instanceof ASTAssignmentStatement && ((ASTAssignmentStatement) parent).isLHS(this)) {
+      // This node is left hand side of an assignment, thus the store instruction will be done in the assignment node to ensure correct order
+      // The above was tested by instead adding the store instruction here -> it is, in fact, true: the instruction must be in ASTAssignmentStatement
+      return;
+    }
+
+    // Otherwise, load the variable onto the stack
+    // (No need to calculate the value of the expression that is the argument of the array access because that will be done by the generated code)
+    // (No need to get the arrayref as well because that will be done by the ASTIdentifier children node)
+    sb.append("\tiaload\n");
+  }
 }
 /* JavaCC - OriginalChecksum=dec61186312bf09145e85ad0c72a13a7 (do not edit this line) */
