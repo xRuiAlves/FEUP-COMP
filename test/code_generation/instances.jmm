@@ -1,19 +1,28 @@
 class Instances {
     public static void main(String[] args) {
         Instances ins;
+        Instances ins2;
+        
         ins = new Instances();
         ins.test();
-
         ins.printMe(301);
+        
+        ins2 = new Instances();
+        ins.amazing(ins2);
     }
 
     public int test() {
-        io.println(42);
+        this.printMe(42);
         return 2;
     }
 
     public int printMe(int arg) {
         io.println(arg);
+        return 1;
+    }
+
+    public int amazing(Instances ins) {
+        ins.printMe(123);
         return 1;
     }
 }
