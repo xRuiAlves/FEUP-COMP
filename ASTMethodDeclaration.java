@@ -54,6 +54,8 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
       VariableType type = new VariableType(param_type);
 
       Variable param_var = new Variable(type, identifier);
+      // Parameters are also passed as local variables (0 is this, 1 through the number of parameters are arguments, the remainder are local variables)
+      param_var.setLocalVarIndex(i + 1);
       params_vars.add(param_var);
     }
     this.params = params_vars.toArray(new Variable[0]);
@@ -78,7 +80,6 @@ public class ASTMethodDeclaration extends MethodDeclarationNode {
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
-    sb.append("\tldc 0 ; mock return for boolean and int returning functions\n");
     sb.append("\t").append(this.ret.toJasminReturn()).append("\n")
       .append(".end method\n\n");
   }

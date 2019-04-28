@@ -107,6 +107,37 @@ public class ASTDotExpression extends SimpleNode implements Typed {
       sb.append(")V");
 
       sb.append("\n");
+    } else if (lhs_vt.isIdentifier()) {
+      // non-static method invocation
+      ASTMethodCall method_call = (ASTMethodCall) children[1];
+      String method_name = method_call.getIdentifier();
+      sb.append("\tinvokevirtual ").append(lhs_vt)
+        .append("/").append(method_name);
+        
+      // Method signature
+      sb.append("(");
+
+      int n_args = method_call.jjtGetNumChildren();
+      ArrayList<VariableType> arg_types = new ArrayList<>();
+      for (int i = 0; i < n_args; ++i) {
+        VariableType arg_type = ((Typed) method_call.jjtGetChild(i)).getType();
+        arg_types.add(arg_type);
+
+        sb.append(arg_type.toJasminType());
+      }
+
+      sb.append(")");
+
+      final String method_id = SymbolTableScopes.calculateMethodIdentifier(new VariableIdentifier(method_name), arg_types.toArray(new VariableType[0]));
+      final Method m = SymbolTableScopes.getInstance().isMethodDeclared(method_id);
+      if (m == null) {
+        // Assuming void for non-declared instance methods
+        sb.append("V");
+      } else {
+        sb.append(m.getReturn().toJasminType());
+      }
+
+      sb.append("\n");
     }
   }
 }

@@ -1,0 +1,19 @@
+class Instances {
+    public static void main(String[] args) {
+        Instances ins;
+        ins = new Instances();
+        ins.test();
+
+        ins.printMe(301);
+    }
+
+    public int test() {
+        io.println(42);
+        return 2;
+    }
+
+    public int printMe(int arg) {
+        io.println(arg);
+        return 1;
+    }
+}

@@ -21,5 +21,18 @@ class ASTNewExpression extends SimpleNode implements Typed {
     ASTType type = (ASTType) children[0];
     return new VariableType(type);
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    VariableType type = new VariableType((ASTType) children[0]);
+    if (type.isIntArray()) {
+      // TODO: Implement array allocation
+      return;
+    }
+
+    sb.append("\tnew ").append(type).append("\n");
+    sb.append("\tdup\n"); // Saving the local reference to not lose it when invoking the constructor
+    sb.append("\tinvokespecial ").append(type).append("/<init>()V\n");
+  }
 }
 /* JavaCC - OriginalChecksum=1c5d1c8675be9c00e49865921bb77fe8 (do not edit this line) */
