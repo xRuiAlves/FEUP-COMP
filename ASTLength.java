@@ -14,5 +14,10 @@ class ASTLength extends SimpleNode {
   public String getNodeName() {
     return "length";
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    sb.append("\tarraylength\n");
+  }
 }
 /* JavaCC - OriginalChecksum=cc3807a3049325177fbdf3a127e5e774 (do not edit this line) */

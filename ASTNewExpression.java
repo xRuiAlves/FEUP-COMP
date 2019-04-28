@@ -26,9 +26,12 @@ class ASTNewExpression extends SimpleNode implements Typed {
   protected void generateCodeNodeClose(StringBuilder sb) {
     VariableType type = new VariableType((ASTType) children[0]);
     if (type.isIntArray()) {
-      // TODO: Implement array allocation
+      // No need to calculate the value of the expression that is the argument of the allocation because that will be done by the generated code
+      sb.append("\tnewarray int\n");
       return;
     }
+
+    // If it is not an int[] then it is an object (only these types can be allocated using 'new')
 
     sb.append("\tnew ").append(type).append("\n");
     sb.append("\tdup\n"); // Saving the local reference to not lose it when invoking the constructor

@@ -1,0 +1,15 @@
+class Arrs {
+    public static void main(String[] args) {
+        int[] arr;
+
+        arr = new int[2];
+
+        // arr[0] = 42;
+
+        // io.println(arr[0]);
+        // io.println(arr[1]);
+        // io.println(arr[2]); // out of bounds
+
+        io.println(arr.length);
+    }
+}
