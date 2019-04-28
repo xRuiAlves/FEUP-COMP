@@ -1,0 +1,13 @@
+class NoThisInMain {
+    public static void main(String[] args) {
+        // this.isInvalid();
+
+        NoThisInMain ntim;
+        ntim = new NoThisInMain();
+        ntim.isInvalid();
+    }
+
+    public int isInvalid() {
+        return 0-1;
+    }
+}

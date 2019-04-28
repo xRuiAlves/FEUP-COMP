@@ -20,6 +20,13 @@ public class ASTThis extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void applySemanticAnalysis() throws SemanticError {
+    if (this.scope_identifier.equals("main(String[])")) {
+      throw new SemanticError(this.line, "'this' cannot be used in a static method (main)!");
+    }
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     sb.append("\taload_0\n");
   }
