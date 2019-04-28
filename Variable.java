@@ -17,6 +17,11 @@ public class Variable implements Typed {
         return String.format("%s::%s%s", this.identifier, this.type, (this.is_parameter ? " (parameter)" : ""));
     }
 
+    public String toJasminDeclaration() {
+        // Leaving the index to be filled in later
+        return String.format("\t.var %%d is %s %s\n", this.identifier, this.type.toJasminType());
+    }
+
     /**
      * @return the variable type
      */

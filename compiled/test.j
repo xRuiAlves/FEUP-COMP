@@ -10,7 +10,9 @@
 
 .method public static main([Ljava/lang/String;)V
 	.limit stack 10 ; temporary while stack size is not being calculated
-	.limit locals 2
+	.limit locals 4
+	.var 2 is main_b Z
+	.var 3 is main_i I
 	ldc 111111111
 	invokestatic io/println(I)V
 	ldc 1

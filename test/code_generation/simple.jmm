@@ -1,5 +1,8 @@
 class X {
     public static void main(String[] args) {
+        int main_i;
+        boolean main_b;
+
         io.println(111111111);
 
         io.println(1 + 1);
@@ -9,8 +12,6 @@ class X {
         io.println(6 / 2);
 
         io.println(8 * 2);
-
-        // int teste;
 
         // teste = 2 + 2;
 

@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public class ASTVarDeclaration extends SimpleNode implements DeclarationNode {
   protected String identifier;
-  private VariableType type;
+  private Variable variable;
 
   public ASTVarDeclaration(int id) {
     super(id);
@@ -19,12 +19,12 @@ public class ASTVarDeclaration extends SimpleNode implements DeclarationNode {
 
   @Override
   public void prepareInternalInfo() {
-    this.type = new VariableType((ASTType) children[0]);
+    this.variable = new Variable(new VariableType((ASTType) children[0]), new VariableIdentifier(identifier));
   }
 
   @Override
   public Variable toVariable() {
-    return new Variable(type, new VariableIdentifier(identifier));
+    return this.variable;
   }
 }
 /*
