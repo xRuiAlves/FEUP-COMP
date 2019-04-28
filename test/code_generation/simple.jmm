@@ -1,11 +1,14 @@
 class X {
     public static void main(String[] args) {
-        io.println(1);
+        io.println(111111111);
 
-        io.println(2);
-        io.println(3);
-        io.println(69);
-        io.println(42);
+        io.println(1 + 1);
+
+        io.println(1 - 1);
+
+        io.println(6 / 2);
+
+        io.println(8 * 2);
 
         // int teste;
 

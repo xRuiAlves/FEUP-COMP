@@ -35,5 +35,20 @@ class ASTArithmeticExpression extends SimpleNode implements Typed {
     // Calculate own type
     this.type = new VariableType("int");
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    // execute operation
+    if (operation.equals("+")) {
+      sb.append("\tiadd\n");
+    } else if (operation.equals("-")) {
+      sb.append("\tisub\n");
+    } else if (operation.equals("*")) {
+      sb.append("\timul\n");
+    } else if (operation.equals("/")) {
+      sb.append("\tidiv\n");
+    }
+    // sb.append("\tldc ").append(this.value).append("\n");
+  }
 }
 /* JavaCC - OriginalChecksum=8f9b4fed618a844c012461a6669090fa (do not edit this line) */

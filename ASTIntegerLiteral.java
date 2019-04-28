@@ -21,6 +21,12 @@ public class ASTIntegerLiteral extends SimpleNode implements Typed{
   public VariableType getType() {
     return type;
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    // put value in stack
+    sb.append("\tldc ").append(this.value).append("\n");
+  }
 }
 /*
  * JavaCC - OriginalChecksum=4a43e323f6d0e970615023842b59d2d8 (do not edit this
