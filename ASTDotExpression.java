@@ -77,14 +77,11 @@ public class ASTDotExpression extends SimpleNode implements Typed {
   }
 
   @Override
-  protected void generateCodeNodeOpen(StringBuilder sb) {
-    // aload - non-static
-    // nothing - static
-  }
-
-  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
-    // TODO: Add verification that this is a method call (and not .length)
+    if (children[1] instanceof ASTLength) {
+      // TODO: Make length work, ignoring for now
+      return;
+    }
 
     // invokevirtual - non static
     // invokestatic - static

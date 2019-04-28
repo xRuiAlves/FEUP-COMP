@@ -48,7 +48,6 @@ class ASTArithmeticExpression extends SimpleNode implements Typed {
     } else if (operation.equals("/")) {
       sb.append("\tidiv\n");
     }
-    // sb.append("\tldc ").append(this.value).append("\n");
   }
 }
 /* JavaCC - OriginalChecksum=8f9b4fed618a844c012461a6669090fa (do not edit this line) */

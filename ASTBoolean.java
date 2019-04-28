@@ -21,6 +21,15 @@ public class ASTBoolean extends SimpleNode implements Typed {
   public VariableType getType() {
     return type;
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    if (value.equals("true")) {
+      sb.append("\ticonst_1\n");
+    } else if (value.equals("false")) {
+      sb.append("\ticonst_0\n");
+    }
+  }
 }
 /*
  * JavaCC - OriginalChecksum=28aa6899b02b8fec86f4fb85440d0050 (do not edit this

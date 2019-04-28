@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ public abstract class MethodDeclarationNode extends NodeWithSymbolTable implemen
     // The starting index is the number of parameters (+1 because of 'this')
     int locals_start_idx = ((int) this.symbol_table.values().stream().filter(Variable::isParameter).count()) + 1;
     List<Variable> local_variables = this.symbol_table.values().stream().filter(Predicate.not(Variable::isParameter)).collect(Collectors.toList());
+    Collections.reverse(local_variables);
 
     for (Variable local_var : local_variables) {
       local_var.setLocalVarIndex(locals_start_idx);

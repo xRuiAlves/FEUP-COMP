@@ -18,6 +18,11 @@ public class ASTThis extends SimpleNode implements Typed {
   public VariableType getType() {
     return JMMParser.class_type;
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    sb.append("\taload_0\n");
+  }
 }
 /*
  * JavaCC - OriginalChecksum=7e187eb57ae309ead48e8772b7e649ad (do not edit this

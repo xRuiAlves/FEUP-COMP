@@ -25,20 +25,12 @@ public class Variable implements Typed {
 
     public String toJasminLoad() {
         // Using shorter instructions optimization
-        if (this.local_var_index < 4) {
-            return String.format("\t%s_%d\n", this.type.toJasminLoad(), this.local_var_index);
-        } else {
-            return String.format("\tldc %d\n%s\n", this.local_var_index, this.type.toJasminLoad());
-        }
+        return String.format("\t%s%s%d\n", this.type.toJasminLoad(), this.local_var_index < 4 ? "_" : " ", this.local_var_index);
     }
 
     public String toJasminStore() {
         // Using shorter instructions optimization
-        if (this.local_var_index < 4) {
-            return String.format("\t%s_%d\n", this.type.toJasminStore(), this.local_var_index);
-        } else {
-            return String.format("\tldc %d\n%s\n", this.local_var_index, this.type.toJasminStore());
-        }
+        return String.format("\t%s%s%d\n", this.type.toJasminStore(), this.local_var_index < 4 ? "_" : " ", this.local_var_index);
     }
 
     public void setLocalVarIndex(int local_var_index) {
