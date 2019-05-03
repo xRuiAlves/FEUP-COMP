@@ -79,7 +79,6 @@ public class ASTDotExpression extends SimpleNode implements Typed {
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     if (children[1] instanceof ASTLength) {
-      // TODO: Make length work, ignoring for now
       return;
     }
 

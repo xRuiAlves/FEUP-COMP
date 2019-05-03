@@ -25,7 +25,16 @@ public class ASTIntegerLiteral extends SimpleNode implements Typed{
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     // put value in stack
-    sb.append("\tldc ").append(this.value).append("\n");
+    final int value = Integer.parseInt(this.value);
+    if (value < 6) {
+      sb.append("\ticonst_").append(this.value).append("\n");
+    } else if (value < 128) {
+      sb.append("\tbipush ").append(this.value).append("\n");
+    } else if (value < 32768) {
+      sb.append("\tsipush ").append(this.value).append("\n");
+    } else {
+      sb.append("\tldc ").append(this.value).append("\n");
+    }
   }
 }
 /*
