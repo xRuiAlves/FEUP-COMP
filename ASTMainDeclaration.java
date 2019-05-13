@@ -31,12 +31,14 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
     }
 
     // First children are directly var declarations because the rest is always the same (return and args)
-    for (int i = 0; i < children.length; ++i) {
-      if (children[i] instanceof DeclarationNode) {
-        this.registerInSymbolTable(children[i]);
-      } else {
-        // The declarations are all sequential in the start of the method code
-        break;
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        if (children[i] instanceof DeclarationNode) {
+          this.registerInSymbolTable(children[i]);
+        } else {
+          // The declarations are all sequential in the start of the method code
+          break;
+        }
       }
     }
 
