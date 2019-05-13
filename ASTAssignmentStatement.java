@@ -57,5 +57,27 @@ class ASTAssignmentStatement extends SimpleNode {
       sb.append("\tiastore\n");
     }
   }
+
+  /**
+   * Tests if it is possible to use `iinc` instead of another value storing instruction (for higher efficiency)
+   * @return True if `iinc` is usable, false otherwise
+   */
+  public boolean isIincAble() {
+    // TODO
+    return false;
+  }
+
+  public VariableType getLHSVarType() {
+    Node lhs_raw = children[0];
+    if (lhs_raw instanceof ASTIdentifier) {
+      return ((ASTIdentifier) lhs_raw).getVariable().getType();
+    } else if (lhs_raw instanceof ASTArrayAccessExpression) {
+      return new VariableType("int[]");
+    }
+
+    // Never happens
+    assert(false);
+    return null;
+  }
 }
 /* JavaCC - OriginalChecksum=f503663119aadd748782d6739471f263 (do not edit this line) */

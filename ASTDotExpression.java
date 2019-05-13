@@ -103,7 +103,17 @@ public class ASTDotExpression extends SimpleNode implements Typed {
       }
 
       // Assuming void for static methods
-      sb.append(")V");
+      sb.append(")");
+
+      // Inferring the return type from the variable assignment (void if it does not exist)
+      Node parent = this.jjtGetParent();
+
+      if (parent instanceof ASTAssignmentStatement) {
+        ASTAssignmentStatement parent_assignment = (ASTAssignmentStatement) parent;
+        sb.append(parent_assignment.getLHSVarType().toJasminType());
+      } else {
+        sb.append("V");
+      }
 
       sb.append("\n");
     } else if (lhs_vt.isIdentifier()) {
@@ -130,13 +140,27 @@ public class ASTDotExpression extends SimpleNode implements Typed {
       final String method_id = SymbolTableScopes.calculateMethodIdentifier(new VariableIdentifier(method_name), arg_types.toArray(new VariableType[0]));
       final Method m = SymbolTableScopes.getInstance().isMethodDeclared(method_id);
       if (m == null) {
-        // Assuming void for non-declared instance methods
-        sb.append("V");
+        // non-declared instance methods (instance methods of other classes)
+        // Inferring the return type from the variable assignment
+        Node parent = this.jjtGetParent();
+
+        if (parent instanceof ASTAssignmentStatement) {
+          ASTAssignmentStatement parent_assignment = (ASTAssignmentStatement) parent;
+          sb.append(parent_assignment.getLHSVarType().toJasminType());
+        } else {
+          sb.append("V");
+        }
+
       } else {
         sb.append(m.getReturn().toJasminType());
-      }
+        sb.append("\n");
 
-      sb.append("\n");
+        Node parent = this.jjtGetParent();
+
+        if (parent == null || !(parent instanceof ASTAssignmentStatement)) {
+          sb.append("\tpop\n");
+        }
+      }
     }
   }
 }

@@ -1,0 +1,19 @@
+## Implemented extras
+
+### Semantic:
+
+- while (condition must be of type boolean)
+- if (condition must be of type boolean)
+- return type mismatch (type of value given to return must match the return type of the method)
+- attribution type mismatch (left hand side and right hand side of atribution must have the same type)
+- variables must be declared before they are initialized
+- variables must be initialized before they are used
+- 'this' cannot be used in a static context (main function)
+
+### Code Generation:
+
+- instance creation (e.g. `Person p; p = new Person();`)
+- local variable declaration
+- local variable loading
+- local variable storing
+- parameter loading

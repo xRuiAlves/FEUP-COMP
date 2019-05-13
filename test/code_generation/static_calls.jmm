@@ -1,0 +1,18 @@
+class StaticCalls {
+    public static void main(String[] args) {
+        int i;
+        boolean b;
+
+        // StaticMethods.method1(); // Doesn't work
+
+        i = StaticMethods.method1();
+
+        StaticMethods.method2();
+
+        // StaticMethods.method3(); // Doesn't work
+
+        b = StaticMethods.method3();
+
+        StaticMethods.method4(12345);
+    }
+}
