@@ -199,6 +199,7 @@ public class SimpleNode implements Node {
         SimpleNode n = (SimpleNode) children[i];
         if (n != null) {
           n.generateCode(sb);
+          this.generateCodeChildNodeClose(sb);
         }
       }
     }
@@ -212,6 +213,10 @@ public class SimpleNode implements Node {
 
   protected void generateCodeNodeClose(StringBuilder sb) {
     
+  }
+
+  protected void generateCodeChildNodeClose(StringBuilder sb) {
+
   }
 }
 

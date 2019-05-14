@@ -14,5 +14,17 @@ class ASTIfBody extends SimpleNode {
   public String getNodeName() {
     return "ifBody";
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    ASTIfStatement if_parent = (ASTIfStatement) this.jjtGetParent();
+    sb.append("\tifeq ").append(if_parent.getElseLabel()).append("\n");
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    ASTIfStatement if_parent = (ASTIfStatement) this.jjtGetParent();
+    sb.append("\tgoto ").append(if_parent.getEndIfLabel()).append("\n");
+  }
 }
 /* JavaCC - OriginalChecksum=2866cf9750a7fe8840e615ea20dba0c8 (do not edit this line) */

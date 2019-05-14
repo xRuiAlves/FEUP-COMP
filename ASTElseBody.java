@@ -14,5 +14,11 @@ class ASTElseBody extends SimpleNode {
   public String getNodeName() {
     return "else";
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    ASTIfStatement if_parent = (ASTIfStatement) this.jjtGetParent();
+    sb.append(if_parent.getElseLabel()).append(":\n");
+  }
 }
 /* JavaCC - OriginalChecksum=ba4b481c9ed86027631c5d8ac156aa36 (do not edit this line) */

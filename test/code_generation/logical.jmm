@@ -1,0 +1,49 @@
+class Logical {
+    public static void main(String[] args) {
+        boolean f;
+        boolean t;
+        boolean bool;
+        Logical l;
+
+        f = false;
+        t = true;
+
+        l = new Logical();
+
+        // int a = 2;
+        // int b = 3;
+        // int x;
+
+        bool = t && t;
+
+        if (!!bool) {
+            l.foo();
+        } else {
+            l.bar();
+        }
+
+        // bool = t && l.foo() && f;
+        // bool = f && l.foo() && t;
+
+        // bool = !!bool;
+        // bool = !!!bool;
+
+        // bool = a < b;
+
+        // if (a < b) {
+        //     x = 123;
+        // } else {
+        //     x = 456;
+        // }
+    }
+
+    public boolean foo() {
+        io.println(90909);
+        return true;
+    }
+
+    public int bar() {
+        io.println(40404);
+        return 0;
+    }
+}

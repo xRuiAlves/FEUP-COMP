@@ -33,5 +33,10 @@ class ASTNotExpression extends SimpleNode implements Typed {
     // Calculate own type
     this.type = new VariableType("boolean");
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    sb.append("\ticonst_1\n\tixor\n");
+  }
 }
 /* JavaCC - OriginalChecksum=e213793f1ee47cd5b95e1a006bfe6712 (do not edit this line) */

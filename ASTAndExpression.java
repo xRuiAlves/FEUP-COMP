@@ -3,6 +3,7 @@
 public
 class ASTAndExpression extends SimpleNode implements Typed {
   private VariableType type;
+  private int label_number;
 
   public ASTAndExpression(int id) {
     super(id);
@@ -32,6 +33,32 @@ class ASTAndExpression extends SimpleNode implements Typed {
 
     // Calculate own type
     this.type = new VariableType("boolean");
+  }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    this.label_number = LabelGenerator.nextCustomLabelNr();
+  }
+
+  @Override
+  protected void generateCodeChildNodeClose(StringBuilder sb) {
+    // If false, jump to the end, where false is pushed into the stack
+    sb.append("\tifeq false_").append(this.label_number).append("\n");
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    // All the checks for false passed, push true into the stack and exit
+    // Also add the other labels to jump to (exiting the if - after pushing a true - and pushing a false)
+    sb.append("\ticonst_1\n");
+    sb.append("\tgoto done_").append(this.label_number).append("\n");
+
+    // In case any check is false, adding false to the stack with a label previously
+    sb.append("false_").append(this.label_number).append(":\n");
+    sb.append("\ticonst_0\n");
+
+    // After pushing a true, jump out of the if
+    sb.append("done_").append(this.label_number).append(":\n");
   }
 }
 /* JavaCC - OriginalChecksum=fae167255531a69eed62ec05b1af74e6 (do not edit this line) */

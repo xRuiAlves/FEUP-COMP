@@ -2,6 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTIfStatement extends SimpleNode {
+  private String else_label;
+  private String endif_label;
+
   public ASTIfStatement(int id) {
     super(id);
   }
@@ -22,6 +25,26 @@ class ASTIfStatement extends SimpleNode {
     if (!(lhs.isBoolean() || lhs.isIgnored())) {
       throw new SemanticError(this.line, String.format("Invalid type '%s' in If statement (expected boolean)", lhs));
     }
+  }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    final int label_number = LabelGenerator.nextCustomLabelNr();
+    this.else_label = "else_" + label_number;
+    this.endif_label = "endif_" + label_number;
+  }
+
+  public String getElseLabel() {
+    return else_label;
+  }
+
+  public String getEndIfLabel() {
+    return endif_label;
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    sb.append(this.endif_label).append(":\n");
   }
 }
 /* JavaCC - OriginalChecksum=9ed097da38d478f44445fd26ec1e8f5d (do not edit this line) */
