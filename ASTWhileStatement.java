@@ -2,6 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTWhileStatement extends SimpleNode {
+  private String endloop_label;
+  private String loop_label;
+
   public ASTWhileStatement(int id) {
     super(id);
   }
@@ -22,6 +25,28 @@ class ASTWhileStatement extends SimpleNode {
     if (!(lhs.isBoolean() || lhs.isIgnored())) {
       throw new SemanticError(this.line, String.format("Invalid type '%s' in While statement (expected boolean)", lhs));
     }
+  }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    final int label_number = LabelGenerator.nextCustomLabelNr();
+    this.endloop_label = "endloop_" + label_number;
+    this.loop_label = "loop_" + label_number;
+
+    sb.append(this.loop_label).append(":\n");
+  }
+
+  public String getLoopLabel() {
+    return loop_label;
+  }
+
+  public String getEndLoopLabel() {
+    return endloop_label;
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    sb.append(this.endloop_label).append(":\n");
   }
 }
 /* JavaCC - OriginalChecksum=bc101b754e6ad81cd1d346b016d5ce12 (do not edit this line) */

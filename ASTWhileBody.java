@@ -14,5 +14,17 @@ class ASTWhileBody extends SimpleNode {
   public String getNodeName() {
     return "body";
   }
+
+  @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    ASTWhileStatement while_parent = (ASTWhileStatement) this.jjtGetParent();
+    sb.append("\tifeq ").append(while_parent.getEndLoopLabel()).append("\n");
+  }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    ASTWhileStatement while_parent = (ASTWhileStatement) this.jjtGetParent();
+    sb.append("\tgoto ").append(while_parent.getLoopLabel()).append("\n");
+  }
 }
 /* JavaCC - OriginalChecksum=a372a0b2f522b0fb66f679bbe3a0d54e (do not edit this line) */
