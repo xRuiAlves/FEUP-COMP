@@ -10,30 +10,33 @@
 
 .method public static main([Ljava/lang/String;)V
 	.limit stack 10 ; temporary while stack size is not being calculated
-	.limit locals 6
+	.limit locals 9
 	.var 2 is l LLogical;
-	.var 3 is f Z
-	.var 4 is bool Z
-	.var 5 is t Z
+	.var 3 is x I
+	.var 4 is f Z
+	.var 5 is bool Z
+	.var 6 is t Z
+	.var 7 is b I
+	.var 8 is a I
 	iconst_0
-	istore_3
+	istore 4
 	iconst_1
-	istore 5
+	istore 6
 	new Logical
 	dup
 	invokespecial Logical/<init>()V
 	astore_2
-	iload 5
+	iload 6
 	ifeq false_0
-	iload 5
+	iload 6
 	ifeq false_0
 	iconst_1
 	goto done_0
 false_0:
 	iconst_0
 done_0:
-	istore 4
-	iload 4
+	istore 5
+	iload 5
 	iconst_1
 	ixor
 	iconst_1
@@ -48,6 +51,70 @@ else_1:
 	invokevirtual Logical/bar()I
 	pop
 endif_1:
+	iconst_2
+	istore 8
+	iconst_3
+	istore 7
+	iload 8
+	iload 7
+	if_icmpge lt_false_3
+	iconst_1
+	goto lt_done_3
+lt_false_3:
+	iconst_0
+lt_done_3:
+	ifeq else_2
+	bipush 123
+	istore_3
+	iload_3
+	iconst_2
+	iadd
+	istore_3
+	iload_3
+	iconst_1
+	isub
+	istore_3
+	iconst_2
+	iconst_3
+	if_icmpge lt_false_6
+	iconst_1
+	goto lt_done_6
+lt_false_6:
+	iconst_0
+lt_done_6:
+	ifeq false_5
+	iconst_1
+	ifeq false_5
+	iconst_1
+	goto done_5
+false_5:
+	iconst_0
+done_5:
+	ifeq else_4
+	iconst_0
+	iconst_1
+	isub
+	istore_3
+	goto endif_4
+else_4:
+	sipush 200
+	istore_3
+endif_4:
+	goto endif_2
+else_2:
+	sipush 456
+	istore_3
+	iload_3
+	iconst_3
+	iadd
+	istore_3
+	iload_3
+	iconst_2
+	isub
+	istore_3
+endif_2:
+	iload_3
+	invokestatic io/println(I)V
 	return
 .end method
 

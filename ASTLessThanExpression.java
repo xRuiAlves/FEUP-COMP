@@ -33,5 +33,19 @@ class ASTLessThanExpression extends SimpleNode implements Typed {
     // Calculate own type
     this.type = new VariableType("boolean");
   }
+
+  @Override
+  protected void generateCodeNodeClose(StringBuilder sb) {
+    final int label_number = LabelGenerator.nextCustomLabelNr();
+    final String lt_false_label = "lt_false_" + label_number;
+    final String end_lt_label = "lt_done_" + label_number;
+
+    sb.append("\tif_icmpge ").append(lt_false_label).append("\n");
+    sb.append("\ticonst_1\n");
+    sb.append("\tgoto ").append(end_lt_label).append("\n");
+    sb.append(lt_false_label).append(":\n");
+    sb.append("\ticonst_0\n");
+    sb.append(end_lt_label).append(":\n");
+  }
 }
 /* JavaCC - OriginalChecksum=9405f26bbe0b95a12e7d396311b1838b (do not edit this line) */

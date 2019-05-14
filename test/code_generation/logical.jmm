@@ -4,15 +4,14 @@ class Logical {
         boolean t;
         boolean bool;
         Logical l;
+        int a;
+        int b;
+        int x;
 
         f = false;
         t = true;
 
         l = new Logical();
-
-        // int a = 2;
-        // int b = 3;
-        // int x;
 
         bool = t && t;
 
@@ -28,13 +27,27 @@ class Logical {
         // bool = !!bool;
         // bool = !!!bool;
 
-        // bool = a < b;
+        a = 2;
+        b = 3;
+        
+        // bool = a < b;        
+        
+        if (a < b) {
+            x = 123;
+            x = x + 2;
+            x = x - 1;
+            if (2 < 3 && true) {
+                x = 0-1;
+            } else {
+                x = 200;
+            }
+        } else {
+            x = 456;
+            x = x + 3;
+            x = x - 2;
+        }
 
-        // if (a < b) {
-        //     x = 123;
-        // } else {
-        //     x = 456;
-        // }
+        io.println(x);
     }
 
     public boolean foo() {
