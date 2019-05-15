@@ -152,12 +152,11 @@ public class ASTDotExpression extends SimpleNode implements Typed {
         }
 
       } else {
-        sb.append(m.getReturn().toJasminType());
-        sb.append("\n");
+        sb.append(m.getReturn().toJasminType()).append("\n");
 
         Node parent = this.jjtGetParent();
 
-        if (parent == null || !(parent instanceof ASTAssignmentStatement)) {
+        if (parent instanceof ASTMethodDeclaration || parent instanceof ASTWhileBody || parent instanceof ASTIfBody) {
           sb.append("\tpop\n");
         }
       }

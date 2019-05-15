@@ -1,10 +1,22 @@
 class Loops {
     public static void main(String[] args) {
         int i;
+        Loops l;
+
+        l = new Loops();
+        
         i = 0;
         while (i < 5) {
             io.println(i);
             i = i + 1;
         }
+
+        while (l.testFalse()) {
+            io.println(12345);
+        }
+    }
+
+    public boolean testFalse() {
+        return false;
     }
 }
