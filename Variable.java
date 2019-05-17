@@ -31,7 +31,7 @@ public class Variable implements Typed {
 
     public String toJasminLoad() {
         if (this.isClassField()) {
-            return String.format("\taload_0\n\tgetfield %s/%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
+            return String.format("\taload_0\n\tgetfield %s/f_%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
         }
         // Using shorter instructions optimization
         return String.format("\t%s%s%d\n", this.type.toJasminLoad(), this.local_var_index < 4 ? "_" : " ", this.local_var_index);
@@ -40,7 +40,7 @@ public class Variable implements Typed {
     public String toJasminStore() {
         if (this.isClassField()) {
             // aload_0 is done in ASTAssignmentStatement due to needing to be lowest on the stack
-            return String.format("\tputfield %s/%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
+            return String.format("\tputfield %s/f_%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
         }
         // Using shorter instructions optimization
         return String.format("\t%s%s%d\n", this.type.toJasminStore(), this.local_var_index < 4 ? "_" : " ", this.local_var_index);

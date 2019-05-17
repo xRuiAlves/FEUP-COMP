@@ -84,7 +84,7 @@ public class ASTClassDeclaration extends NodeWithSymbolTable {
     sb.append("; class fields:\n");
 
     for (Variable field_declaration : this.field_declarations) {
-      sb.append(".field public ").append(field_declaration.getIdentifier()).append(" ").append(field_declaration.getType().toJasminType()).append("\n");
+      sb.append(".field public f_").append(field_declaration.getIdentifier()).append(" ").append(field_declaration.getType().toJasminType()).append("\n");
     }
 
     sb.append("\n\n");

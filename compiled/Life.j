@@ -1,6 +1,16 @@
 .class public Life
 .super java/lang/Object
 
+; class fields:
+.field public f_UNDERPOP_LIM I
+.field public f_OVERPOP_LIM I
+.field public f_REPRODUCE_NUM I
+.field public f_LOOPS_PER_MS I
+.field public f_xMax I
+.field public f_yMax I
+.field public f_field [I
+
+
 ; standard implicit constructor
 .method public <init>()V
 	aload_0
@@ -43,41 +53,41 @@ endloop_0:
 	iconst_1
 	newarray int
 	astore_2
+	aload_0
 	iconst_2
+	putfield Life/f_UNDERPOP_LIM I
 	aload_0
-	putfield Life/UNDERPOP_LIM I
 	iconst_3
+	putfield Life/f_OVERPOP_LIM I
 	aload_0
-	putfield Life/OVERPOP_LIM I
 	iconst_3
+	putfield Life/f_REPRODUCE_NUM I
 	aload_0
-	putfield Life/REPRODUCE_NUM I
 	ldc 225000
+	putfield Life/f_LOOPS_PER_MS I
 	aload_0
-	putfield Life/LOOPS_PER_MS I
 	aload_0
 	aload_2
 	invokevirtual Life/field([I)[I
-	aload_0
-	putfield Life/field [I
+	putfield Life/f_field [I
 	aload_2
 	iconst_0
 	iaload
 	istore_1
+	aload_0
 	iload_1
 	iconst_1
 	isub
+	putfield Life/f_xMax I
 	aload_0
-	putfield Life/xMax I
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	arraylength
 	iload_1
 	idiv
 	iconst_1
 	isub
-	aload_0
-	putfield Life/yMax I
+	putfield Life/f_yMax I
 	iconst_1
 	ireturn
 .end method
@@ -506,7 +516,7 @@ endloop_0:
 	.var 4 is local_goodPop Z
 	.var 5 is local_cur I
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	arraylength
 	newarray int
 	astore_2
@@ -515,7 +525,7 @@ endloop_0:
 loop_1:
 	iload_3
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	arraylength
 	if_icmpge lt_false_2
 	iconst_1
@@ -525,7 +535,7 @@ lt_false_2:
 lt_done_2:
 	ifeq endloop_1
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	iload_3
 	iaload
 	istore 5
@@ -547,13 +557,13 @@ lt_done_4:
 	aload_0
 	iload_1
 	aload_0
-	getfield Life/UNDERPOP_LIM I
+	getfield Life/f_UNDERPOP_LIM I
 	invokevirtual Life/ge(II)Z
 	ifeq false_5
 	aload_0
 	iload_1
 	aload_0
-	getfield Life/OVERPOP_LIM I
+	getfield Life/f_OVERPOP_LIM I
 	invokevirtual Life/le(II)Z
 	ifeq false_5
 	iconst_1
@@ -575,7 +585,7 @@ else_6:
 	aload_2
 	iload_3
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	iload_3
 	iaload
 	iastore
@@ -585,7 +595,7 @@ else_3:
 	aload_0
 	iload_1
 	aload_0
-	getfield Life/REPRODUCE_NUM I
+	getfield Life/f_REPRODUCE_NUM I
 	invokevirtual Life/eq(II)Z
 	ifeq else_7
 	aload_2
@@ -597,7 +607,7 @@ else_7:
 	aload_2
 	iload_3
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	iload_3
 	iaload
 	iastore
@@ -609,9 +619,9 @@ endif_3:
 	istore_3
 	goto loop_1
 endloop_1:
-	aload_2
 	aload_0
-	putfield Life/field [I
+	aload_2
+	putfield Life/f_field [I
 	iconst_1
 	ireturn
 .end method
@@ -628,7 +638,7 @@ endloop_1:
 loop_8:
 	iload_2
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	arraylength
 	if_icmpge lt_false_9
 	iconst_1
@@ -640,7 +650,7 @@ lt_done_9:
 	aload_0
 	iload_1
 	aload_0
-	getfield Life/xMax I
+	getfield Life/f_xMax I
 	invokevirtual Life/gt(II)Z
 	ifeq else_10
 	invokestatic io/println()V
@@ -650,7 +660,7 @@ lt_done_9:
 else_10:
 endif_10:
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	iload_2
 	iaload
 	invokestatic io/print(I)V
@@ -675,7 +685,7 @@ endloop_8:
 	.limit locals 3
 	iload_1
 	aload_0
-	getfield Life/xMax I
+	getfield Life/f_xMax I
 	iconst_1
 	iadd
 	iload_2
@@ -692,7 +702,7 @@ endloop_8:
 	.var 4 is local_x I
 	.var 5 is local_ret [I
 	aload_0
-	getfield Life/xMax I
+	getfield Life/f_xMax I
 	iconst_1
 	iadd
 	istore_2
@@ -746,7 +756,7 @@ endloop_8:
 	istore 5
 	iload 6
 	aload_0
-	getfield Life/xMax I
+	getfield Life/f_xMax I
 	if_icmpge lt_false_12
 	iconst_1
 	goto lt_done_12
@@ -770,7 +780,7 @@ lt_done_12:
 	goto endif_13
 else_13:
 	aload_0
-	getfield Life/xMax I
+	getfield Life/f_xMax I
 	istore 4
 endif_13:
 	goto endif_11
@@ -784,7 +794,7 @@ else_11:
 endif_11:
 	iload 5
 	aload_0
-	getfield Life/yMax I
+	getfield Life/f_yMax I
 	if_icmpge lt_false_15
 	iconst_1
 	goto lt_done_15
@@ -808,7 +818,7 @@ lt_done_15:
 	goto endif_16
 else_16:
 	aload_0
-	getfield Life/yMax I
+	getfield Life/f_yMax I
 	istore_2
 endif_16:
 	goto endif_14
@@ -910,7 +920,7 @@ lt_done_18:
 	ifeq endloop_17
 	aload_0
 	aload_0
-	getfield Life/field [I
+	getfield Life/f_field [I
 	aload_2
 	iload_3
 	iaload
@@ -942,7 +952,7 @@ endloop_17:
 	.var 3 is local_i I
 	iload_1
 	aload_0
-	getfield Life/LOOPS_PER_MS I
+	getfield Life/f_LOOPS_PER_MS I
 	imul
 	istore_2
 	iconst_0
