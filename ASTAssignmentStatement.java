@@ -44,6 +44,18 @@ class ASTAssignmentStatement extends SimpleNode {
   }
 
   @Override
+  protected void generateCodeNodeOpen(StringBuilder sb) {
+    Node lhs_raw = children[0];
+    if (lhs_raw instanceof ASTIdentifier) {
+      // Storing the left hand side of an assignment
+      Variable lhs = ((ASTIdentifier) lhs_raw).getVariable();
+      if (lhs.isClassField()) {
+        sb.append("\taload_0\n");
+      }
+    }
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     Node lhs_raw = children[0];
     if (lhs_raw instanceof ASTIdentifier) {

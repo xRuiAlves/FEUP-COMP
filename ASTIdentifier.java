@@ -61,8 +61,8 @@ public class ASTIdentifier extends SimpleNode implements Typed {
     }
 
     // Otherwise, load the variable onto the stack
+    // (Only if it is not of ignored type (static references)) -> Must test this more thoroughly
     if (!this.variable.getType().isIgnored()) {
-      // (Only if it is not of ignored type (static references)) -> Must test this more thoroughly
       sb.append(this.variable.toJasminLoad());
     }
   }

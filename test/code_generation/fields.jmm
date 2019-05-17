@@ -1,0 +1,30 @@
+class Fields {
+    int x;
+
+    public static void main(String[] args) {
+        Fields f;
+
+        f = new Fields();
+
+        f.setX(123);
+        io.println(f.getX());
+
+        f.setX(420);
+        io.println(f.getX());
+    }
+
+    public int setX(int val) {
+        x = val;
+        return val;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    // TODO: Fix the order not being considered
+    // public int setX(int val) {
+    //     x = val;
+    //     return val;
+    // }
+}

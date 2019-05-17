@@ -4,6 +4,7 @@
 public class Variable implements Typed {
     protected final VariableType type;
     protected final VariableIdentifier identifier;
+    protected boolean is_class_field = false;
     protected boolean is_initialized = false;
     protected boolean is_parameter = false;
     protected int local_var_index = 4321; // If we are to fail due to mistakes in initializations, make it fail hard! (in order to more easlily find the bugs)
@@ -19,16 +20,28 @@ public class Variable implements Typed {
     }
 
     public String toJasminDeclaration() {
+        if (this.isClassField()) {
+            return "";
+        }
         // Leaving the index to be filled in later
-        return String.format("\t.var %%d is %s %s\n", this.identifier, this.type.toJasminType());
+        return String.format("\t.var %%d is local_%s %s\n", this.identifier, this.type.toJasminType());
     }
 
+    // TODO: Test that aload_0 is valid
+
     public String toJasminLoad() {
+        if (this.isClassField()) {
+            return String.format("\taload_0\n\tgetfield %s/%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
+        }
         // Using shorter instructions optimization
         return String.format("\t%s%s%d\n", this.type.toJasminLoad(), this.local_var_index < 4 ? "_" : " ", this.local_var_index);
     }
 
     public String toJasminStore() {
+        if (this.isClassField()) {
+            // aload_0 is done in ASTAssignmentStatement due to needing to be lowest on the stack
+            return String.format("\tputfield %s/%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
+        }
         // Using shorter instructions optimization
         return String.format("\t%s%s%d\n", this.type.toJasminStore(), this.local_var_index < 4 ? "_" : " ", this.local_var_index);
     }
@@ -65,5 +78,13 @@ public class Variable implements Typed {
     
     public boolean isParameter() {
         return this.is_parameter;
+    }
+
+    public void markAsField() {
+        this.is_class_field = true;
+    }
+
+    public boolean isClassField() {
+        return this.is_class_field;
     }
 }

@@ -17,6 +17,10 @@ class ASTClassGeneralization extends SimpleNode {
     return "extends " + this.name;
   }
 
+  public String getExtendedClass() {
+    return this.name;
+  }
+
   @Override
   protected void generateCodeNodeOpen(StringBuilder sb) {
     sb.append(".super ").append(this.name).append("\n\n")

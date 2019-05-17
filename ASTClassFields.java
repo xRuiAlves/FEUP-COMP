@@ -2,6 +2,8 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTClassFields extends SimpleNode {
+  private Variable[] field_declarations = new Variable[0];
+
   public ASTClassFields(int id) {
     super(id);
   }
@@ -13,6 +15,24 @@ class ASTClassFields extends SimpleNode {
   @Override
   public String getNodeName() {
     return "fields";
+  }
+
+  public void prepareChildInfo() {
+    if (children == null) {
+      return;
+    }
+
+    field_declarations = new Variable[children.length];
+
+    for (int i = 0; i < children.length; ++i) {
+      ASTVarDeclaration var_decl = (ASTVarDeclaration) children[i];
+      var_decl.prepareInternalInfo();
+      field_declarations[i] = var_decl.toVariable();
+    }
+  }
+
+  public Variable[] getFieldDeclarations() {
+    return field_declarations;
   }
 }
 /* JavaCC - OriginalChecksum=8d56eaedf19224effead83c72a0ed553 (do not edit this line) */

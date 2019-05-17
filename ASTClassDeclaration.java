@@ -3,6 +3,8 @@
 public class ASTClassDeclaration extends NodeWithSymbolTable {
   // protected String name; // Declared in superclass for access
 
+  private Variable[] field_declarations;
+
   public ASTClassDeclaration(int id) {
     super(id);
   }
@@ -40,9 +42,11 @@ public class ASTClassDeclaration extends NodeWithSymbolTable {
 
     // 0/1 is fields that can have declarations as children
     ASTClassFields fields = (ASTClassFields) children[0 + has_extends_shift];
-    final int n_fields = fields.jjtGetNumChildren();
-    for (int i = 0; i < n_fields; ++i) {
-      this.registerInSymbolTable(fields.jjtGetChild(i));
+    fields.prepareChildInfo();
+    this.field_declarations = fields.getFieldDeclarations();
+    for (Variable field_declaration : this.field_declarations) {
+      field_declaration.markAsField();
+      this.registerInSymbolTable(field_declaration);
     }
 
     if ((children.length - has_extends_shift) == 1) {
@@ -68,16 +72,37 @@ public class ASTClassDeclaration extends NodeWithSymbolTable {
   @Override
   protected void generateCodeNodeOpen(StringBuilder sb) {
     sb.append(".class public ").append(this.name).append("\n");
-    if (!(children[0] instanceof ASTClassGeneralization)) {
-      sb.append(".super java/lang/Object\n\n");
-
-      sb.append("; standard implicit constructor\n")
-        .append(".method public <init>()V\n")
-        .append("\taload_0\n")
-        .append("\tinvokenonvirtual java/lang/Object/<init>()V\n")
-        .append("\treturn\n")
-        .append(".end method\n\n");
+    sb.append(".super ");
+    if (children[0] instanceof ASTClassGeneralization) {
+      sb.append(((ASTClassGeneralization) children[0]).getExtendedClass());
+    } else {
+      sb.append("java/lang/Object");
     }
+    sb.append("\n\n");
+
+
+    sb.append("; class fields:\n");
+
+    for (Variable field_declaration : this.field_declarations) {
+      sb.append(".field public ").append(field_declaration.getIdentifier()).append(" ").append(field_declaration.getType().toJasminType()).append("\n");
+    }
+
+    sb.append("\n\n");
+
+    sb.append("; standard implicit constructor\n")
+      .append(".method public <init>()V\n")
+      .append("\taload_0\n");
+
+    sb.append("\tinvokenonvirtual ");
+    if (children[0] instanceof ASTClassGeneralization) {
+      sb.append(((ASTClassGeneralization) children[0]).getExtendedClass());
+    } else {
+      sb.append("java/lang/Object");
+    }
+
+    sb.append("/<init>()V\n")
+      .append("\treturn\n")
+      .append(".end method\n\n");
   }
 }
 /*

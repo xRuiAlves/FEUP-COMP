@@ -147,7 +147,13 @@ public class ASTDotExpression extends SimpleNode implements Typed {
         if (parent instanceof ASTAssignmentStatement) {
           ASTAssignmentStatement parent_assignment = (ASTAssignmentStatement) parent;
           sb.append(parent_assignment.getLHSVarType().toJasminType());
-        } else {
+        } else if (parent instanceof ASTIfStatement || parent instanceof ASTWhileStatement) {
+          sb.append("Z");
+        }
+        //  else if (parent instanceof ASTMethodCall) {
+
+        // }
+         else {
           sb.append("V");
         }
 
