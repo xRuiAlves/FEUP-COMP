@@ -1,0 +1,15 @@
+class B extends A {
+    public static void main(String[] args) {
+        A a;
+
+        a = new B();
+
+        a.foo();
+    }
+
+    public int foo() {
+        io.println(2);
+
+        return 0;
+    }
+}

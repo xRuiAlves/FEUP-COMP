@@ -1,0 +1,7 @@
+class Parens {
+    public static void main(String[] args) {
+        int x;
+        x = (1 + (2 * (1 + 1)));
+        io.println(x);
+    }
+}

@@ -25,7 +25,7 @@ class ASTAssignmentStatement extends SimpleNode {
     VariableType lhs = ((Typed) lhs_raw).getType();
     VariableType rhs = ((Typed) children[1]).getType();
 
-    if (!lhs.equals(rhs)) {
+    if (!lhs.equals(rhs) && !(lhs.isIdentifier() && rhs.isIdentifier())){
       throw new SemanticError(this.line, String.format("Invalid assignment between types %s and %s", lhs, rhs));
     }
 
