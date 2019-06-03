@@ -39,7 +39,10 @@ public abstract class MethodDeclarationNode extends NodeWithSymbolTable implemen
 
   protected final void generateParametersAndLocalsCode(StringBuilder sb) {
     // Temporary placeholder
-    sb.append("\t.limit stack 10 ; temporary while stack size is not being calculated\n");
+    // sb.append("\t.limit stack 10 ; temporary while stack size is not being calculated\n");
+
+    sb.append("\t.limit stack ").append(MethodStackSizeScopes.getInstance().getMethodScope(this.getScopeIdentifier()).getMaxStackSize()).append("\n");
+
     // Number of local variables = number of entries in the symbol table + 1
     sb.append(String.format("\t.limit locals %d\n", this.calcLocalsLimit() + 1));
 

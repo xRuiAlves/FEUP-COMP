@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 ; class fields:
-.field public x I
+.field public f_x I
 
 
 ; standard implicit constructor
@@ -13,7 +13,7 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	.var 2 is local_f LFields;
 	new Fields
@@ -36,20 +36,20 @@
 .end method
 
 .method public setX(I)I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 2
 	.limit locals 2
 	aload_0
 	iload_1
-	putfield Fields/x I
+	putfield Fields/f_x I
 	iload_1
 	ireturn
 .end method
 
 .method public getX()I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 1
 	.limit locals 1
 	aload_0
-	getfield Fields/x I
+	getfield Fields/f_x I
 	ireturn
 .end method
 

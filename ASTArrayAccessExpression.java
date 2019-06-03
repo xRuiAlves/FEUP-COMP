@@ -34,6 +34,17 @@ class ASTArrayAccessExpression extends SimpleNode implements Typed {
     // Calculate own type
     this.type = new VariableType("int");
   }
+  
+  @Override
+  protected void calculateStackImpact() {
+    if (parent != null && parent instanceof ASTAssignmentStatement && ((ASTAssignmentStatement) parent).isLHS(this)) {
+      // This node is left hand side of an assignment, thus the store instruction will be done in the assignment node to ensure correct order
+      // The above was tested by instead adding the store instruction here -> it is, in fact, true: the instruction must be in ASTAssignmentStatement
+      return;
+    }
+    // Stack impact of -1 (removes two and inserts one)
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+  }
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {

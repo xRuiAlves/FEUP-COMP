@@ -35,6 +35,11 @@ class ASTLessThanExpression extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(0);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     final int label_number = LabelGenerator.nextCustomLabelNr();
     final String lt_false_label = "lt_false_" + label_number;

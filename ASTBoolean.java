@@ -23,6 +23,11 @@ public class ASTBoolean extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     if (value.equals("true")) {
       sb.append("\ticonst_1\n");

@@ -1,0 +1,13 @@
+class SimpleIf {
+    public static void main(String[] args) {
+        boolean b;
+
+        b = true && false && true && true;
+
+        // if (b) {
+        //     io.println(1);
+        // } else {
+        //     io.println(2);
+        // }
+    }
+}

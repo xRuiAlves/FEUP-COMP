@@ -16,6 +16,11 @@ class ASTLength extends SimpleNode {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(0);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     sb.append("\tarraylength\n");
   }

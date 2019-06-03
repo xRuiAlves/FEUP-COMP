@@ -42,7 +42,9 @@ public class ASTMainDeclaration extends MethodDeclarationNode {
       }
     }
 
-    SymbolTableScopes.getInstance().addMethodScope(this.getScopeIdentifier(), this.line, this.symbol_table);
+    final String method_identifier = this.getScopeIdentifier();
+    SymbolTableScopes.getInstance().addMethodScope(method_identifier, this.line, this.symbol_table);
+    MethodStackSizeScopes.getInstance().addMethodScope(method_identifier, this.line);
   }
 
   @Override

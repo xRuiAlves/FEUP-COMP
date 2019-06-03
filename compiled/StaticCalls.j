@@ -1,6 +1,9 @@
 .class public StaticCalls
 .super java/lang/Object
 
+; class fields:
+
+
 ; standard implicit constructor
 .method public <init>()V
 	aload_0
@@ -9,10 +12,10 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 1
 	.limit locals 4
-	.var 2 is i I
-	.var 3 is b Z
+	.var 2 is local_i I
+	.var 3 is local_b Z
 	invokestatic StaticMethods/method1()I
 	istore_2
 	invokestatic StaticMethods/method2()V

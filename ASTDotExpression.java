@@ -77,6 +77,81 @@ public class ASTDotExpression extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    if (children[1] instanceof ASTLength) {
+      return;
+    }
+
+
+    // invokevirtual - non static
+    // invokestatic - static
+    
+    VariableType lhs_vt = ((Typed) children[0]).getType();
+    
+    if (lhs_vt.isIgnored()) {
+      // Inferring the return type from the variable assignment (void if it does not exist)
+      Node parent = this.jjtGetParent();
+
+      ASTMethodCall method_call = (ASTMethodCall) children[1];
+      int n_args = method_call.jjtGetNumChildren();
+      // Using the arguments from the stack
+      MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-n_args);
+
+      if (parent instanceof ASTAssignmentStatement) {
+        MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+      }/* else {
+        // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(0);
+      }*/
+    } else if (lhs_vt.isIdentifier()) {
+      // Removing the instance from the stack (non-static)
+      MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+      
+      // non-static method invocation
+      ASTMethodCall method_call = (ASTMethodCall) children[1];
+      String method_name = method_call.getIdentifier();
+      
+      // Method signature
+
+      int n_args = method_call.jjtGetNumChildren();
+      ArrayList<VariableType> arg_types = new ArrayList<>();
+      for (int i = 0; i < n_args; ++i) {
+        VariableType arg_type = ((Typed) method_call.jjtGetChild(i)).getType();
+        arg_types.add(arg_type);
+      }
+
+      // Using the arguments from the stack
+      MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-n_args);
+
+      final String method_id = SymbolTableScopes.calculateMethodIdentifier(new VariableIdentifier(method_name), arg_types.toArray(new VariableType[0]));
+      final Method m = SymbolTableScopes.getInstance().isMethodDeclared(method_id);
+      if (m == null) {
+        // non-declared instance methods (instance methods of other classes)
+        // Inferring the return type from the variable assignment
+        Node parent = this.jjtGetParent();
+
+        if (parent instanceof ASTAssignmentStatement) {
+          MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+        } else if (parent instanceof ASTIfStatement || parent instanceof ASTWhileStatement) {
+          MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+        } else {
+          // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(0);
+          //// sb.append("V");
+        }
+
+      } else {
+        MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+
+        Node parent = this.jjtGetParent();
+        if (parent instanceof ASTMethodDeclaration || parent instanceof ASTWhileBody || parent instanceof ASTIfBody) {
+          // sb.append("\tpop\n");
+          MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+        }
+      }
+    }
+
+  }
+  
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     if (children[1] instanceof ASTLength) {
       return;

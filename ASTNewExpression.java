@@ -23,6 +23,18 @@ class ASTNewExpression extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    VariableType type = new VariableType((ASTType) children[0]);
+    if (type.isIntArray()) {
+      // pop: array size, push: arrayref
+      // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(0);
+      return;
+    }
+
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     VariableType type = new VariableType((ASTType) children[0]);
     if (type.isIntArray()) {

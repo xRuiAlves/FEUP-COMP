@@ -23,6 +23,11 @@ public class ASTIntegerLiteral extends SimpleNode implements Typed{
   }
 
   @Override
+  protected void calculateStackImpact() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     // put value in stack
     final int value = Integer.parseInt(this.value);

@@ -18,12 +18,13 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
         JMMParser parser = new JMMParser(System.in);
         SimpleNode root = parser.Program();
         root.dump("");
-        System.out.println("\\\\-----Symbol Tables-----//");
+        System.out.println("\n\n\\\\-----Symbol Tables-----//");
         root.createSymbolTables("");
         root.dumpSymbolTable("");
         System.out.println("\n\n");
 
         root.semanticAnalysis();
+        root.calculateStackLimit();
 
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);

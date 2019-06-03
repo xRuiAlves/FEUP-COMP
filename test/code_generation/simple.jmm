@@ -1,4 +1,4 @@
-class X {
+class Simple {
     public static void main(String[] args) {
         int main_i;
         // boolean main_b;

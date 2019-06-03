@@ -16,6 +16,11 @@ class ASTIfBody extends SimpleNode {
   }
 
   @Override
+  protected void calculateStackImpactNodeOpen() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+  }
+
+  @Override
   protected void generateCodeNodeOpen(StringBuilder sb) {
     ASTIfStatement if_parent = (ASTIfStatement) this.jjtGetParent();
     sb.append("\tifeq ").append(if_parent.getElseLabel()).append("\n");

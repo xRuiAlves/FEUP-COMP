@@ -37,6 +37,12 @@ class ASTArithmeticExpression extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    // Stack impact of -1 (removes two and inserts one)
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     // execute operation
     if (operation.equals("+")) {

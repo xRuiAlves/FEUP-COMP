@@ -27,6 +27,11 @@ public class ASTThis extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     sb.append("\taload_0\n");
   }

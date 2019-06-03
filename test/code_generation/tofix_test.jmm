@@ -1,22 +1,24 @@
-class X  {
+class Test  {
     public static void main(String[] args) {
         int teste;
         boolean b;
-        X x;
+        Test x;
 
-        b = this.getBoolean(1);
-        b = this.getBoolean();
-        // b = this.getBoolean(false);
-        // teste = this.getBoolean(1);
+        x = new Test();
 
-        // 2 + 3 * this.getBoolean();
-        3 * 5 + this.getInfo(2);
-        // 2 + this.getInfo(3) + new X().getInfo(true, new ClassCoise(), new int[4])[2];
-        2 + this.getInfo(3) + new X().getInfo(2);
+        b = x.getBoolean(1);
+        b = x.getBoolean();
+        // b = x.getBoolean(false);
+        // teste = x.getBoolean(1);
 
-        x = new X();
+        // 2 + 3 * x.getBoolean();
+        3 * 5 + x.getInfo(2);
+        // 2 + x.getInfo(3) + new X().getInfo(true, new ClassCoise(), new int[4])[2];
+        2 + x.getInfo(3) + new X().getInfo(2);
+
+        x = new Test();
         x.getInfo(4) + 2;
-        // x.getBoolean(true, true, 1, new int[4], this, new Printer());
+        // x.getBoolean(true, true, 1, new int[4], x, new Printer());
 
         teste = Scanner.readline().length;
         b = Scanner.readline().isStopped();

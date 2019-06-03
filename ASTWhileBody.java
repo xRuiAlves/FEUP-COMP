@@ -16,6 +16,11 @@ class ASTWhileBody extends SimpleNode {
   }
 
   @Override
+  protected void calculateStackImpactNodeOpen() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+  }
+
+  @Override
   protected void generateCodeNodeOpen(StringBuilder sb) {
     ASTWhileStatement while_parent = (ASTWhileStatement) this.jjtGetParent();
     sb.append("\tifeq ").append(while_parent.getEndLoopLabel()).append("\n");

@@ -12,13 +12,25 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 10
 	.limit locals 3
 	.var 2 is local_x I
 	iconst_1
 	iconst_2
 	iconst_1
 	iconst_1
+	iconst_1
+	iconst_1
+	iconst_1
+	iconst_1
+	iconst_1
+	iconst_1
+	idiv
+	idiv
+	idiv
+	idiv
+	idiv
+	iadd
 	iadd
 	imul
 	iadd

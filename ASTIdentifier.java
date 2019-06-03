@@ -50,6 +50,22 @@ public class ASTIdentifier extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    Node parent = this.jjtGetParent();
+    if (parent != null && parent instanceof ASTAssignmentStatement && ((ASTAssignmentStatement) parent).isLHS(this)) {
+      // This node is left hand side of an assignment, thus the store instruction will be done in the assignment node to ensure correct order
+      // The above was tested by instead adding the store instruction here -> it is, in fact, true: the instruction must be in ASTAssignmentStatement
+      return;
+    }
+
+    // Otherwise, load the variable onto the stack
+    // (Only if it is not of ignored type (static references))
+    if (!this.variable.getType().isIgnored()) {
+      MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+    }
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     // Check if this node is not the left-hand side of an assignment
     

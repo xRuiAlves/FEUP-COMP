@@ -1,6 +1,9 @@
 .class public VarLimits
 .super java/lang/Object
 
+; class fields:
+
+
 ; standard implicit constructor
 .method public <init>()V
 	aload_0
@@ -9,15 +12,15 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 1
 	.limit locals 9
-	.var 2 is i7 I
-	.var 3 is i6 I
-	.var 4 is i5 I
-	.var 5 is i4 I
-	.var 6 is i3 I
-	.var 7 is i2 I
-	.var 8 is i1 I
+	.var 2 is local_i7 I
+	.var 3 is local_i6 I
+	.var 4 is local_i5 I
+	.var 5 is local_i4 I
+	.var 6 is local_i3 I
+	.var 7 is local_i2 I
+	.var 8 is local_i1 I
 	iconst_2
 	istore 8
 	bipush 100

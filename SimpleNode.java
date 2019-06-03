@@ -191,6 +191,43 @@ public class SimpleNode implements Node {
 
   }
 
+  public final void calculateStackLimit() {
+    this.calculateStackImpactNodeOpen();
+
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode) children[i];
+        if (n != null) {
+          n.calculateStackLimit();
+          this.calculateStackImpactChildNodeClose();
+        }
+      }
+    }
+
+    this.calculateStackImpact();
+  }
+
+  /**
+   * Impacts the stack limit of the current method (at the opening of a node, to match the code generation methods)
+   */
+  protected void calculateStackImpactNodeOpen() {
+    // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(value);
+  }
+
+  /**
+   * Impacts the stack limit of the current method
+   */
+  protected void calculateStackImpact() {
+    // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(value);
+  }
+
+  /**
+   * Impacts the stack limit of the current method (at the closure of a child node, to match the code generation methods)
+   */
+  protected void calculateStackImpactChildNodeClose() {
+    // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(value);
+  }
+
   public final void generateCode(StringBuilder sb) {
     this.generateCodeNodeOpen(sb);
 

@@ -1,6 +1,9 @@
 .class public Logical
 .super java/lang/Object
 
+; class fields:
+
+
 ; standard implicit constructor
 .method public <init>()V
 	aload_0
@@ -9,15 +12,15 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 7
 	.limit locals 9
-	.var 2 is l LLogical;
-	.var 3 is x I
-	.var 4 is f Z
-	.var 5 is bool Z
-	.var 6 is t Z
-	.var 7 is b I
-	.var 8 is a I
+	.var 2 is local_l LLogical;
+	.var 3 is local_x I
+	.var 4 is local_f Z
+	.var 5 is local_bool Z
+	.var 6 is local_t Z
+	.var 7 is local_b I
+	.var 8 is local_a I
 	iconst_0
 	istore 4
 	iconst_1
@@ -49,7 +52,6 @@ done_0:
 else_1:
 	aload_2
 	invokevirtual Logical/bar()I
-	pop
 endif_1:
 	iconst_2
 	istore 8
@@ -119,7 +121,7 @@ endif_2:
 .end method
 
 .method public foo()Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 1
 	.limit locals 1
 	ldc 90909
 	invokestatic io/println(I)V
@@ -128,7 +130,7 @@ endif_2:
 .end method
 
 .method public bar()I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 1
 	.limit locals 1
 	ldc 40404
 	invokestatic io/println(I)V

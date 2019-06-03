@@ -36,6 +36,17 @@ class ASTAndExpression extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    // Stack impact (removes two and inserts one)
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+  }
+
+  @Override
+  protected void calculateStackImpactChildNodeClose() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+  }
+
+  @Override
   protected void generateCodeNodeOpen(StringBuilder sb) {
     this.label_number = LabelGenerator.nextCustomLabelNr();
   }

@@ -35,6 +35,13 @@ class ASTNotExpression extends SimpleNode implements Typed {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    // Might raise the maximum so must be done like this
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+  }
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     sb.append("\ticonst_1\n\tixor\n");
   }

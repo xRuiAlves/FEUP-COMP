@@ -1,6 +1,9 @@
 .class public Arrs
 .super java/lang/Object
 
+; class fields:
+
+
 ; standard implicit constructor
 .method public <init>()V
 	aload_0
@@ -9,45 +12,45 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 4
 	.limit locals 3
-	.var 2 is arr [I
-	ldc 2
+	.var 2 is local_arr [I
+	iconst_2
 	newarray int
 	astore_2
 	aload_2
-	ldc 0
-	ldc 42
+	iconst_0
+	bipush 42
 	iastore
 	aload_2
-	ldc 1
-	ldc 402
+	iconst_1
+	sipush 402
 	iastore
 	aload_2
-	ldc 0
+	iconst_0
 	iaload
 	invokestatic io/println(I)V
 	aload_2
-	ldc 1
+	iconst_1
 	iaload
 	invokestatic io/println(I)V
 	aload_2
 	arraylength
 	invokestatic io/println(I)V
 	aload_2
-	ldc 1
-	ldc 2
-	ldc 5
+	iconst_1
+	iconst_2
+	iconst_5
 	imul
-	ldc 15
+	bipush 15
 	iadd
 	iastore
 	aload_2
-	ldc 0
+	iconst_0
 	iaload
 	invokestatic io/println(I)V
 	aload_2
-	ldc 1
+	iconst_1
 	iaload
 	invokestatic io/println(I)V
 	return

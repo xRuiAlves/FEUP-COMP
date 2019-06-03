@@ -34,6 +34,31 @@ class ASTAssignmentStatement extends SimpleNode {
     }
   }
 
+  @Override
+  protected void calculateStackImpactNodeOpen() {
+    Node lhs_raw = children[0];
+    if (lhs_raw instanceof ASTIdentifier) {
+      // Storing the left hand side of an assignment
+      Variable lhs = ((ASTIdentifier) lhs_raw).getVariable();
+      if (lhs.isClassField()) {
+        MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+      }
+    }
+  }
+
+  @Override
+  protected void calculateStackImpact() {
+    Node lhs_raw = children[0];
+    if (lhs_raw instanceof ASTIdentifier) {
+      // Storing the left hand side of an assignment
+      MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+    } else if (lhs_raw instanceof ASTArrayAccessExpression) {
+      // Storing the current operands that are in the stack in the given array (arrayref, index, value)
+      // These values need not be calculated or loaded because such will already be done by the child nodes
+      MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-3);
+    }
+  }
+
   /**
    * Tests if a node is the left hand side of this assignment
    * @param n Node to test
