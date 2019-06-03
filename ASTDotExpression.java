@@ -142,7 +142,7 @@ public class ASTDotExpression extends SimpleNode implements Typed {
         MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
 
         Node parent = this.jjtGetParent();
-        if (parent instanceof ASTMethodDeclaration || parent instanceof ASTWhileBody || parent instanceof ASTIfBody) {
+        if (parent instanceof ASTMethodDeclaration || parent instanceof ASTWhileBody || parent instanceof ASTIfBody || parent instanceof ASTElseBody) {
           // sb.append("\tpop\n");
           MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
         }
@@ -237,7 +237,7 @@ public class ASTDotExpression extends SimpleNode implements Typed {
 
         Node parent = this.jjtGetParent();
 
-        if (parent instanceof ASTMethodDeclaration || parent instanceof ASTWhileBody || parent instanceof ASTIfBody) {
+        if (parent instanceof ASTMethodDeclaration || parent instanceof ASTWhileBody || parent instanceof ASTIfBody || parent instanceof ASTElseBody) {
           sb.append("\tpop\n");
         }
       }

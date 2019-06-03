@@ -31,7 +31,10 @@ class ASTNewExpression extends SimpleNode implements Typed {
       return;
     }
 
-    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
+    // push: new and dup, pop via invokespecial
+    // Must add both because the first push interfers with the stack maximum
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(2);
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
   }
 
   @Override

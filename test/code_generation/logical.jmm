@@ -18,7 +18,8 @@ class Logical {
         if (!!bool) {
             l.foo();
         } else {
-            l.bar();
+            x = 2;
+            l.bar(); // FALTA UM POP AQUI
         }
 
         // bool = t && l.foo() && f;
@@ -27,27 +28,27 @@ class Logical {
         // bool = !!bool;
         // bool = !!!bool;
 
-        a = 2;
-        b = 3;
+        // a = 2;
+        // b = 3;
         
         // bool = a < b;        
         
-        if (a < b) {
-            x = 123;
-            x = x + 2;
-            x = x - 1;
-            if (2 < 3 && true) {
-                x = 0-1;
-            } else {
-                x = 200;
-            }
-        } else {
-            x = 456;
-            x = x + 3;
-            x = x - 2;
-        }
+        // if (a < b) {
+        //     x = 123;
+        //     x = x + 2;
+        //     x = x - 1;
+        //     if (2 < 3 && true) {
+        //         x = 0-1;
+        //     } else {
+        //         x = 200;
+        //     }
+        // } else {
+        //     x = 456;
+        //     x = x + 3;
+        //     x = x - 2;
+        // }
 
-        io.println(x);
+        // io.println(x);
     }
 
     public boolean foo() {
