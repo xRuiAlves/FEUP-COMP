@@ -19,7 +19,7 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 2
 	.limit locals 4
 	.var 2 is local_l LLife;
 	.var 3 is local_unused I
@@ -46,7 +46,7 @@ endloop_0:
 .end method
 
 .method public init()Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 9
 	.limit locals 3
 	.var 1 is local_lineLen I
 	.var 2 is local_lineLenA [I
@@ -93,7 +93,7 @@ endloop_0:
 .end method
 
 .method public field([I)[I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	.var 2 is local_field [I
 	bipush 100
@@ -508,7 +508,7 @@ endloop_0:
 .end method
 
 .method public update()Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 6
 	.limit locals 6
 	.var 1 is local_neighN I
 	.var 2 is local_newField [I
@@ -627,7 +627,7 @@ endloop_1:
 .end method
 
 .method public printField()Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 4
 	.limit locals 3
 	.var 1 is local_j I
 	.var 2 is local_i I
@@ -681,7 +681,7 @@ endloop_8:
 .end method
 
 .method public trIdx(II)I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	iload_1
 	aload_0
@@ -695,7 +695,7 @@ endloop_8:
 .end method
 
 .method public cartIdx(I)[I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 6
 	.var 2 is local_xLim I
 	.var 3 is local_y I
@@ -732,7 +732,7 @@ endloop_8:
 .end method
 
 .method public getNeighborCoords(I)[I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 7
 	.limit locals 10
 	.var 2 is local_upY I
 	.var 3 is local_cart [I
@@ -894,7 +894,7 @@ endif_14:
 .end method
 
 .method public getLiveNeighborN(I)I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 5
 	.limit locals 5
 	.var 2 is local_neigh [I
 	.var 3 is local_i I
@@ -946,7 +946,7 @@ endloop_17:
 .end method
 
 .method public busyWait(I)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 4
 	.var 2 is local_n I
 	.var 3 is local_i I
@@ -978,7 +978,7 @@ endloop_20:
 .end method
 
 .method public eq(II)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	aload_0
 	iload_1
@@ -1003,7 +1003,7 @@ done_22:
 .end method
 
 .method public ne(II)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	aload_0
 	iload_1
@@ -1015,7 +1015,7 @@ done_22:
 .end method
 
 .method public lt(II)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 2
 	.limit locals 3
 	iload_1
 	iload_2
@@ -1029,7 +1029,7 @@ lt_done_23:
 .end method
 
 .method public le(II)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	aload_0
 	iload_1
@@ -1056,7 +1056,7 @@ done_24:
 .end method
 
 .method public gt(II)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	aload_0
 	iload_1
@@ -1068,7 +1068,7 @@ done_24:
 .end method
 
 .method public ge(II)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 3
 	.limit locals 3
 	aload_0
 	iload_1

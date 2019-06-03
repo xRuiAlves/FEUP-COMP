@@ -16,6 +16,11 @@ class ASTReturn extends SimpleNode {
   }
 
   @Override
+  protected void calculateStackImpact() {
+    MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
+  }
+
+  @Override
   protected void applySemanticAnalysis() throws SemanticError {    
     Method m = SymbolTableScopes.getInstance().isMethodDeclared(this.scope_identifier);
     VariableType ret_type = ((Typed) children[0]).getType();

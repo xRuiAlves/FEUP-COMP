@@ -12,7 +12,7 @@
 .end method
 
 .method public static main([Ljava/lang/String;)V
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 4
 	.limit locals 5
 	.var 2 is local_L [I
 	.var 3 is local_i I
@@ -60,7 +60,7 @@ endloop_0:
 .end method
 
 .method public printL([I)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 2
 	.limit locals 3
 	.var 2 is local_i I
 	iconst_0
@@ -91,7 +91,7 @@ endloop_2:
 .end method
 
 .method public quicksort([I)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 5
 	.limit locals 2
 	aload_0
 	aload_1
@@ -105,7 +105,7 @@ endloop_2:
 .end method
 
 .method public quicksort([III)Z
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 5
 	.limit locals 5
 	.var 4 is local_p I
 	iload_2
@@ -147,7 +147,7 @@ endif_4:
 .end method
 
 .method public partition([III)I
-	.limit stack 10 ; temporary while stack size is not being calculated
+	.limit stack 4
 	.limit locals 8
 	.var 4 is local_j I
 	.var 5 is local_i I

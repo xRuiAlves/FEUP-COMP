@@ -17,6 +17,7 @@ class ASTWhileBody extends SimpleNode {
 
   @Override
   protected void calculateStackImpactNodeOpen() {
+    System.out.println("while:"); // TODO Remove
     MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
   }
 
