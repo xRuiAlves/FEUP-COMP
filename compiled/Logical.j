@@ -56,6 +56,131 @@ else_1:
 	invokevirtual Logical/bar()I
 	pop
 endif_1:
+	iload 6
+	ifeq false_3
+	aload_2
+	invokevirtual Logical/foo()Z
+	ifeq false_3
+	iconst_1
+	goto done_3
+false_3:
+	iconst_0
+done_3:
+	ifeq false_2
+	iload 4
+	ifeq false_2
+	iconst_1
+	goto done_2
+false_2:
+	iconst_0
+done_2:
+	istore 5
+	iload 4
+	ifeq false_5
+	aload_2
+	invokevirtual Logical/foo()Z
+	ifeq false_5
+	iconst_1
+	goto done_5
+false_5:
+	iconst_0
+done_5:
+	ifeq false_4
+	iload 6
+	ifeq false_4
+	iconst_1
+	goto done_4
+false_4:
+	iconst_0
+done_4:
+	istore 5
+	iload 5
+	iconst_1
+	ixor
+	iconst_1
+	ixor
+	istore 5
+	iload 5
+	iconst_1
+	ixor
+	iconst_1
+	ixor
+	iconst_1
+	ixor
+	istore 5
+	iconst_2
+	istore 8
+	iconst_3
+	istore 7
+	iload 8
+	iload 7
+	if_icmpge lt_false_6
+	iconst_1
+	goto lt_done_6
+lt_false_6:
+	iconst_0
+lt_done_6:
+	istore 5
+	iload 8
+	iload 7
+	if_icmpge lt_false_8
+	iconst_1
+	goto lt_done_8
+lt_false_8:
+	iconst_0
+lt_done_8:
+	ifeq else_7
+	bipush 123
+	istore_3
+	iload_3
+	iconst_2
+	iadd
+	istore_3
+	iload_3
+	iconst_1
+	isub
+	istore_3
+	iconst_2
+	iconst_3
+	if_icmpge lt_false_11
+	iconst_1
+	goto lt_done_11
+lt_false_11:
+	iconst_0
+lt_done_11:
+	ifeq false_10
+	iconst_1
+	ifeq false_10
+	iconst_1
+	goto done_10
+false_10:
+	iconst_0
+done_10:
+	ifeq else_9
+	iconst_0
+	iconst_1
+	isub
+	istore_3
+	goto endif_9
+else_9:
+	sipush 200
+	istore_3
+endif_9:
+	goto endif_7
+else_7:
+	sipush 456
+	istore_3
+	iload_3
+	iconst_3
+	iadd
+	istore_3
+	iload_3
+	iconst_2
+	isub
+	istore_3
+endif_7:
+	iload_3
+	invokestatic io/println(I)V
 	return
 .end method
 
