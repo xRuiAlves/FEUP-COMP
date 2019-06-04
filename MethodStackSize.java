@@ -8,7 +8,7 @@ public class MethodStackSize {
     public void impactStack(int diff) {
         current_stack_size += diff;
         max_stack_size = Math.max(max_stack_size, current_stack_size);
-        System.out.printf("diff %d\t%s\n", diff, this.toString());
+        // System.out.printf("diff %d\t%s\n", diff, this.toString());
     }
 
     public int getMaxStackSize() {

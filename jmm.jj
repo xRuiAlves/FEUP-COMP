@@ -8,14 +8,42 @@
 
 PARSER_BEGIN(JMMParser)
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*/ {/*@bgen(jjtree)*/
   protected JJTJMMParserState jjtree = new JJTJMMParserState();
 
 /*@egen*/
     public static int n_errors = 0;
 
-    public static void main(String args[]) throws ParseException {
-        JMMParser parser = new JMMParser(System.in);
+    public static void printUsage() {
+        System.out.println("Usage: java JMMParser [-r=<num>] [-o] <input_file.jmm>");
+    }
+
+    public static void main(String[] args) throws ParseException {
+        ParserOptions options = ParserOptions.parseArgs(args);
+        if (options.getInputFile() == null) {
+            System.err.println("Input file not provided!");
+            printUsage();
+            System.exit(1);
+        }
+
+        if (options.willApplyR()) {
+            System.out.println("Option -r not yet implemented, will be ignored.");
+        }
+
+        try {
+            compile(options);
+        } catch(FileNotFoundException e) {
+            System.err.println("Input file not found!");
+            printUsage();
+            System.exit(2);
+        }
+    }
+
+    public static void compile(ParserOptions options) throws ParseException, FileNotFoundException {
+        JMMParser parser = new JMMParser(new FileInputStream(options.getInputFile()));
         SimpleNode root = parser.Program();
         root.dump("");
         System.out.println("\n\n\\\\-----Symbol Tables-----//");

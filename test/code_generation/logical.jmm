@@ -19,7 +19,7 @@ class Logical {
             l.foo();
         } else {
             x = 2;
-            l.bar(); // FALTA UM POP AQUI
+            l.bar();
         }
 
         bool = t && l.foo() && f;
