@@ -45,7 +45,8 @@ public class ParserOptions {
     public static ParserOptions parseArgs(String[] args) {
         ParserOptions options = new ParserOptions();
 
-        final Pattern minus_r_pattern = Pattern.compile("-r=(\\d+)");
+        // -r=<num> in which '=<num>' is optional
+        final Pattern minus_r_pattern = Pattern.compile("-r(?:=(\\d+))?");
 
         for (String arg : args) {
             if (arg.equals("-o")) {
@@ -55,9 +56,13 @@ public class ParserOptions {
 
             Matcher m = minus_r_pattern.matcher(arg);
             if (m.matches()) {
-                int r_level = Integer.parseInt(m.group(1));
                 options.setWillApplyR(true);
-                options.setRLevel(r_level);
+                if (m.groupCount() > 1) {
+                    int r_level = Integer.parseInt(m.group(1));
+                    options.setRLevel(r_level);
+                } else {
+                    options.setRLevel(0);
+                }
                 continue;
             }
 
