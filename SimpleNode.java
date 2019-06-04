@@ -228,6 +228,26 @@ public class SimpleNode implements Node {
     // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(value);
   }
 
+  public final void optimize() {
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode) children[i];
+        if (n != null) {
+          n.optimize();
+        }
+      }
+    }
+
+    this.applyOptimizations();
+  }
+
+  /**
+   * Applies optimizations to the current node. Override to change the behaviour for each node.
+   */
+  protected void applyOptimizations() {
+
+  }
+
   public final void generateCode(StringBuilder sb) {
     this.generateCodeNodeOpen(sb);
 
