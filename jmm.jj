@@ -54,6 +54,10 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants/*@egen*
         root.semanticAnalysis();
         root.calculateStackLimit();
 
+        if (options.willApplyOptimizations()) {
+            root.optimize();
+        }
+
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);
 

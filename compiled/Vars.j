@@ -15,7 +15,6 @@
 	.limit stack 3
 	.limit locals 10
 	.var 2 is local_b1 Z
-	.var 3 is local_var1 I
 	.var 4 is local_var2 I
 	.var 5 is local_var3 I
 	.var 6 is local_var4 I
@@ -27,8 +26,6 @@
 	iconst_0
 	istore 9
 	iconst_2
-	istore_3
-	iload_3
 	istore 4
 	iload 4
 	istore 5
@@ -39,7 +36,7 @@
 	iload 7
 	invokestatic io/println(I)V
 	iload 7
-	iload_3
+	iconst_2
 	iadd
 	invokestatic io/println(I)V
 	iload 7

@@ -5,9 +5,10 @@ public class Variable implements Typed {
     protected final VariableType type;
     protected final VariableIdentifier identifier;
     protected boolean is_class_field = false;
-    protected boolean is_initialized = false;
+    protected int n_initializations = 0;
     protected boolean is_parameter = false;
     protected int local_var_index = 4321; // If we are to fail due to mistakes in initializations, make it fail hard! (in order to more easlily find the bugs)
+    protected String constant_value = null;
     
     public Variable(VariableType type, VariableIdentifier identifier) {
         this.type = type;
@@ -20,16 +21,18 @@ public class Variable implements Typed {
     }
 
     public String toJasminDeclaration() {
-        if (this.isClassField()) {
+        if (this.constant_value != null || this.isClassField()) {
             return "";
         }
         // Leaving the index to be filled in later
         return String.format("\t.var %%d is local_%s %s\n", this.identifier, this.type.toJasminType());
     }
 
-    // TODO: Test that aload_0 is valid
-
     public String toJasminLoad() {
+        if (this.constant_value != null) {
+            return ASTIntegerLiteral.integerValueToLoad(this.constant_value);
+        }
+
         if (this.isClassField()) {
             return String.format("\taload_0\n\tgetfield %s/f_%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
         }
@@ -38,6 +41,11 @@ public class Variable implements Typed {
     }
 
     public String toJasminStore() {
+        if (this.constant_value != null) {
+            System.err.println("This should not happen, store to constant variable");
+            return "";
+        }
+
         if (this.isClassField()) {
             // aload_0 is done in ASTAssignmentStatement due to needing to be lowest on the stack
             return String.format("\tputfield %s/f_%s %s\n", JMMParser.class_type, this.identifier, this.type.toJasminType());
@@ -65,11 +73,19 @@ public class Variable implements Typed {
     }
 
     public void markAsInitialized() {
-        this.is_initialized = true;
+        this.n_initializations++;
     }
     
     public boolean isInitialized() {
-        return this.is_initialized;
+        return this.n_initializations > 0;
+    }
+
+    public boolean wasNotReinitialized() {
+        return this.n_initializations == 1;
+    }
+
+    public void setConstantValue(String value) {
+        this.constant_value = value;
     }
 
     public void markAsParameter() {

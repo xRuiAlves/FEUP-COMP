@@ -42,6 +42,10 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         root.semanticAnalysis();
         root.calculateStackLimit();
 
+        if (options.willApplyOptimizations()) {
+            root.optimize();
+        }
+
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);
 
@@ -1439,25 +1443,6 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     finally { jj_save(0, xla); }
   }
 
-  private boolean jj_3R_15() {
-    if (jj_scan_token(TypeInt)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_16()) jj_scanpos = xsp;
-    return false;
-  }
-
-  private boolean jj_3R_13() {
-    if (jj_3R_14()) return true;
-    if (jj_scan_token(Identifier)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    if (jj_3R_17()) return true;
-    return false;
-  }
-
   private boolean jj_3R_17() {
     if (jj_scan_token(ArrayStart)) return true;
     return false;
@@ -1478,6 +1463,25 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
   private boolean jj_3_1() {
     if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
+    if (jj_scan_token(TypeInt)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_16()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3R_13() {
+    if (jj_3R_14()) return true;
+    if (jj_scan_token(Identifier)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    if (jj_3R_17()) return true;
     return false;
   }
 

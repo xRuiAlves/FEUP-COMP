@@ -19,8 +19,6 @@
 	.var 4 is local_f Z
 	.var 5 is local_bool Z
 	.var 6 is local_t Z
-	.var 7 is local_b I
-	.var 8 is local_a I
 	iconst_0
 	istore 4
 	iconst_1
@@ -109,11 +107,7 @@ done_4:
 	ixor
 	istore 5
 	iconst_2
-	istore 8
 	iconst_3
-	istore 7
-	iload 8
-	iload 7
 	if_icmpge lt_false_6
 	iconst_1
 	goto lt_done_6
@@ -121,8 +115,8 @@ lt_false_6:
 	iconst_0
 lt_done_6:
 	istore 5
-	iload 8
-	iload 7
+	iconst_2
+	iconst_3
 	if_icmpge lt_false_8
 	iconst_1
 	goto lt_done_8

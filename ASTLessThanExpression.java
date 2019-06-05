@@ -36,7 +36,6 @@ class ASTLessThanExpression extends SimpleNode implements Typed {
 
   @Override
   protected void calculateStackImpact() {
-    System.out.println("lt"); // TODO Remove
     MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
   }
 

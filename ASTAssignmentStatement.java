@@ -2,6 +2,11 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTAssignmentStatement extends SimpleNode {
+  /**
+   * If the assignment was supressed due to optimizations (Constant Propagation for example)
+   */
+  protected boolean is_supressed = false;
+
   public ASTAssignmentStatement(int id) {
     super(id);
   }
@@ -69,6 +74,24 @@ class ASTAssignmentStatement extends SimpleNode {
   }
 
   @Override
+  protected void applyOptimizations() {
+    if (!(children[0] instanceof ASTIdentifier)) {
+      // This optimization can only be applied to identifiers, not arrays
+      return;
+    }
+    // The variables are already marked with the correct number of initializations (done in semantic analysis)
+    Variable lhs_var = ((ASTIdentifier) children[0]).getVariable();
+    Node rhs = children[1];
+
+    if (lhs_var.wasNotReinitialized() && rhs instanceof ASTIntegerLiteral) {
+      String integer_value = ((ASTIntegerLiteral) rhs).getValue();
+      lhs_var.setConstantValue(integer_value);
+      System.out.println("Applied constant propagation preparation :)"); // TODO Remove probably
+      this.is_supressed = true;
+    }
+  }
+
+  @Override
   protected void generateCodeNodeOpen(StringBuilder sb) {
     Node lhs_raw = children[0];
     if (lhs_raw instanceof ASTIdentifier) {
@@ -82,6 +105,11 @@ class ASTAssignmentStatement extends SimpleNode {
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
+    if (this.isSupressed()) {
+      // If the assignment was supressed then no code needs to be generated
+      return;
+    }
+
     Node lhs_raw = children[0];
     if (lhs_raw instanceof ASTIdentifier) {
       // Storing the left hand side of an assignment
@@ -93,6 +121,10 @@ class ASTAssignmentStatement extends SimpleNode {
       // These values need not be calculated or loaded because such will already be done by the child nodes
       sb.append("\tiastore\n");
     }
+  }
+
+  public boolean isSupressed() {
+    return this.is_supressed;
   }
 
   /**

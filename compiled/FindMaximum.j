@@ -13,7 +13,7 @@
 .end method
 
 .method public find_maximum([I)I
-	.limit stack 4
+	.limit stack 2
 	.limit locals 5
 	.var 2 is local_value I
 	.var 3 is local_maximum I

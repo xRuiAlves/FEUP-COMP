@@ -61,7 +61,7 @@ endif_0:
 .end method
 
 .method public estimatePi100(I)I
-	.limit stack 3
+	.limit stack 2
 	.limit locals 5
 	.var 2 is local_pi_estimate I
 	.var 3 is local_samples_so_far I
