@@ -137,16 +137,7 @@ class ASTAssignmentStatement extends SimpleNode {
   }
 
   public VariableType getLHSVarType() {
-    Node lhs_raw = children[0];
-    if (lhs_raw instanceof ASTIdentifier) {
-      return ((ASTIdentifier) lhs_raw).getVariable().getType();
-    } else if (lhs_raw instanceof ASTArrayAccessExpression) {
-      return new VariableType("int[]");
-    }
-
-    // Never happens
-    assert(false);
-    return null;
+    return ((Typed) children[0]).getType();
   }
 }
 /* JavaCC - OriginalChecksum=f503663119aadd748782d6739471f263 (do not edit this line) */

@@ -86,25 +86,24 @@ public class ASTDotExpression extends SimpleNode implements Typed {
     }
 
 
-    // invokevirtual - non static
-    // invokestatic - static
-    
     VariableType lhs_vt = ((Typed) children[0]).getType();
     
     if (lhs_vt.isIgnored()) {
-      // Inferring the return type from the variable assignment (void if it does not exist)
-      Node parent = this.jjtGetParent();
+      // static method invocation
+
+      
 
       ASTMethodCall method_call = (ASTMethodCall) children[1];
       int n_args = method_call.jjtGetNumChildren();
       // Using the arguments from the stack
       MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-n_args);
 
-      if (parent instanceof ASTAssignmentStatement) {
+      // Inferring the return type from the parent node
+      Node parent = this.jjtGetParent();
+      if (!assumeReturnTypeFromParentNode(parent).equals("V")) {
+        // If the inferred return type is not void, then impact the stack by 1 (the return result)
         MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
-      }/* else {
-        // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(0);
-      }*/
+      }
     } else if (lhs_vt.isIdentifier()) {
       // Removing the instance from the stack (non-static)
       MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(-1);
@@ -129,19 +128,15 @@ public class ASTDotExpression extends SimpleNode implements Typed {
       final Method m = SymbolTableScopes.getInstance().isMethodDeclared(method_id);
       if (m == null) {
         // non-declared instance methods (instance methods of other classes)
-        // Inferring the return type from the variable assignment
+
+        // Inferring the return type from the parent node
         Node parent = this.jjtGetParent();
-
-        if (parent instanceof ASTAssignmentStatement) {
+        if (!assumeReturnTypeFromParentNode(parent).equals("V")) {
+          // If the inferred return type is not void, then impact the stack by 1 (the return result)
           MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
-        } else if (parent instanceof ASTIfStatement || parent instanceof ASTWhileStatement) {
-          MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
-        } else {
-          // MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(0);
-          //// sb.append("V");
         }
-
       } else {
+        // The methods declared in Java-- cannot be void (so they always impact the stack by 1)
         MethodStackSizeScopes.getInstance().getMethodScope(this.scope_identifier).impactStack(1);
 
         Node parent = this.jjtGetParent();
@@ -185,7 +180,6 @@ public class ASTDotExpression extends SimpleNode implements Typed {
 
       // Inferring the return type from the parent node
       Node parent = this.jjtGetParent();
-
       sb.append(assumeReturnTypeFromParentNode(parent));
       sb.append("\n");
     } else if (lhs_vt.isIdentifier()) {
@@ -231,7 +225,7 @@ public class ASTDotExpression extends SimpleNode implements Typed {
     }
   }
 
-  private String assumeReturnTypeFromParentNode(Node parent) {
+  private static String assumeReturnTypeFromParentNode(Node parent) {
     // The only parent for which the type we cannot infer is a dot expression, as any Object might be desired
     // In that case, the resulting object should be assigned to a variable and then used instead
 
