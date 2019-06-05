@@ -70,7 +70,10 @@ public class ASTDotExpression extends SimpleNode implements Typed {
     final Method m = SymbolTableScopes.getInstance().isMethodDeclared(method_id);
 
     if (m == null) {
-      throw new SemanticError(this.line, String.format("Method with signature '%s' not found!", method_id));
+      // Cannot throw the error because the verified class might be extending another one where the method is declared, assume it's correct
+      // throw new SemanticError(this.line, String.format("Method with signature '%s' not found!", method_id));
+      this.type = new VariableType(VariableType.ignored_type);
+      return; 
     }
 
     this.type = m.getReturn();
@@ -172,24 +175,18 @@ public class ASTDotExpression extends SimpleNode implements Typed {
       // Method signature
       sb.append("(");
 
+      // Getting argument types from the passed arguments' types
       int n_args = method_call.jjtGetNumChildren();
       for (int i = 0; i < n_args; ++i) {
         sb.append(((Typed) method_call.jjtGetChild(i)).getType().toJasminType());
       }
 
-      // Assuming void for static methods
       sb.append(")");
 
-      // Inferring the return type from the variable assignment (void if it does not exist)
+      // Inferring the return type from the parent node
       Node parent = this.jjtGetParent();
 
-      if (parent instanceof ASTAssignmentStatement) {
-        ASTAssignmentStatement parent_assignment = (ASTAssignmentStatement) parent;
-        sb.append(parent_assignment.getLHSVarType().toJasminType());
-      } else {
-        sb.append("V");
-      }
-
+      sb.append(assumeReturnTypeFromParentNode(parent));
       sb.append("\n");
     } else if (lhs_vt.isIdentifier()) {
       // non-static method invocation
@@ -219,18 +216,8 @@ public class ASTDotExpression extends SimpleNode implements Typed {
         // Inferring the return type from the variable assignment
         Node parent = this.jjtGetParent();
 
-        if (parent instanceof ASTAssignmentStatement) {
-          ASTAssignmentStatement parent_assignment = (ASTAssignmentStatement) parent;
-          sb.append(parent_assignment.getLHSVarType().toJasminType());
-        } else if (parent instanceof ASTIfStatement || parent instanceof ASTWhileStatement) {
-          sb.append("Z");
-        }
-        //  else if (parent instanceof ASTMethodCall) {
-
-        // }
-         else {
-          sb.append("V");
-        }
+        sb.append(assumeReturnTypeFromParentNode(parent));
+        sb.append("\n");
 
       } else {
         sb.append(m.getReturn().toJasminType()).append("\n");
@@ -241,6 +228,24 @@ public class ASTDotExpression extends SimpleNode implements Typed {
           sb.append("\tpop\n");
         }
       }
+    }
+  }
+
+  private String assumeReturnTypeFromParentNode(Node parent) {
+    // The only parent for which the type we cannot infer is a dot expression, as any Object might be desired
+    // In that case, the resulting object should be assigned to a variable and then used instead
+
+    if (parent instanceof ASTAssignmentStatement) {
+      ASTAssignmentStatement parent_assignment = (ASTAssignmentStatement) parent;
+      return parent_assignment.getLHSVarType().toJasminType();
+    } else if (parent instanceof ASTIfStatement || parent instanceof ASTWhileStatement || parent instanceof ASTNotExpression || parent instanceof ASTAndExpression) {
+      return "Z";
+    } else if (parent instanceof ASTLessThanExpression || parent instanceof ASTArithmeticExpression) {
+      return "I";
+    } else if (parent instanceof ASTArrayAccessExpression) {
+      return "[I";
+    } else {
+      return "V";
     }
   }
 }
