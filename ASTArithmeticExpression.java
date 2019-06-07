@@ -94,6 +94,7 @@ class ASTArithmeticExpression extends SimpleNode implements Typed, Supressable {
     }
   }
 
+  // In the case that constant propagation might have happened, iinc can also be used
   private IincAbleInformation isIincAbleChildrenCheck(ASTIdentifier lhs, ASTIdentifier rhs, Variable v, boolean should_invert_sign) {
     if (lhs.getVariable() == v && (rhs.getVariable().getConstantValue() != null)) {
       return getIincAbleInformationFromIdentifiers(lhs, rhs, should_invert_sign);
@@ -106,6 +107,7 @@ class ASTArithmeticExpression extends SimpleNode implements Typed, Supressable {
   }
 
   private IincAbleInformation getIincAbleInformationFromIdentifiers(ASTIdentifier variable, ASTIdentifier value, boolean should_invert_sign) {
+    JMMParser.n_replaced_by_constants++;
     return new IincAbleInformation(variable.getVariable(), Integer.parseInt(value.getVariable().getConstantValue()) * (should_invert_sign ? -1 : 1));
   }
 }

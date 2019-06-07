@@ -38,7 +38,8 @@ public class JMMParser {
         }
     }
 
-    public static int n_constant_propagation_optimizations = 0;
+    public static int n_propagated_variables = 0;
+    public static int n_replaced_by_constants = 0;
 
     public static void compile(ParserOptions options) throws ParseException, FileNotFoundException {
         JMMParser parser = new JMMParser(new FileInputStream(options.getInputFile()));
@@ -54,11 +55,17 @@ public class JMMParser {
 
         if (options.willApplyOptimizations()) {
             root.optimize();
-            System.out.printf("Applied constant propagation to %d variable(s).\n", n_constant_propagation_optimizations);
+            System.out.printf("Applied constant propagation to %d variable%s.\n", n_propagated_variables, n_propagated_variables > 1 ? "s" : "");
         }
 
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);
+
+        if (options.willApplyOptimizations()) {
+            if (n_replaced_by_constants > 0) {
+                System.out.printf("Substituted variable usages for constants %d time%s.\n", n_replaced_by_constants, n_replaced_by_constants > 1 ? "s" : "");
+            }
+        }
 
         final String output_file_name = String.format("compiled/%s.j", JMMParser.class_type);
 

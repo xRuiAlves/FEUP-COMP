@@ -30,6 +30,7 @@ public class Variable implements Typed {
 
     public String toJasminLoad() {
         if (this.constant_value != null) {
+            JMMParser.n_replaced_by_constants++;
             return ASTIntegerLiteral.integerValueToLoad(this.constant_value);
         }
 

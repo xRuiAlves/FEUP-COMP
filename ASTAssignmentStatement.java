@@ -86,7 +86,7 @@ class ASTAssignmentStatement extends SimpleNode implements Supressable {
     if (lhs_var.wasNotReinitialized() && rhs instanceof ASTIntegerLiteral) {
       String integer_value = ((ASTIntegerLiteral) rhs).getValue();
       lhs_var.setConstantValue(integer_value);
-      JMMParser.n_constant_propagation_optimizations++;
+      JMMParser.n_propagated_variables++;
       this.is_supressed = true;
     }
   }
