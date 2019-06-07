@@ -38,6 +38,8 @@ public class JMMParser {
         }
     }
 
+    public static int n_constant_propagation_optimizations = 0;
+
     public static void compile(ParserOptions options) throws ParseException, FileNotFoundException {
         JMMParser parser = new JMMParser(new FileInputStream(options.getInputFile()));
         SimpleNode root = parser.Program();
@@ -52,6 +54,7 @@ public class JMMParser {
 
         if (options.willApplyOptimizations()) {
             root.optimize();
+            System.out.printf("Applied constant propagation to %d variable(s).\n", n_constant_propagation_optimizations);
         }
 
         StringBuilder sb = new StringBuilder();

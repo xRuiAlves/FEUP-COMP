@@ -1,0 +1,20 @@
+class Iinc {
+    public static void main(String[] args) {
+        int i;
+        int x;
+
+        x = 4;
+	    i = 1;
+
+        i = i + 1;
+        io.println(i); // 2
+        i = 1 - i; // NOT OPTIMIZABLE
+        io.println(i); // -1
+        i = i + x; // Optimizable with constant propagation
+        io.println(i); // 3
+        i = x - i; // NOT OPTIMIZABLE
+        io.println(i); // 1
+        i = i - x; // Optimizable with constant propagation
+        io.println(i); // -3
+    }
+}

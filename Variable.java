@@ -58,6 +58,10 @@ public class Variable implements Typed {
         this.local_var_index = local_var_index;
     }
 
+    public int getLocalVarIndex() {
+        return this.local_var_index;
+    }
+
     /**
      * @return the variable type
      */
@@ -86,6 +90,10 @@ public class Variable implements Typed {
 
     public void setConstantValue(String value) {
         this.constant_value = value;
+    }
+
+    public String getConstantValue() {
+        return this.constant_value;
     }
 
     public void markAsParameter() {

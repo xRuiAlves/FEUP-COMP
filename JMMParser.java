@@ -30,6 +30,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         }
     }
 
+    public static int n_constant_propagation_optimizations = 0;
+
     public static void compile(ParserOptions options) throws ParseException, FileNotFoundException {
         JMMParser parser = new JMMParser(new FileInputStream(options.getInputFile()));
         SimpleNode root = parser.Program();
@@ -44,6 +46,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
         if (options.willApplyOptimizations()) {
             root.optimize();
+            System.out.printf("Applied constant propagation to %d variable(s).\u005cn", n_constant_propagation_optimizations);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -1443,11 +1446,6 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     finally { jj_save(0, xla); }
   }
 
-  private boolean jj_3R_17() {
-    if (jj_scan_token(ArrayStart)) return true;
-    return false;
-  }
-
   private boolean jj_3R_14() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1482,6 +1480,11 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
   private boolean jj_3R_16() {
     if (jj_3R_17()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_17() {
+    if (jj_scan_token(ArrayStart)) return true;
     return false;
   }
 

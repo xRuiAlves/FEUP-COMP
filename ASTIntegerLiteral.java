@@ -48,9 +48,8 @@ public class ASTIntegerLiteral extends SimpleNode implements Typed {
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     Node parent = this.jjtGetParent();
-
-    if (parent != null && parent instanceof ASTAssignmentStatement && ((ASTAssignmentStatement) parent).isSupressed()) {
-      // If the assignment was supressed then this literal does not need to be pushed to the stack either
+    if (parent instanceof Supressable && ((Supressable) parent).isSupressed()) {
+      // Do not generate code if the parent node was supressed
       return;
     }
 

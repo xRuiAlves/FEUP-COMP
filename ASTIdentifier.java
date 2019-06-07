@@ -67,10 +67,15 @@ public class ASTIdentifier extends SimpleNode implements Typed {
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
+    Node parent = this.jjtGetParent();
+    if (parent instanceof Supressable && ((Supressable) parent).isSupressed()) {
+      // Do not generate code if the parent node was supressed
+      return;
+    }
+
     // Check if this node is not the left-hand side of an assignment
     
-    Node parent = this.jjtGetParent();
-    if (parent != null && parent instanceof ASTAssignmentStatement && ((ASTAssignmentStatement) parent).isLHS(this)) {
+    if (parent instanceof ASTAssignmentStatement && ((ASTAssignmentStatement) parent).isLHS(this)) {
       // This node is left hand side of an assignment, thus the store instruction will be done in the assignment node to ensure correct order
       // The above was tested by instead adding the store instruction here -> it is, in fact, true: the instruction must be in ASTAssignmentStatement
       return;
