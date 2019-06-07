@@ -1,24 +1,37 @@
 class WhileTemplates {
     public static void main(String[] args) {
         int x;
+        int b;
 
         x = 0;
+        b = 1;
 
-        // Can be optimized
+        // Should be optimized
         while (x < 5) {
             io.println(x);
             x = x + 1;
         }
 
-        // Can be optimized
+        // Should be optimized
         while (false) {
             io.println(12345);
         }
 
-        // Cannot be optimized (?)
-        while (MathUtils.random(0, 4) < 2 && x < 9) {
+        // Should not be optimized
+        while (b < 3 && x < 9) {
+            io.println(x);
+            x = x + 1;
+            b = b + 1;
+        }
+
+        io.println(555);
+
+        // Should not be optimized
+        while (x < 5 + 5 + 3 - 1) { // loop until 11 (x < 12)
             io.println(x);
             x = x + 1;
         }
+
+        // Should optimize 2 loops
     }
 }

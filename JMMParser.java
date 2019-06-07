@@ -32,6 +32,7 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
     public static int n_propagated_variables = 0;
     public static int n_replaced_by_constants = 0;
+    public static int n_optimized_loops = 0;
 
     public static void compile(ParserOptions options) throws ParseException, FileNotFoundException {
         JMMParser parser = new JMMParser(new FileInputStream(options.getInputFile()));
@@ -47,7 +48,13 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
         if (options.willApplyOptimizations()) {
             root.optimize();
-            System.out.printf("Applied constant propagation to %d variable%s.\u005cn", n_propagated_variables, n_propagated_variables > 1 ? "s" : "");
+            if (n_propagated_variables > 0) {
+                System.out.printf("Applied constant propagation to %d variable%s.\u005cn", n_propagated_variables, n_propagated_variables > 1 ? "s" : "");
+            }
+
+            if (n_optimized_loops > 0) {
+                System.out.printf("Optimized loop templates %d time%s.\u005cn", n_optimized_loops, n_optimized_loops > 1 ? "s" : "");
+            }
         }
 
         StringBuilder sb = new StringBuilder();
@@ -1453,6 +1460,25 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
     finally { jj_save(0, xla); }
   }
 
+  private boolean jj_3R_15() {
+    if (jj_scan_token(TypeInt)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_16()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3R_13() {
+    if (jj_3R_14()) return true;
+    if (jj_scan_token(Identifier)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    if (jj_3R_17()) return true;
+    return false;
+  }
+
   private boolean jj_3R_17() {
     if (jj_scan_token(ArrayStart)) return true;
     return false;
@@ -1473,25 +1499,6 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
 
   private boolean jj_3_1() {
     if (jj_3R_13()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_15() {
-    if (jj_scan_token(TypeInt)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_16()) jj_scanpos = xsp;
-    return false;
-  }
-
-  private boolean jj_3R_13() {
-    if (jj_3R_14()) return true;
-    if (jj_scan_token(Identifier)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    if (jj_3R_17()) return true;
     return false;
   }
 

@@ -40,6 +40,7 @@ public class JMMParser {
 
     public static int n_propagated_variables = 0;
     public static int n_replaced_by_constants = 0;
+    public static int n_optimized_loops = 0;
 
     public static void compile(ParserOptions options) throws ParseException, FileNotFoundException {
         JMMParser parser = new JMMParser(new FileInputStream(options.getInputFile()));
@@ -55,7 +56,13 @@ public class JMMParser {
 
         if (options.willApplyOptimizations()) {
             root.optimize();
-            System.out.printf("Applied constant propagation to %d variable%s.\n", n_propagated_variables, n_propagated_variables > 1 ? "s" : "");
+            if (n_propagated_variables > 0) {
+                System.out.printf("Applied constant propagation to %d variable%s.\n", n_propagated_variables, n_propagated_variables > 1 ? "s" : "");
+            }
+
+            if (n_optimized_loops > 0) {
+                System.out.printf("Optimized loop templates %d time%s.\n", n_optimized_loops, n_optimized_loops > 1 ? "s" : "");
+            }
         }
 
         StringBuilder sb = new StringBuilder();

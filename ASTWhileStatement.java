@@ -28,9 +28,31 @@ class ASTWhileStatement extends SimpleNode {
     }
   }
 
+  public boolean shouldOptimize() {
+    return this.should_optimize;
+  }
+
   @Override
   protected void applyOptimizations() {
-    
+    Node condition_node = children[0];
+
+    // Can optimize if the condition is simple
+    // A condition is simple when it does not contain an '&&' and it has a small number of "propagated children" (less than 4 for the first two levels)
+
+    if (condition_node instanceof ASTAndExpression) {
+      this.should_optimize = false;
+      return;
+    }
+
+    int n_propagated_children = condition_node.jjtGetNumChildren();
+    for (int child_idx = 0; child_idx < condition_node.jjtGetNumChildren(); ++child_idx) {
+      n_propagated_children += condition_node.jjtGetChild(child_idx).jjtGetNumChildren();
+    }
+
+    if (n_propagated_children < 4) {
+      this.should_optimize = true;
+      JMMParser.n_optimized_loops++;
+    }
   }
 
   @Override
@@ -39,7 +61,10 @@ class ASTWhileStatement extends SimpleNode {
     this.endloop_label = "endloop_" + label_number;
     this.loop_label = "loop_" + label_number;
 
-    sb.append(this.loop_label).append(":\n");
+    if (!this.shouldOptimize()) {
+      // Regular template. Otherwise the loop label is added in ASTWhileBody
+      sb.append(this.loop_label).append(":\n");
+    }
   }
 
   public String getLoopLabel() {
@@ -48,6 +73,10 @@ class ASTWhileStatement extends SimpleNode {
 
   public String getEndLoopLabel() {
     return endloop_label;
+  }
+
+  public void generateConditionNodeCode(StringBuilder sb) {
+    ((SimpleNode) children[0]).generateCode(sb);
   }
 
   @Override

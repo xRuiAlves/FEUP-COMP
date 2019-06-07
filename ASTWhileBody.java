@@ -24,12 +24,24 @@ class ASTWhileBody extends SimpleNode {
   protected void generateCodeNodeOpen(StringBuilder sb) {
     ASTWhileStatement while_parent = (ASTWhileStatement) this.jjtGetParent();
     sb.append("\tifeq ").append(while_parent.getEndLoopLabel()).append("\n");
+
+    if (while_parent.shouldOptimize()) {
+      // Optimized template for simple expressions
+      sb.append(while_parent.getLoopLabel()).append(":\n");
+    }
   }
 
   @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
     ASTWhileStatement while_parent = (ASTWhileStatement) this.jjtGetParent();
-    sb.append("\tgoto ").append(while_parent.getLoopLabel()).append("\n");
+    if (!while_parent.shouldOptimize()) {
+      // Regular template
+      sb.append("\tgoto ").append(while_parent.getLoopLabel()).append("\n");
+    } else {
+      // Optimized template for simple expressions
+      while_parent.generateConditionNodeCode(sb);
+      sb.append("\tifne ").append(while_parent.getLoopLabel()).append("\n");
+    }
   }
 }
 /* JavaCC - OriginalChecksum=a372a0b2f522b0fb66f679bbe3a0d54e (do not edit this line) */
