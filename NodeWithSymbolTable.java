@@ -1,5 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class NodeWithSymbolTable extends SimpleNode {
   protected String name;
@@ -58,6 +61,8 @@ public abstract class NodeWithSymbolTable extends SimpleNode {
   }
 
   protected int calcLocalsLimit() {
-    return this.symbol_table.size();
+    return (int) this.symbol_table.values().stream()
+    .filter(v -> Objects.isNull(v.getConstantValue())) // Excluding variables that were made constant via constant propagation optimization
+    .count();
   }
 }
