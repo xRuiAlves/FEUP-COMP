@@ -4,6 +4,7 @@ public
 class ASTArithmeticExpression extends SimpleNode implements Typed, Supressable {
   protected String operation;
   private VariableType type;
+  protected boolean applied_strength_reduction = false;
 
   public ASTArithmeticExpression(int id) {
     super(id);
@@ -20,7 +21,7 @@ class ASTArithmeticExpression extends SimpleNode implements Typed, Supressable {
 
   @Override
   public boolean isSupressed() {
-    return (jjtGetParent() instanceof Supressable) && ((Supressable) jjtGetParent()).isSupressed();
+    return this.applied_strength_reduction || (jjtGetParent() instanceof Supressable) && ((Supressable) jjtGetParent()).isSupressed();
   }
 
   @Override
@@ -47,9 +48,92 @@ class ASTArithmeticExpression extends SimpleNode implements Typed, Supressable {
   }
 
   @Override
+  protected void applyOptimizations() {
+    // Strength reduction
+    if (!operation.equals("*")) {
+      return;
+    }
+
+    // Checking all permutations of children, including the cases in which constant propagation occurred
+
+    if (children[0] instanceof ASTIdentifier && children[1] instanceof ASTIntegerLiteral) {
+      canApplyStrengthReduction(((ASTIdentifier) children[0]), ((ASTIntegerLiteral) children[1]));
+    } else if (children[1] instanceof ASTIdentifier && children[0] instanceof ASTIntegerLiteral) {
+      canApplyStrengthReduction(((ASTIdentifier) children[1]), ((ASTIntegerLiteral) children[0]));
+    } else if (children[0] instanceof ASTIdentifier && children[1] instanceof ASTIdentifier) {
+      canApplyStrengthReduction(((ASTIdentifier) children[0]), ((ASTIdentifier) children[1]));
+    }
+
+    if (this.applied_strength_reduction) {
+      JMMParser.n_strength_reduction++;
+    }
+  }
+
+  private void canApplyStrengthReduction(ASTIdentifier identifier, ASTIntegerLiteral value) {
+    int real_value = Integer.parseInt(value.getValue());
+    int logged_value = isLog2(real_value);
+    Variable var = identifier.getVariable();
+
+    if (logged_value != -1) {
+      // Value is a base 2 exponent, thus strength reduction can be applied
+      this.applied_strength_reduction = true;
+      this.multiply_by_log2 = (int) logged_value;
+      this.child_variable = var;
+    }
+  }
+
+  private static int isLog2(int value) {
+    double logged_value = (Math.log(value) / Math.log(2));
+    // The 31 check is due to limitations of the "ishl" instruction, see https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html#jvms-6.5.ishl
+    if (logged_value <= 31 && logged_value == ((int) logged_value)) {
+      return (int) logged_value;
+    } else {
+      return -1;
+    }
+  }
+
+  private void canApplyStrengthReduction(ASTIdentifier lhs, ASTIdentifier rhs) {
+    Variable lhs_var = lhs.getVariable();
+    Variable rhs_var = rhs.getVariable();
+
+    // If either is a base 2 exponent, strength reduction can be applied
+    // There is no problem if both have been object of constant propagation because the load code generation works the same way
+    if (lhs_var.getConstantValue() != null && isLog2(Integer.parseInt(lhs_var.getConstantValue())) != -1) {
+      this.applied_strength_reduction = true;
+      this.child_variable = rhs_var;
+      this.multiply_by_log2 = isLog2(Integer.parseInt(lhs_var.getConstantValue()));
+    } else if (rhs_var.getConstantValue() != null && isLog2(Integer.parseInt(rhs_var.getConstantValue())) != -1) {
+      this.applied_strength_reduction = true;
+      this.child_variable = lhs_var;
+      this.multiply_by_log2 = isLog2(Integer.parseInt(rhs_var.getConstantValue()));
+    }
+  }
+
+  private Variable child_variable = null;
+  private int multiply_by_log2 = 0;
+
+  @Override
   protected void generateCodeNodeClose(StringBuilder sb) {
-    if (this.isSupressed()) {
-      // If the arithmetic operation was supressed then no code needs to be generated
+    if ((jjtGetParent() instanceof Supressable) && ((Supressable) jjtGetParent()).isSupressed()) {
+      // If the arithmetic operation was supressed due to its parent then no code needs to be generated
+      return;
+    }
+
+    // Perform strength reduction optimization
+    if (this.applied_strength_reduction) {
+      sb.append(this.child_variable.toJasminLoad());
+
+      if (this.multiply_by_log2 == 1) {
+        // If just multiplying by 2, the variable is being added to itself
+        // Thus, after loading it, we can duplicate it and add it
+        sb.append("\tdup\n");
+        sb.append("\tiadd\n");
+      } else {
+        // Otherwise we can substitute the multiplication operation for less expensive logical shifts
+        sb.append(ASTIntegerLiteral.integerValueToLoad(this.multiply_by_log2));
+        sb.append("\tishl\n");
+      }
+
       return;
     }
 

@@ -1,0 +1,29 @@
+class StrengthReduction {
+    public static void main(String[] args) {
+        int x;
+        int a;
+
+        int constant_test1;
+        int constant_test2;
+
+        x = 2;
+        x = x*2; // Re-store to avoid constant propagation optimization in order to test that case
+        io.println(x); // 4 - optimized
+
+        a = 2;
+        io.println(a*8); // 16 - optimized
+        io.println(16*a); // 32 - optimized
+        io.println(a*a); // 4 - optimized
+        io.println(15*a); // 30 - optimized because of constant propagation, a is 2
+        io.println(a*6); // 12 - optimized because of constant propagation, a is 2
+
+        constant_test1 = 3;
+        constant_test2 = 2;
+
+        io.println(constant_test1 * constant_test2); // 6 - optimized because of constant propagation, constant_test2 is 2
+        io.println(constant_test2 * constant_test1); // 6 - optimized because of constant propagation, constant_test2 is 2
+        io.println(constant_test1 * 5); // 15 - not optimizable (none are base 2 exponents)
+
+        // Strength reduction will be applied 8 times
+    }
+}

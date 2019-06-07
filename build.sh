@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
 mkdir -p out
+mkdir -p compiled
+mkdir -p jasmin_out
 jjtree jmm.jjt
 javacc jmm.jj
 javac -cp . JMMParser.java -d out/

@@ -34,6 +34,10 @@ public class ASTIntegerLiteral extends SimpleNode implements Typed {
   public static String integerValueToLoad(String value_string) {
     // put value in stack
     final int value = Integer.parseInt(value_string);
+    return integerValueToLoad(value);
+  }
+
+  public static String integerValueToLoad(int value) {
     if (value < 6) {
       return "\ticonst_" + value + "\n";
     } else if (value < 128) {
