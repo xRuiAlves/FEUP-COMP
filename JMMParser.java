@@ -44,7 +44,6 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
         System.out.println("\u005cn\u005cn");
 
         root.semanticAnalysis();
-        root.calculateStackLimit();
 
         if (options.willApplyOptimizations()) {
             root.optimize();
@@ -56,6 +55,8 @@ public class JMMParser/*@bgen(jjtree)*/implements JMMParserTreeConstants, JMMPar
                 System.out.printf("Optimized loop templates %d time%s.\u005cn", n_optimized_loops, n_optimized_loops > 1 ? "s" : "");
             }
         }
+
+        root.calculateStackLimit();
 
         StringBuilder sb = new StringBuilder();
         root.generateCode(sb);

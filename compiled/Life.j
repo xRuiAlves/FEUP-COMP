@@ -613,10 +613,7 @@ else_7:
 	iastore
 endif_7:
 endif_3:
-	iload_3
-	iconst_1
-	iadd
-	istore_3
+	iinc 3 1
 	goto loop_1
 endloop_1:
 	aload_0
@@ -664,14 +661,8 @@ endif_10:
 	iload_2
 	iaload
 	invokestatic io/print(I)V
-	iload_2
-	iconst_1
-	iadd
-	istore_2
-	iload_1
-	iconst_1
-	iadd
-	istore_1
+	iinc 2 1
+	iinc 1 1
 	goto loop_8
 endloop_8:
 	invokestatic io/println()V
@@ -928,17 +919,11 @@ lt_done_18:
 	iconst_0
 	invokevirtual Life/ne(II)Z
 	ifeq else_19
-	iload 4
-	iconst_1
-	iadd
-	istore 4
+	iinc 4 1
 	goto endif_19
 else_19:
 endif_19:
-	iload_3
-	iconst_1
-	iadd
-	istore_3
+	iinc 3 1
 	goto loop_17
 endloop_17:
 	iload 4
@@ -967,10 +952,7 @@ lt_false_21:
 	iconst_0
 lt_done_21:
 	ifeq endloop_20
-	iload_3
-	iconst_1
-	iadd
-	istore_3
+	iinc 3 1
 	goto loop_20
 endloop_20:
 	iconst_1
