@@ -52,7 +52,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# *.jar # Need to deliver a jar
 *.war
 *.nar
 *.ear

@@ -4,6 +4,7 @@ public
 class ASTWhileStatement extends SimpleNode {
   private String endloop_label;
   private String loop_label;
+  private boolean should_optimize = false;
 
   public ASTWhileStatement(int id) {
     super(id);
@@ -25,6 +26,11 @@ class ASTWhileStatement extends SimpleNode {
     if (!(lhs.isBoolean() || lhs.isIgnored())) {
       throw new SemanticError(this.line, String.format("Invalid type '%s' in While statement (expected boolean)", lhs));
     }
+  }
+
+  @Override
+  protected void applyOptimizations() {
+    
   }
 
   @Override

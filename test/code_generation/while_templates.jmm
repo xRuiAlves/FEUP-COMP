@@ -14,5 +14,11 @@ class WhileTemplates {
         while (false) {
             io.println(12345);
         }
+
+        // Cannot be optimized (?)
+        while (MathUtils.random(0, 4) < 2 && x < 9) {
+            io.println(x);
+            x = x + 1;
+        }
     }
 }
