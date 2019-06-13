@@ -46,6 +46,7 @@ public class ASTClassDeclaration extends NodeWithSymbolTable {
     this.field_declarations = fields.getFieldDeclarations();
     for (Variable field_declaration : this.field_declarations) {
       field_declaration.markAsField();
+      field_declaration.markAsInitialized();
       this.registerInSymbolTable(field_declaration);
     }
 

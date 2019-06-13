@@ -1,0 +1,23 @@
+class ConstantPropagation {
+    public static void main(String[] args) {
+        int x;
+        int y;
+        int z;
+        int w;
+        int k;
+
+        x = 3;
+        y = 17;
+        k = 0;
+
+        z = x + y;
+        w = z * x + 5;
+
+        while (k < 10) {
+            io.println(k);
+            k = k + x;
+        }
+
+        io.println(w);
+    }
+}

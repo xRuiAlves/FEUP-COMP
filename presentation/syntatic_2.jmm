@@ -1,0 +1,24 @@
+class Worker extends Person {
+    int idade;
+    Identification id;
+
+    public static void main(String[] args) {
+        Worker p;
+        int a = 2;
+
+        a = 2 + 3 * 4;
+
+        p = new Worker();
+        p.getInfo(true);
+    }
+    
+    public int[] getInfo(boolean b, ClassCoise c, int[] x) {
+        // int[] x; // Should this work? Ask
+        int[] int_arr;
+        boolean b;
+
+        int_arr = new int[2];
+
+        return int_arr;
+    }
+}

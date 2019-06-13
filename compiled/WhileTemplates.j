@@ -14,13 +14,13 @@
 .method public static main([Ljava/lang/String;)V
 	.limit stack 3
 	.limit locals 4
-	.var 2 is local_x I
-	.var 3 is local_b I
+	.var 2 is local_b I
+	.var 3 is local_x I
 	iconst_0
-	istore_2
-	iconst_1
 	istore_3
-	iload_2
+	iconst_1
+	istore_2
+	iload_3
 	iconst_5
 	if_icmpge lt_false_1
 	iconst_1
@@ -30,10 +30,10 @@ lt_false_1:
 lt_done_1:
 	ifeq endloop_0
 loop_0:
-	iload_2
+	iload_3
 	invokestatic io/println(I)V
-	iinc 2 1
-	iload_2
+	iinc 3 1
+	iload_3
 	iconst_5
 	if_icmpge lt_false_2
 	iconst_1
@@ -52,7 +52,7 @@ loop_3:
 	ifne loop_3
 endloop_3:
 loop_4:
-	iload_3
+	iload_2
 	iconst_3
 	if_icmpge lt_false_6
 	iconst_1
@@ -61,7 +61,7 @@ lt_false_6:
 	iconst_0
 lt_done_6:
 	ifeq false_5
-	iload_2
+	iload_3
 	bipush 9
 	if_icmpge lt_false_7
 	iconst_1
@@ -76,16 +76,16 @@ false_5:
 	iconst_0
 done_5:
 	ifeq endloop_4
-	iload_2
+	iload_3
 	invokestatic io/println(I)V
-	iinc 2 1
 	iinc 3 1
+	iinc 2 1
 	goto loop_4
 endloop_4:
 	sipush 555
 	invokestatic io/println(I)V
 loop_8:
-	iload_2
+	iload_3
 	iconst_5
 	iconst_5
 	iadd
@@ -100,9 +100,9 @@ lt_false_9:
 	iconst_0
 lt_done_9:
 	ifeq endloop_8
-	iload_2
+	iload_3
 	invokestatic io/println(I)V
-	iinc 2 1
+	iinc 3 1
 	goto loop_8
 endloop_8:
 	return

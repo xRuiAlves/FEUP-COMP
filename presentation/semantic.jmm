@@ -1,0 +1,86 @@
+class Semantic {
+    public static void main(String[] args) {
+        //int i;
+        boolean b;
+        int[] arr;
+        Parser p;
+
+        /////////////////////////////////////////
+        // Instanciação e atribuição de variáveis
+
+        arr = new int[2];
+        i = arr[1];                 // Erro: Variável não inicializada
+        b = true && false;
+        b = 1;                      // Erro: valor da atribuição deveria ser booleano
+        i = new X();                // Erro: valor da atribuição deveria ser inteiro
+        p = new Parser();
+
+
+
+        ///////////////////////////////////
+        // Expressões lógicas e aritméticas
+
+        b = 2 && true;            // Erro: operador && necessita 2 operandos booleanos
+        i = i + 2;
+        i = i + b;                // Erro: operador + necessita 2 operandos inteiros
+        i = i + arr[3];
+        arr[2] = b;               // Erro: lado direito do assignment tem de ser inteiro
+        i = arr[4 + 5 * 2];
+        i = arr[b];               // Erro: acesso a array deve ser feito através de número inteiro
+
+
+
+        ///////////////
+        // Dot Operator
+
+        i = p.length;
+        i = arr.length;
+
+
+
+        /////////////////////////////////////
+        // Estruturas de condição e repetição
+        if (b && true) {
+            i = 2;
+        } else {
+            i = 3;
+        }
+
+        while (1 + 2 < 5) {
+            i = i + 1;
+        }
+
+        if (7*5) {                  // Erro: condição não booleana 
+            i = 2;
+        } else {
+            i = 3;
+        }
+
+        while (arr.length) {        // Erro: condição não booleana
+            i = i + 1;
+        }
+
+
+
+        /////////////////////////////
+        // Static vs Non-Static scope
+        i = this.getInteger();
+        i = Parser.getInstance().getInteger();
+    }
+
+    public int sumValues(int x1, int x2) {
+        return x1 + x2;
+    }
+
+    public int sumValues(int x1, int x2, boolean b, int[] arr) {
+        int mean;
+        mean = this.sumValues(x1,x2)/2 + arr.length/4;
+
+        return true;                                 // Erro: tipo de retorno inválido
+        //return mean;
+    }
+
+    // public boolean sumValues(int a, int b) {        // Erro: Re-declaração de método sumValues com assinatura (int, int)
+    //     return true;
+    // }
+}
