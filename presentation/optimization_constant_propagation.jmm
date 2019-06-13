@@ -19,5 +19,7 @@ class ConstantPropagation {
         }
 
         io.println(w);
+        io.println(x);
+        io.println(y);
     }
 }

@@ -14,8 +14,8 @@ class StrengthReduction {
         io.println(a*8);    // 16 - optimized
         io.println(16*a);   // 32 - optimized
         io.println(a*a);    // 4  - optimized
-        io.println(15*a);   // 30 - optimized because of constant propagation, a is 2
-        io.println(a*6);    // 12 - optimized because of constant propagation, a is 2
+        io.println(15*a);   // 30 - not optimizable
+        io.println(a*6);    // 12 - not optimizable
 
         constant_test1 = 3;
         constant_test2 = 2;
@@ -24,6 +24,6 @@ class StrengthReduction {
         io.println(constant_test2 * constant_test1); // 6 - optimized because of constant propagation, constant_test2 is 2
         io.println(constant_test1 * 5);              // 15 - not optimizable (none are base 2 exponents)
 
-        // Strength reduction will be applied 8 times
+        // Strength reduction will be applied 6 times
     }
 }
