@@ -151,9 +151,9 @@ In order to avoid unnecessary unconditional jumps, an improved template is being
               jmp begin
        end:   ...
 -> The optimized while loop template:
-       begin:  <condition>
+               <condition>
                ifeq end
-               <body>
+       begin:  <body>
                <condition>
                ifne begin
        end:    ...
